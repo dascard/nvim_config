@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	lazy = true,
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
@@ -78,10 +79,26 @@ return {
 		mason_lspconfig.setup_handlers({
 			-- default handler for installed servers
 			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-					offset_encoding = "utf-8",
-				})
+				offset_encoding = "utf-16"
+				if server_name == "tinymist" then
+					offset_encoding = "utf-8"
+					require("lspconfig").tinymist.setup({
+						settings = {
+							formatterMode = "typstyle",
+							exportPdf = "onType",
+							semanticTokens = "disable",
+						},
+						capabilities = capabilities,
+						root_dir = function(filename, bufnr)
+							return "/home/dascard/_code/hw"
+						end,
+					})
+				else -- default setup
+					require("lspconfig")[server_name].setup({
+						capabilities = capabilities,
+						offset_encoding = offset_encoding,
+					})
+				end
 			end,
 			["svelte"] = function()
 				-- configure svelte server

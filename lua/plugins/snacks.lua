@@ -525,6 +525,14 @@ return {
 
 	keys = {
 		{
+			"<leader>rt",
+			function()
+				Snacks.picker.recent()
+			end,
+			mode = { "n" },
+			desc = "Recent Files",
+		},
+		{
 			"git",
 			function()
 				Snacks.lazygit.open(opts)
@@ -541,6 +549,20 @@ return {
 			desc = "notify history",
 		},
 		{
+			"<leader>qf",
+			function()
+				Snacks.picker.qflist()
+			end,
+			desc = "QuickFix Window",
+		},
+		{
+			"<leader>dg",
+			function()
+				Snacks.picker.diagnostics()
+			end,
+			desc = "Diagnostics",
+		},
+		{
 			"<leader>/",
 			function()
 				Snacks.picker.grep()
@@ -548,7 +570,14 @@ return {
 			desc = "Grep",
 		},
 		{
-			"<leader>z",
+			"<leader>ud",
+			function()
+				Snacks.picker.undo()
+			end,
+			desc = "Undo History",
+		},
+		{
+			"<leader>Z",
 			function()
 				Snacks.zen()
 			end,

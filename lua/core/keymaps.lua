@@ -18,6 +18,8 @@ keymap("n", "H", "0")
 keymap("n", "L", "$")
 keymap("n", "<M-o>", "o<Esc>")
 keymap("n", "<leader>k", ":FloatermKill<CR>")
+keymap("n", "j", "gj")
+keymap("n", "k", "gk")
 --keymap("n", "<leader>=", "gg=G")
 
 -- 可视模式映射
@@ -42,6 +44,8 @@ keymap("i", ".", ".<c-g>u")
 keymap("i", ";", ";<c-g>u")
 keymap("i", "<C-o>", "<Esc>o")
 
+-- quickfix
+keymap("n", "<leader>cf", vim.lsp.buf.code_action, { desc = "quick fix" })
 -- asyncrun.vim
 -- keymap("n", "<F5>", ":AsyncTasks<CR>")
 

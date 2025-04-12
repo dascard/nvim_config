@@ -46,13 +46,26 @@ vim.fn.sign_define(
 	{ text = icons.dap.BreakpointRejected, texthl = "DapBreakpoint", linehl = "", numhl = "" }
 )
 vim.fn.sign_define("DapLogPoint", { text = icons.dap.LogPoint, texthl = "DapLogPoint", linehl = "", numhl = "" })
+local dap = require("dap")
+
+dap.configurations.rust = {
+	{
+		name = "npulearn",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+	},
+}
 
 return {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = true,
-		-- Copied from LazyVim/lua/lazyvim/plugins/extras/dap/core.lua and
-		-- modified.
+		optional = true,
 		keys = {
 			{
 				"<leader>dp",

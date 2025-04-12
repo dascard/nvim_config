@@ -33,6 +33,7 @@ vim.opt.timeoutlen = 500
 vim.opt.undofile = true
 vim.opt.updatetime = 300
 vim.opt.writebackup = false
+vim.opt.confirm = true
 
 -- 设置 leader 键
 vim.g.mapleader = ";"
@@ -129,3 +130,51 @@ vim.g.asyncrun_open = 10
 vim.g.asyncrun_rootmarks = { ".git", ".svn", ".root", ".project", ".hg" }
 vim.g.asyncrun_save = 2
 vim.g.asynctasks_term_pos = "right"
+
+-- Define the highlight group for border characters
+-- -- 设置高亮组，兼容 GUI 和终端
+-- vim.cmd("hi BorderChar guifg=#FF0000 ctermfg=Red gui=bold cterm=bold")
+--
+-- -- 存储 match ID
+-- local match_id = nil
+--
+-- -- 高亮当前行的上下边框和边界
+-- local function HighlightBorder()
+-- 	-- 删除已有高亮
+-- 	if match_id and match_id > 0 then
+-- 		pcall(vim.fn.matchdelete, match_id)
+-- 	end
+--
+-- 	-- 获取当前行号和总行数
+-- 	local current_line = vim.fn.line(".")
+-- 	local last_line = vim.fn.line("$")
+--
+-- 	if current_line <= 1 or current_line >= last_line then
+-- 		return
+-- 	end
+--
+-- 	-- 生成匹配模式：上一行、下一行、当前行的首尾字符
+-- 	local pattern = string.format(
+-- 		"\\%%%dl.*\\|\\%%%dl.*\\|\\%%%dl\\%%%dc\\|\\%%%dl\\%%%dc",
+-- 		current_line - 1, -- 上一行
+-- 		current_line + 1, -- 下一行
+-- 		current_line,
+-- 		1, -- 当前行第一个字符
+-- 		current_line,
+-- 		vim.fn.col("$") - 1 -- 当前行最后一个字符
+-- 	)
+--
+-- 	-- 添加高亮
+-- 	match_id = vim.fn.matchadd("BorderChar", pattern)
+--
+-- 	print("Highlight updated: ", match_id)
+-- end
+--
+-- -- 设置自动命令
+-- vim.api.nvim_create_augroup("HighlightBorderGroup", { clear = true })
+-- vim.api.nvim_create_autocmd("CursorMoved", {
+-- 	group = "HighlightBorderGroup",
+-- 	callback = HighlightBorder,
+-- })
+--
+-- print("Border Highlighter Loaded")

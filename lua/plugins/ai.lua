@@ -113,6 +113,13 @@ return {
 				title = "Copilot Chat",
 				size = { width = 50 },
 			})
+			table.insert(opts.right, {
+				title = "Overseer",
+				ft = "OverseerList",
+				open = function()
+					require("overseer").open()
+				end,
+			})
 		end,
 	},
 	{

@@ -4,6 +4,7 @@ require("core.options")
 require("core.keymaps")
 require("core.autocmds")
 require("lazy").setup("plugins")
+require("lazy").setup("utils")
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 vim.g.loaded_netrw = 1
@@ -79,3 +80,17 @@ vim.g.clipboard = {
 	},
 	cache_enabled = true,
 }
+
+-- init.lua
+-- vim.opt.clipboard = "unnamedplus"
+-- vim.g.clipboard = {
+-- 	name = "OSC 52",
+-- 	copy = {
+-- 		["+"] = require("vim.ui.clipboard.osc52").copy,
+-- 		["*"] = require("vim.ui.clipboard.osc52").copy,
+-- 	},
+-- 	paste = {
+-- 		["+"] = require("vim.ui.clipboard.osc52").paste,
+-- 		["*"] = require("vim.ui.clipboard.osc52").paste,
+-- 	},
+-- }

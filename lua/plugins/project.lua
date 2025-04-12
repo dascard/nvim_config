@@ -24,6 +24,7 @@ return {
 	-- Telescope 及其依赖
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			vim.api.nvim_set_keymap("n", "<leader>pr", ":Telescope projects<CR>", { noremap = true, silent = true })
