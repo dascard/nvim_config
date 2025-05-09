@@ -1,10 +1,60 @@
+if vim.g.neovide then
+	-- Put anything you want to happen only in Neovide here
+	vim.o.guifont = "JetBrainsMono Nerd Font:h24"
+	vim.o.linespace = 0
+	vim.g.neovide_scale_factor = 0.6
+	vim.g.neovide_text_gamma = 0.0
+	vim.g.neovide_text_contrast = 0.5
+	vim.g.neovide_title_background_color =
+		string.format("%x", vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg)
+
+	vim.g.neovide_title_text_color = "pink"
+	vim.g.neovide_floating_shadow = true
+	vim.g.neovide_floating_z_height = 10
+	vim.g.neovide_light_angle_degrees = 45
+	vim.g.neovide_light_radius = 5
+	vim.g.neovide_opacity = 0.8
+	vim.g.neovide_normal_opacity = 0.8
+	vim.g.neovide_position_animation_length = 0.15
+	vim.g.neovide_scroll_animation_length = 0.3
+	vim.g.neovide_hide_mouse_when_typing = false
+	vim.g.neovide_underline_stroke_scale = 1.0
+	vim.g.neovide_refresh_rate = 60
+	vim.g.neovide_refresh_rate_idle = 5
+	vim.g.neovide_confirm_quit = true
+	vim.g.neovide_fullscreen = false
+	vim.g.neovide_remember_window_size = true
+	vim.g.neovide_cursor_animation_length = 0.150
+	vim.g.neovide_cursor_vfx_mode = "pixiedust"
+end
+local function set_ime(args)
+	if args.event:match("Enter$") then
+		vim.g.neovide_input_ime = true
+	else
+		vim.g.neovide_input_ime = false
+	end
+end
+
+local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
+
+vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+	group = ime_input,
+	pattern = "*",
+	callback = set_ime,
+})
+
+vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+	group = ime_input,
+	pattern = "[/\\?]",
+	callback = set_ime,
+})
 require("config.lazy")
 require("core")
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
-require("lazy").setup("plugins")
-require("lazy").setup("utils")
+-- require("lazy").setup("plugins")
+-- require("lazy").setup("utils")
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 vim.g.loaded_netrw = 1
