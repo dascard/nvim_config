@@ -1,0 +1,260 @@
+return {
+	-- 1. Copilot.lua - 这是核心的 Copilot Agent 提供者
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot", -- 当执行 :Copilot 命令时加载
+		event = "VeryLazy", -- 或者 "BufEnter", 避免太早加载，给认证和 Node agent 启动时间
+		branch = "master",
+		-- build = ":Copilot auth", -- 认证最好在安装后手动执行一次，或者由插件管理
+		opts = {
+			panel = { -- Copilot.lua 自带的建议面板，可以禁用如果主要用 CopilotChat
+				enabled = true, -- 可以设置为 false 如果你只用 CopilotChat
+				auto_refresh = false,
+				keymap = {
+					jump_prev = "[[",
+					jump_next = "]]",
+					accept = "<CR>",
+					refresh = "gr",
+					open = "<M-CR>", -- 注意 <M-CR> 可能在某些终端中不易输入
+				},
+				layout = {
+					position = "bottom",
+					ratio = 0.4,
+				},
+			},
+			suggestion = {
+				enabled = true,
+				auto_trigger = true, -- 自动触发建议
+				debounce = 75,
+				keymap = {
+					accept = "<C-j>", -- 接受建议
+					accept_word = "<C-l>", -- 接受一个词
+					accept_line = "<M-l>", -- 接受一行 (注意 <M-l> 的终端兼容性)
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>", -- 关闭建议
+				},
+			},
+			filetypes = {
+				help = false,
+				gitcommit = true, -- 在 commit message 中启用可能有用
+				gitrebase = false,
+				hgcommit = false,
+				markdown = true,
+				svn = false,
+				cvs = false,
+				["."] = false, -- 禁用对于没有文件名的缓冲区
+				copilot_chat = false, -- 在CopilotChat的窗口中禁用普通建议
+				copilot = false, -- 禁用在copilot.lua的panel中
+			},
+			-- copilot_node_command = "node", -- 如果 'node' 不在 PATH 中或需要指定版本，则取消注释并设置
+			server_opts_overrides = {},
+			-- 确保在插件安装/更新后运行 :Copilot auth 完成认证
+			-- 你也可以在 build 步骤中加入，但有时手动运行更可靠
+			-- build = function()
+			--  vim.fn.system("make deps") -- 如果copilot.lua有这样的make命令
+			--  vim.cmd [[Copilot auth]]
+			-- end
+		},
+		config = function(_, opts)
+			-- 确保在 config 阶段调用 setup
+			require("copilot").setup(opts)
+
+			-- 你可以在这里添加一些延迟检查，确保 agent 启动
+			-- vim.defer_fn(function()
+			--  if not require("copilot.client").is_signed_in() then
+			--      vim.notify("[Copilot.lua] Not signed in. Please run :Copilot auth", vim.log.levels.WARN)
+			--  elseif not require("copilot.client").is_running() then
+			--      vim.notify("[Copilot.lua] Agent not running. Please check logs or try :Copilot setup", vim.log.levels.WARN)
+			--  end
+			-- end, 5000) -- 延迟5秒检查
+		end,
+	},
+
+	-- 2. CopilotChat.nvim - 依赖于 copilot.lua 提供的 Agent
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "main", -- 或者使用 tag/release
+		cmd = { "CopilotChat", "CopilotChatToggle", "CopilotChatReset", "CopilotChatAsk", "CopilotChatSelectPrompt" }, -- 延迟加载的命令
+		dependencies = {
+			-- 明确依赖 zbirenbaum/copilot.lua
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim" }, -- for curl, log and async functions
+			{ "gregorias/toggle.nvim" },
+		},
+		build = function()
+			-- Tiktoken build step, only if not already present or if forced
+			-- Check if tiktoken_core.so (or similar) exists before running make
+			-- This avoids unnecessary rebuilds. The exact path might vary.
+			-- local tiktoken_lib = vim.fn.stdpath("data") .. "/lazy/CopilotChat.nvim/lua/CopilotChat/tiktoken/tiktoken_core.so"
+			-- if vim.fn.filereadable(tiktoken_lib) == 0 then
+			--  vim.fn.system("cd " .. vim.fn.stdpath("data") .. "/lazy/CopilotChat.nvim && make tiktoken")
+			-- end
+			-- A simpler approach if `make tiktoken` is idempotent:
+			return "make tiktoken"
+		end,
+		opts = function()
+			local user = vim.env.USER or "User"
+			user = user:sub(1, 1):upper() .. user:sub(2)
+			return {
+				auto_insert_mode = true,
+				question_header = "  " .. user .. " ",
+				answer_header = "  Copilot ",
+				model = "claude-3.7-sonnet", -- 默认应该是 gpt-4 或 gpt-3.5-turbo，claude 可能需要特殊配置或不可用
+				debug = false, -- 设置为 true 可以看更多日志
+				prompts = {
+					Explain = {
+						prompt = "使用中文解释当前选中的这段代码,并写出注释",
+						-- system_prompt = "COPILOT_EXPLAIN", -- CopilotChat.nvim 可能有自己的system prompt处理
+					},
+					Review = {
+						prompt = "检查这段代码,并使用中文回答",
+						-- system_prompt = "COPILOT_REVIEW",
+					},
+					Fix = {
+						prompt = "使用中文描述这段代码的问题,并提出解决方案",
+					},
+					Optimize = {
+						prompt = "使用中文描述这段代码可能存在的问题,并提出优化方案",
+					},
+					Docs = {
+						prompt = "使用中文描述这段代码的功能,并提供文档和注释",
+					},
+					Test = {
+						prompt = "请为这段代码提供测试用例,并用中文回答",
+					},
+					Commit = {
+						prompt = "请使用中文为当前的更改生成提交消息",
+						context = "git:staged",
+					},
+				},
+				window = {
+					layout = "vertical", -- 'vertical', 'horizontal', 'float', 'replace', or a function that returns the layout
+					width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
+					height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
+					-- Options below only apply to floating windows
+					relative = "editor", -- 'editor', 'win', 'cursor', 'mouse'
+					border = "single", -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+					row = nil, -- row position of the window, default is centered
+					col = nil, -- column position of the window, default is centered
+					title = "Copilot Chat", -- title of chat window
+					footer = nil, -- footer of chat window
+					zindex = 1, -- determines if window is on top or below other floating windows
+				},
+				mappings = true, -- 是否启用默认的 prompt 映射
+			}
+		end,
+		keys = {
+			-- 你的自定义快捷键，看起来不错
+			{ "<c-s>", "<CR>", ft = "copilot-chat", mode = "i", desc = "Submit Prompt", remap = true }, -- 确保在插入模式
+			{ "<leader>a", "", desc = "+ai", mode = { "n", "v" } }, -- Leader group
+			{
+				"<leader>aco", -- 更改了快捷键以避免与copilot.lua潜在冲突，并遵循你的<leader>a前缀
+				function()
+					require("CopilotChat").toggle()
+				end,
+				desc = "Toggle CopilotChat",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>acr", --  Clear/Reset
+				function()
+					require("CopilotChat").reset()
+				end,
+				desc = "Reset CopilotChat",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>acq", -- Quick Chat
+				function()
+					vim.ui.input({
+						prompt = "Quick Chat: ",
+					}, function(input)
+						if input and input ~= "" then -- 确保 input 不是 nil
+							require("CopilotChat").ask(input)
+						end
+					end)
+				end,
+				desc = "Quick Chat (CopilotChat)",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>acp", -- Presets
+				function()
+					require("CopilotChat").select_prompt()
+				end,
+				desc = "Select Prompt (CopilotChat)",
+				mode = { "n", "v" },
+			},
+			-- CopilotChat.nvim 推荐的一些快捷键，你可以根据需要添加
+			-- {
+			--  "<leader>ace",
+			--  function() require("CopilotChat").explain_code() end,
+			--  desc = "Explain code (CopilotChat)",
+			--  mode = "v",
+			-- },
+		},
+		config = function(_, opts)
+			local chat = require("CopilotChat")
+			-- 确保在 config 阶段调用 setup
+			chat.setup(opts)
+
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "copilot-chat",
+				callback = function()
+					vim.opt_local.relativenumber = false
+					vim.opt_local.number = false
+				end,
+			})
+		end,
+	},
+
+	-- 3. copilot-cmp - 用于 nvim-cmp 的 Copilot 补全源
+	{
+		"zbirenbaum/copilot-cmp",
+		-- 确保在 nvim-cmp 和 copilot.lua 之后加载
+		dependencies = { "nvim-cmp", "zbirenbaum/copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup({
+				-- fix_keymaps = false, -- 如果 copilot.lua 的按键映射与 cmp 冲突，可以设置为 true
+				-- show_for_semicolon = true,
+			})
+			-- 将 copilot 添加到你的 nvim-cmp sources 列表中
+			-- 这通常在你的 nvim-cmp 配置文件中完成
+			-- local cmp = require("cmp")
+			-- local sources = cmp.config.sources()
+			-- table.insert(sources, 1, { name = "copilot" }) -- 插入到靠前位置
+			-- cmp.setup { sources = sources }
+		end,
+	},
+
+	-- 4. edgy.nvim (可选) - 用于窗口管理
+	{
+		"folke/edgy.nvim",
+		event = "VeryLazy", -- Edgy 可以延迟加载
+		optional = true, -- 如果你不是所有配置都用 edgy
+
+		opts = function(_, opts)
+			-- 确保 opts.right 存在
+			opts.right = opts.right or {}
+			table.insert(opts.right, {
+				ft = "copilot-chat",
+				title = "Copilot Chat",
+				size = { width = 0.4 }, -- edgy 现在推荐 size = { width = 0.x } 而不是直接 width = 50
+				-- open = function() require("CopilotChat").open() end, -- 如果需要命令打开
+			})
+			-- Overseer 的配置保持不变
+			table.insert(opts.right, {
+				title = "Overseer",
+				ft = "OverseerList",
+				filter = function(buf)
+					return vim.bo[buf].buftype == "nofile" -- 只匹配 Overseer 列表窗口
+				end,
+				open = function()
+					require("overseer").open()
+				end,
+			})
+			return opts -- 确保返回修改后的 opts
+		end,
+	},
+}

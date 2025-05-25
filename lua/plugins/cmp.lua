@@ -118,8 +118,9 @@ return {
 				end,
 			},
 			sources = {
+				{ name = "render-markdown" },
 				{ name = "copilot", priority = 100 },
-				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp", priority = 95 },
 				{ name = "luasnip", priority = 90 },
 				{ name = "buffer" },
 				{ name = "path" },

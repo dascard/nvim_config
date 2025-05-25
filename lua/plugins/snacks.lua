@@ -1,3 +1,4 @@
+-- stylua: ignore
 local preset_header = {
 	[[
 
