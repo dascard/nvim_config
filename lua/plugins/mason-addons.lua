@@ -5,15 +5,46 @@ return {
     config = function()
         require("mason-tool-installer").setup({
             ensure_installed = {
-                "prettier",
-                "stylua",
-                "black",
-                -- 其他你需要的工具
+                -- LSP 服务器
+                "lua-language-server",        -- Lua
+                "typescript-language-server", -- TypeScript/JavaScript
+                "pyright",                   -- Python
+                "rust-analyzer",             -- Rust
+                "clangd",                    -- C/C++
+                "html-lsp",                  -- HTML
+                "css-lsp",                   -- CSS
+                "tailwindcss-language-server", -- TailwindCSS
+                "json-lsp",                  -- JSON
+                "yaml-language-server",      -- YAML
+                "bash-language-server",      -- Bash
+                "marksman",                  -- Markdown
+                "dockerfile-language-server", -- Docker
+                "vim-language-server",       -- VimScript
+                "powershell-editor-services", -- PowerShell
+                "jdtls",      -- Java (可选)
+                "phpactor",                  -- PHP
+                "omnisharp",                 -- C#
+                  -- 格式化工具
+                "prettier",                  -- JS/TS/HTML/CSS/JSON/YAML等
+                "stylua",                   -- Lua格式化
+                "black",                    -- Python格式化
+                "rustfmt",                  -- Rust格式化
+                "clang-format",             -- C/C++格式化
+                "autopep8",                 -- Python格式化(备选)
+                "isort",                    -- Python import排序
+                  -- 代码检查工具
+                "eslint_d",                 -- JavaScript/TypeScript
+                "pylint",                   -- Python
+                "flake8",                   -- Python
+                "shellcheck",               -- Shell脚本
+                "hadolint",                 -- Dockerfile
+                
+                -- 调试适配器
+                "local-lua-debugger-vscode", -- Lua调试器
             },
             run_on_start = true, -- 启动时安装
             auto_update = true,
-            -- 注意：我们不再有 mason-lspconfig 了，所以任何依赖它的集成可能需要调整
-            -- 但 mason-tool-installer 主要关注非 LSP 工具，应该还好
+            start_delay = 3000, -- 延迟3秒开始安装，避免启动时卡顿
         })
     end,
 }

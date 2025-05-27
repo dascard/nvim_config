@@ -121,9 +121,24 @@ vim.diagnostic.config({
 
 -- 自定义诊断高亮
 vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { link = "LspDiagnosticsFloatingError" })
-local colors = require("tokyonight.colors").setup()
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.comment, bg = colors.bg })
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = colors.bg_highlight })
+
+-- 设置自动命令来在 colorscheme 加载后应用自定义高亮
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		-- 尝试获取 tokyonight 颜色，如果失败则使用默认颜色
+		local ok, tokyonight_colors = pcall(require, "tokyonight.colors")
+		if ok then
+			local colors = tokyonight_colors.setup()
+			vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.comment, bg = colors.bg })
+			vim.api.nvim_set_hl(0, "PmenuSel", { bg = colors.bg_highlight })
+		else
+			-- 使用默认颜色作为备选
+			vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#565f89", bg = "#1a1b26" })
+			vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#283457" })
+		end
+	end,
+})
 
 -- asyncrun.vim
 vim.g.asyncrun_open = 10

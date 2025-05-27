@@ -192,7 +192,6 @@ return {
 				desc = "提交 Prompt (聊天插入模式)",
 				remap = true,
 			},
-			{ "<leader>a", group = "AI (Copilot)", mode = { "n", "v" } },
 			{
 				"<leader>ao",
 				function()

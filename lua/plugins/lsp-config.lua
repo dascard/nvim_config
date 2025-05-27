@@ -3,10 +3,10 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        -- 不再依赖 mason-lspconfig.nvim
         "williamboman/mason.nvim", -- 确保 mason 已加载，以便 LSP 二进制文件存在
         "hrsh7th/cmp-nvim-lsp",
         { "folke/neodev.nvim", opts = {} },
+        "b0o/schemastore.nvim", -- JSON/YAML schemas
     },
     config = function()
         local lspconfig = require("lspconfig")
@@ -52,14 +52,11 @@ return {
         end
 
         -- 6. **手动、显式地配置每个 LSP 服务**
-        --    **重要：你现在需要手动确保这些 LSP 已经通过 Mason 安装**
-
-        -- Lua
+        --    **重要：你现在需要手动确保这些 LSP 已经通过 Mason 安装**        -- Lua
         lspconfig.lua_ls.setup({
             capabilities = capabilities,
             on_attach = common_on_attach,
             settings = {
-             offset_encoding = "utf-8",
                 Lua = {
                     runtime = { version = "LuaJIT" },
                     diagnostics = { globals = { "vim" } },
@@ -67,11 +64,9 @@ return {
                     telemetry = { enable = false },
                 },
             },
-        })
-
-        -- TypeScript / JavaScript
+        })-- TypeScript / JavaScript
         lspconfig.ts_ls.setup({
-         offset_encoding = "utf-8",
+            offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = function(client, bufnr)
                 client.server_capabilities.documentFormattingProvider = false
@@ -79,21 +74,174 @@ return {
                 common_on_attach(client, bufnr)
             end,
             settings = {
-                typescript = { inlayHints = { includeInlayParameterNameHints = 'all', includeInlayParameterNameHintsWhenArgumentMatchesName = false, includeInlayFunctionParameterTypeHints = true, includeInlayVariableTypeHints = true, includeInlayPropertyDeclarationTypeHints = true, includeInlayFunctionLikeReturnTypeHints = true, includeInlayEnumMemberValueHints = true, } },
-                javascript = { inlayHints = { includeInlayParameterNameHints = 'all', includeInlayParameterNameHintsWhenArgumentMatchesName = false, includeInlayFunctionParameterTypeHints = true, includeInlayVariableTypeHints = true, includeInlayPropertyDeclarationTypeHints = true, includeInlayFunctionLikeReturnTypeHints = true, includeInlayEnumMemberValueHints = true, } },
+                typescript = { 
+                    inlayHints = { 
+                        includeInlayParameterNameHints = 'all', 
+                        includeInlayParameterNameHintsWhenArgumentMatchesName = false, 
+                        includeInlayFunctionParameterTypeHints = true, 
+                        includeInlayVariableTypeHints = true, 
+                        includeInlayPropertyDeclarationTypeHints = true, 
+                        includeInlayFunctionLikeReturnTypeHints = true, 
+                        includeInlayEnumMemberValueHints = true, 
+                    } 
+                },
+                javascript = { 
+                    inlayHints = { 
+                        includeInlayParameterNameHints = 'all', 
+                        includeInlayParameterNameHintsWhenArgumentMatchesName = false, 
+                        includeInlayFunctionParameterTypeHints = true, 
+                        includeInlayVariableTypeHints = true, 
+                        includeInlayPropertyDeclarationTypeHints = true, 
+                        includeInlayFunctionLikeReturnTypeHints = true, 
+                        includeInlayEnumMemberValueHints = true, 
+                    } 
+                },
             },
         })
 
-        -- 其他 LSP
-        local servers_to_configure = {
-            "html", "cssls", "tailwindcss", "svelte", "graphql", "prismals",
-            "pyright", "clangd", "bashls", "yamlls", "marksman",
+        -- Python
+        lspconfig.pyright.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            settings = {
+                python = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        useLibraryCodeForTypes = true,
+                        diagnosticMode = "workspace",
+                    },
+                },
+            },
+        })
+
+        -- Rust
+        lspconfig.rust_analyzer.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            settings = {
+                ["rust-analyzer"] = {
+                    cargo = {
+                        loadOutDirsFromCheck = true,
+                    },
+                    procMacro = {
+                        enable = true,
+                    },
+                    checkOnSave = {
+                        command = "cargo clippy",
+                    },
+                },
+            },
+        })
+
+        -- Go
+        lspconfig.gopls.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    gofumpt = true,
+                },
+            },
+        })
+
+        -- C/C++
+        lspconfig.clangd.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            cmd = {
+                "clangd",
+                "--background-index",
+                "--clang-tidy",
+                "--header-insertion=iwyu",
+                "--completion-style=detailed",
+                "--function-arg-placeholders",
+                "--fallback-style=llvm",
+            },
+            init_options = {
+                usePlaceholders = true,
+            },
+        })
+
+        -- JSON
+        lspconfig.jsonls.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            settings = {
+                json = {
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+        })
+
+        -- YAML
+        lspconfig.yamlls.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            settings = {
+                yaml = {
+                    schemaStore = {
+                        enable = false,
+                        url = "",
+                    },
+                    schemas = require('schemastore').yaml.schemas(),
+                },
+            },
+        })
+
+        -- PHP
+        lspconfig.phpactor.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+        })
+
+        -- C#
+        lspconfig.omnisharp.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+        })
+
+        -- PowerShell
+        lspconfig.powershell_es.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+        })
+
+        -- Docker
+        lspconfig.dockerls.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+        })
+
+        -- VimScript
+        lspconfig.vimls.setup({
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+        })        -- 其他简单的 LSP 配置
+        local simple_servers = {
+            "html", "cssls", "tailwindcss", "bashls", "marksman",
         }
-        for _, server_name in ipairs(servers_to_configure) do
-            -- 确保服务器实际存在于 lspconfig 中
+        for _, server_name in ipairs(simple_servers) do
             if lspconfig[server_name] then
                 lspconfig[server_name].setup({
-                 offset_encoding = "utf-8",
+                    offset_encoding = "utf-8",
                     capabilities = capabilities,
                     on_attach = common_on_attach,
                 })
@@ -101,13 +249,21 @@ return {
                 vim.notify("LSP config: server " .. server_name .. " not found in lspconfig.", vim.log.levels.WARN)
             end
         end
-        -- 如果 yamlls 等需要特殊配置，单独写：
-        -- if lspconfig.yamlls then
-        --     lspconfig.yamlls.setup({
-        --         capabilities = capabilities,
-        --         on_attach = common_on_attach,
-        --         -- settings = { yaml = { schemas = require("schemastore").yaml.schemas() } } -- 如果使用
-        --     })
-        -- end
+
+        -- YAML LSP 配置（使用 schemastore）
+        if lspconfig.yamlls then
+            lspconfig.yamlls.setup({
+                offset_encoding = "utf-8",
+                capabilities = capabilities,
+                on_attach = common_on_attach,
+                settings = {
+                    yaml = {
+                        schemas = require("schemastore").yaml.schemas(),
+                        validate = true,
+                        completion = true,
+                    }
+                }
+            })
+        end
     end,
 }

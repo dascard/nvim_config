@@ -1,7 +1,6 @@
 local bo = vim.bo
 local fn = vim.fn
 
--- 不规则空白检测函数
 local function irregularWhitespace()
 	-- USER CONFIG
 	-- filetypes and the number of spaces they use. Omit or set to nil to use tabs for that filetype.
@@ -59,7 +58,88 @@ local function irregularWhitespace()
 	return nonDefaultSetting .. wrongIndent .. linebreakIcon
 end
 
--- 字符统计函数
+return {
+		"echasnovski/mini.icons",
+		lazy = true,
+		opts = {
+			file = {
+				[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+				["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+			},
+			filetype = {
+				dotenv = { glyph = "", hl = "MiniIconsYellow" },
+			},
+		},
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
+		config = function(_, opts)
+			require("mini.icons").setup(opts)
+		end,
+	},etypes, ft) or fn.mode() ~= "" then
+		return ""
+	end
+
+	-- non-default indentation setting (e.g. changed via indent-o-matic)
+	local nonDefaultSetting = ""
+	local spaceFtsOnly = vim.tbl_keys(spaceFiletypes)
+	if (usesSpaces and not vim.tbl_contains(spaceFtsOnly, ft)) or (usesSpaces and width ~= spaceFiletypes[ft]) then
+		nonDefaultSetting = " " .. tostring(width) .. "󱁐  "
+	elseif usesTabs and vim.tbl_contains(spaceFtsOnly, ft) then
+		nonDefaultSetting = " 󰌒 " .. tostring(width)(" ")
+	end
+
+	-- wrong or mixed indentation
+	local hasTabs = fn.search("^\t", "nw") > 0
+	local hasSpaces = fn.search("^ ", "nw") > 0
+	-- exception, jsdocs: space not followed by "*"
+	if bo.filetype == "javascript" then
+		hasSpaces = fn.search([[^ \(\*\)\@!]], "nw") > 0
+	end
+	local wrongIndent = ""
+	if usesTabs and hasSpaces then
+		wrongIndent = " 󱁐 "
+	elseif usesSpaces and hasTabs then
+		wrongIndent = " 󰌒 "
+	elseif hasTabs and hasSpaces then
+		wrongIndent = " 󱁐 + 󰌒 "
+	end
+
+	-- line breaks
+	local linebreakIcon = ""
+	if brUsed ~= linebreakType then
+		if brUsed == "unix" then
+			linebreakIcon = " 󰌑 "
+		elseif brUsed == "mac" then
+			linebreakIcon = " 󰌑 "
+		elseif brUsed == "dos" then
+			linebreakIcon = " 󰌑 "
+		end
+	end
+
+	return nonDefaultSetting .. wrongIndent .. linebreakIcon
+end
+-- local function clock()
+-- 	if vim.opt.columns:get() < 110 or vim.opt.lines:get() < 25 then
+-- 		return ""
+-- 	end
+--
+-- 	local time = tostring(os.date()):sub(12, 16)
+-- 	if os.time() % 2 == 1 then
+-- 		time = time:gsub(":", " ")
+-- 	end -- make the `:` blink
+-- 	return time
+-- end
+
+-- wrapper to not require navic directly
+
+-- Helper function to count English and likely Chinese characters in a string.
+-- Returns two numbers: english_count, chinese_count.
+-- Note: The Chinese character counting uses a heuristic based on UTF-8 byte ranges
+-- for the main CJK Unified Ideographs block (U+4E00 to U+9FFF). It's not perfectly accurate for all CJK characters or complex Unicode scenarios.
 local function count_eng_zh_chars(text)
 	local eng_count = 0
 	local zh_count = 0
@@ -76,12 +156,12 @@ local function count_eng_zh_chars(text)
 	digit_count = select(2, text:gsub("[0-9]", ""))
 
 	-- Count likely Chinese characters in the CJK Unified Ideographs block (U+4E00 to U+9FFF)
+	-- Matches UTF-8 byte sequences E4..E9 followed by two bytes in 80..BF range.
+	-- This is a heuristic.
 	zh_count = select(2, text:gsub("[\xE4-\xE9][\x80-\xBF][\x80-\xBF]", ""))
 
 	return eng_count, zh_count, digit_count
 end
-
--- 获取可视选择文本
 local function get_visual_selection()
 	local mode = vim.fn.mode()
 
@@ -121,7 +201,6 @@ local function get_visual_selection()
 	end
 end
 
--- 选择计数显示
 local function selectionCount()
 	local mode = vim.fn.mode()
 
@@ -141,47 +220,65 @@ local function selectionCount()
 
 	-- 返回格式化的计数信息，使用更美观的图标和格式
 	local result_parts = {}
-
+	
 	if eng_count > 0 then
 		table.insert(result_parts, string.format("🔤%d", eng_count))
 	end
-
+	
 	if zh_count > 0 then
 		table.insert(result_parts, string.format("🀄%d", zh_count))
 	end
-
+	
 	if digit_count > 0 then
 		table.insert(result_parts, string.format("🔢%d", digit_count))
 	end
-
+	
 	if other_chars > 0 then
 		table.insert(result_parts, string.format("📝%d", other_chars))
 	end
-
+	
 	if #result_parts == 0 then
 		return string.format("📄%d", total_chars)
 	end
-
+	
 	return table.concat(result_parts, " ")
 end
+-- local function selectionCount()
+-- 	local words = get_visual_selection()
+-- 	return count_eng_zh_chars(words)
+-- end
+-- ============================================================================
+-- Lualine Provider for Visual Selection Count
+-- ============================================================================
+
+-- Lualine provider function to display character/byte count of visual selection
+-- with Eng/Zh breakdown in v/V mode, and byte count in <C-v> mode.
+-- ============================================================================
+-- Autocmd to force update in Visual mode
+-- ============================================================================
+
+-- Autocmd to force Lualine update in Visual modes on CursorMoved
 
 return {
 	-- 颜色方案
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,
-		priority = 1000,
+		priority = 1000, -- 高优先级确保加载顺序
 		opts = {
 			style = "night",
 			transparent = true,
 			terminal_colors = true,
 			styles = {
+				-- Style to be applied to different syntax groups
+				-- Value is any valid attr-list value for `:help nvim_set_hl`
 				comments = { italic = true },
 				keywords = { italic = true },
 				functions = {},
 				variables = {},
-				sidebars = "transparent",
-				floats = "transparent",
+				-- Background styles. Can be "dark", "transparent" or "normal"
+				sidebars = "transparent", -- style for sidebars, see below
+				floats = "transparent", -- style for floating windows
 			},
 		},
 		config = function(_, opts)
@@ -189,15 +286,16 @@ return {
 			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
-
-	-- 状态栏
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", "f-person/git-blame.nvim" },
 		config = function()
 			local git_blame = require("gitblame")
+			-- This disables showing of the blame text next to the cursor
 			vim.g.gitblame_display_virtual_text = 0
-
+			-- local emptySeparators = { left = "", right = "" }
+			-- local bottomSeparators = { left = "", right = "" }
+			-- local topSeparators = { left = "", right = "" }
 			require("lualine").setup({
 				options = {
 					theme = "tokyonight",
@@ -207,8 +305,8 @@ return {
 					lualine_a = { "mode" },
 					lualine_b = { "branch", "diff" },
 					lualine_c = {
-						{ "filename", path = 1 },
-						{ "filesize" },
+						{ "filename", path = 1 }, -- 显示文件名 (带路径)
+						{ "filesize" }, -- 显示文件大小
 						{
 							function()
 								local mode = vim.fn.mode()
@@ -221,29 +319,30 @@ return {
 									local eng_count, zh_count, digit_count = count_eng_zh_chars(content)
 									local total_chars = vim.fn.strchars(content)
 									local other_chars = total_chars - eng_count - zh_count - digit_count
-
+									
+									-- 使用图标美化显示
 									local result_parts = {}
-
+									
 									if eng_count > 0 then
 										table.insert(result_parts, string.format("🔤%d", eng_count))
 									end
-
+									
 									if zh_count > 0 then
 										table.insert(result_parts, string.format("🀄%d", zh_count))
 									end
-
+									
 									if digit_count > 0 then
 										table.insert(result_parts, string.format("🔢%d", digit_count))
 									end
-
+									
 									if other_chars > 0 then
 										table.insert(result_parts, string.format("📝%d", other_chars))
 									end
-
+									
 									if #result_parts == 0 then
 										return string.format("📄%d", total_chars)
 									end
-
+									
 									return table.concat(result_parts, " ")
 								end
 							end,
@@ -258,7 +357,7 @@ return {
 						"filetype",
 						{
 							"diagnostics",
-							symbols = { error = "󰅚 ", warn = " ", info = "󰋽 ", hint = "󰘥 " },
+							symbols = { error = "󰅚 ", warn = " ", info = "󰋽 ", hint = "󰘥 " },
 						},
 						{ irregularWhitespace },
 					},
@@ -268,14 +367,13 @@ return {
 			})
 		end,
 	},
-
-	-- 文件树
 	{
 		"nvim-tree/nvim-tree.lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "NvimTreeToggle",
 		keys = { { "<leader>e", "<CMD>NvimTreeToggle<CR>" } },
 		config = function()
+			-- 自定义按键映射函数
 			local function my_on_attach(bufnr)
 				local api = require("nvim-tree.api")
 
@@ -296,44 +394,52 @@ return {
 			end
 
 			require("nvim-tree").setup({
+				-- 视图设置
 				sort_by = "case_sensitive",
 				hijack_cursor = true,
 				system_open = {
 					cmd = "open",
 				},
 				view = {
-					width = 35,
-					side = "left",
-					number = false,
+					width = 35, -- 侧边栏宽度
+					side = "left", -- 显示位置（left/right）
+					number = false, -- 隐藏行号
 					relativenumber = false,
-					signcolumn = "yes",
+					signcolumn = "yes", -- 显示图标列
 				},
+				-- 文件操作行为
 				actions = {
 					open_file = {
-						quit_on_open = false,
-						resize_window = true,
+						quit_on_open = false, -- 打开文件后不关闭树
+						resize_window = true, -- 自适应窗口大小
 					},
 				},
+				-- 过滤文件
 				filters = {
-					dotfiles = false,
-					custom = { "node_modules" },
+					dotfiles = false, -- 不隐藏 . 开头的文件
+					custom = { "node_modules" }, -- 自定义隐藏目录
 				},
+				-- Git 状态集成
 				git = {
 					enable = true,
 					ignore = false,
 				},
+				-- 禁用默认的文件追踪，使用我们自定义的
 				update_focused_file = {
 					enable = true,
 					update_root = true,
 				},
+				-- 使用自定义按键映射
 				on_attach = my_on_attach,
 				renderer = {
+					-- 隐藏 EndOfBuffer 的 ~ 符号
 					root_folder_label = false,
 					highlight_git = true,
 					indent_markers = { enable = true },
 					special_files = {},
 					icons = {
 						show = {
+							-- 显示文件和文件夹图标
 							file = true,
 							folder = true,
 							folder_arrow = true,
@@ -342,18 +448,16 @@ return {
 						glyphs = {
 							default = "󰈚",
 							symlink = "",
-							bookmark = "󰆤",
-							modified = "●",
-							-- folder = {
-							-- 	arrow_closed = "",
-							-- 	arrow_open = "",
-							-- 	default = "󰉋",
-							-- 	open = "",
-							-- 	empty = "",
-							-- 	empty_open = "",
-							-- 	symlink = "",
-							-- 	symlink_open = "",
-							-- },
+							folder = {
+								arrow_closed = "",
+								arrow_open = "",
+								default = "",
+								open = "",
+								empty = "",
+								empty_open = "",
+								symlink = "",
+								symlink_open = "",
+							},
 							git = {
 								unstaged = "✗",
 								staged = "✓",
@@ -364,32 +468,33 @@ return {
 								ignored = "◌",
 							},
 						},
-						webdev_colors = true,
-						git_placement = "before",
-						padding = " ",
-						symlink_arrow = " ➛ ",
 					},
+					-- 直接禁用 EndOfBuffer 符号渲染
 					highlight_opened_files = "none",
+					-- 关键配置：隐藏 EndOfBuffer 符号
 					root_folder_modifier = ":~",
 					add_trailing = false,
 				},
 			})
 		end,
 	},
-
-	-- Git blame
 	{
 		"f-person/git-blame.nvim",
+		-- load the plugin at startup
 		event = "VeryLazy",
+		-- Because of the keys part, you will be lazy loading this plugin.
+		-- The plugin will only load once one of the keys is used.
+		-- If you want to load the plugin at startup, add something like event = "VeryLazy",
+		-- or lazy = false. One of both options will work.
 		opts = {
-			enabled = true,
-			message_template = " <summary> • <date> • <author> • <<sha>>",
-			date_format = "%m-%d-%Y %H:%M:%S",
-			virtual_text_column = 1,
+			-- your configuration comes here
+			-- for example
+			enabled = true, -- if you want to enable the plugin
+			message_template = " <summary> • <date> • <author> • <<sha>>", -- template for the blame message, check the Message template section for more options
+			date_format = "%m-%d-%Y %H:%M:%S", -- template for the date, check Date format section for more options
+			virtual_text_column = 1, -- virtual text start column, check Start virtual text at column section for more options
 		},
 	},
-
-	-- 错误列表
 	{
 		"folke/trouble.nvim",
 		opts = {
@@ -399,12 +504,11 @@ return {
 				},
 			},
 			keys = {
+				-- If I close the incorrect pane, I can bring it up with ctrl+o
 				["<esc>"] = "close",
 			},
 		},
 	},
-
-	-- 缓冲区标签页
 	{
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
@@ -422,39 +526,34 @@ return {
 			{ "H", "0", mode = { "n" } },
 			{ "L", "$", mode = { "n" } },
 		},
+
 		opts = {
 			options = {
-				close_command = function(n)
-					if package.loaded["snacks"] then
-						Snacks.bufdelete(n)
-					else
-						vim.cmd("bdelete " .. n)
-					end
-				end,
-				right_mouse_command = function(n)
-					if package.loaded["snacks"] then
-						Snacks.bufdelete(n)
-					else
-						vim.cmd("bdelete " .. n)
-					end
-				end,
+				-- 基础行为设置
+				-- stylua: ignore
+				close_command = function(n) Snacks.bufdelete(n) end,
+				-- stylua: ignore
+				right_mouse_command = function(n) Snacks.bufdelete(n) end,
 				separator_style = "slant",
 				indicator = {
 					style = "underline",
 				},
 				buffer_close_icon = "󰅖",
 				modified_icon = "● ",
-				close_icon = " ",
-				left_trunc_marker = " ",
-				right_trunc_marker = " ",
+				close_icon = " ",
+				left_trunc_marker = " ",
+				right_trunc_marker = " ",
+
 				diagnostics = "nvim_lsp",
+				vim.diagnostic.config({ update_in_insert = true }),
 				diagnostics_indicator = function(count, level)
-					local icon = level:match("error") and " " or " "
+					local icon = level:match("error") and " " or " "
 					return " " .. icon .. count
 				end,
 				numbers = function(opts)
-					return string.format(" %s/%s", vim.fn.tabpagenr(), opts.ordinal)
+					return string.format(" %s/%s", vim.fn["tabpagenr"](), opts.ordinal)
 				end,
+
 				hover = {
 					enabled = true,
 					delay = 200,
@@ -463,34 +562,35 @@ return {
 				pick = {
 					alphabet = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ1234567890",
 				},
-				max_name_length = 18,
-				tab_size = 18,
+
+				-- 界面布局优化
+				max_name_length = 18, -- 文件名最大显示长度
+				tab_size = 18, -- 标签页宽度
 				offsets = {
 					{
 						filetype = "NvimTree",
 						text = "Explorer",
 						highlight = "Directory",
-						text_align = "left",
+						text_align = "left", -- 为 NvimTree 侧边栏预留空间[1](@ref)
 					},
 				},
 			},
 		},
 		config = function(_, opts)
 			require("bufferline").setup(opts)
+			-- Fix bufferline when restoring a session
 			vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
 				callback = function()
 					vim.schedule(function()
-						pcall(require, "bufferline")
+						pcall(nvim_bufferline)
 					end)
 				end,
 			})
 		end,
 	},
-
-	-- 标签页作用域
 	{
 		"tiagovla/scope.nvim",
-		config = function()
+		init = function()
 			require("scope").setup({})
 		end,
 		keys = {
@@ -498,16 +598,16 @@ return {
 			{ "<M-p>", "<CMD>tabprevious<CR>" },
 		},
 	},
-
-	-- 通知系统
-	-- ...existing code...
-	-- 通知系统
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
+			-- add any options here
 			lsp = {
 				override = {
+					-- 移除已废弃的 LSP util 函数
+					-- ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					-- ["vim.lsp.util.stylize_markdown"] = true,
 					["cmp.entry.get_documentation"] = true,
 				},
 			},
@@ -534,128 +634,30 @@ return {
 				},
 			},
 			presets = {
-				bottom_search = false, -- 禁用底部搜索
-				command_palette = true, -- 启用命令面板
+				bottom_search = true,
+				command_palette = true,
 				long_message_to_split = true,
-			},
-			cmdline = {
-				enabled = true, -- 启用命令行
-				view = "cmdline_popup", -- 使用弹出式命令行
-				opts = {}, -- 全局cmdline选项
-				format = {
-					-- 命令模式
-					cmdline = { pattern = "^:", lang = "vim" },
-					-- 搜索模式（向下搜索）
-					search_down = { kind = "search", pattern = "^/", lang = "regex" },
-					-- 搜索模式（向上搜索）
-					search_up = { kind = "search", pattern = "^%?", lang = "regex" },
-					-- 过滤模式
-					filter = { pattern = "^:%s*!", lang = "bash" },
-					-- Lua模式
-					lua = { pattern = "^:%s*lua%s+", lang = "lua" },
-					-- 帮助模式
-					help = { pattern = "^:%s*he?l?p?%s+" },
-					-- 输入模式
-					input = {},
-				},
-			},
-			messages = {
-				-- 注意：如果启用messages，某些内容可能会重复显示
-				enabled = true, -- 启用消息
-				view = "notify", -- 默认视图
-				view_error = "notify", -- 错误消息视图
-				view_warn = "notify", -- 警告消息视图
-				view_history = "messages", -- :messages的视图
-				view_search = "virtualtext", -- 搜索计数消息
-			},
-			popupmenu = {
-				enabled = true, -- 启用弹出菜单
-				backend = "nui", -- 使用'nui'或'cmp'作为后端
-				kind_icons = {}, -- 设置为false以禁用图标
-			},
-			-- 自定义视图配置
-			views = {
-				cmdline_popup = {
-					position = {
-						row = "50%", -- 垂直居中
-						col = "50%", -- 水平居中
-					},
-					size = {
-						width = 60, -- 命令行宽度
-						height = "auto",
-					},
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
-					filter_options = {},
-					win_options = {
-						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-					},
-				},
-				popupmenu = {
-					relative = "editor",
-					position = {
-						row = "auto", -- 自动位置（在cmdline下方）
-						col = "auto",
-					},
-					size = {
-						width = 60,
-						height = 10,
-					},
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
-					win_options = {
-						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-					},
-				},
 			},
 		},
 		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
 			"rcarriga/nvim-notify",
 		},
 	},
-
-	-- 图标
 	{
 		"echasnovski/mini.icons",
 		lazy = true,
 		opts = {
 			file = {
 				[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
-				["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
-				[".gitignore"] = { glyph = "", hl = "MiniIconsOrange" },
-				[".env"] = { glyph = "", hl = "MiniIconsYellow" },
-				["README.md"] = { glyph = "", hl = "MiniIconsBlue" },
-				["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
-				["tsconfig.json"] = { glyph = "", hl = "MiniIconsBlue" },
+				["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
 			},
 			filetype = {
-				dotenv = { glyph = "", hl = "MiniIconsYellow" },
-				git = { glyph = "", hl = "MiniIconsOrange" },
-				lua = { glyph = "", hl = "MiniIconsBlue" },
-				python = { glyph = "", hl = "MiniIconsYellow" },
-				javascript = { glyph = "", hl = "MiniIconsYellow" },
-				typescript = { glyph = "", hl = "MiniIconsBlue" },
-				rust = { glyph = "", hl = "MiniIconsRed" },
-				go = { glyph = "", hl = "MiniIconsCyan" },
-				json = { glyph = "", hl = "MiniIconsYellow" },
-				yaml = { glyph = "", hl = "MiniIconsRed" },
-				markdown = { glyph = "", hl = "MiniIconsBlue" },
-			},
-			directory = {
-				[".git"] = { glyph = "", hl = "MiniIconsOrange" },
-				[".github"] = { glyph = "", hl = "MiniIconsGrey" },
-				["node_modules"] = { glyph = "", hl = "MiniIconsGreen" },
-				["src"] = { glyph = "", hl = "MiniIconsBlue" },
-				["lib"] = { glyph = "", hl = "MiniIconsPurple" },
-				["config"] = { glyph = "", hl = "MiniIconsYellow" },
-				["docs"] = { glyph = "", hl = "MiniIconsBlue" },
-				["test"] = { glyph = "󰙨", hl = "MiniIconsRed" },
-				["tests"] = { glyph = "󰙨", hl = "MiniIconsRed" },
+				dotenv = { glyph = "", hl = "MiniIconsYellow" },
 			},
 		},
 		init = function()
@@ -663,9 +665,6 @@ return {
 				require("mini.icons").mock_nvim_web_devicons()
 				return package.loaded["nvim-web-devicons"]
 			end
-		end,
-		config = function(_, opts)
-			require("mini.icons").setup(opts)
 		end,
 	},
 }
