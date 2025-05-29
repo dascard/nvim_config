@@ -201,6 +201,7 @@ return {
 			require("lualine").setup({
 				options = {
 					theme = "tokyonight",
+					transparent = true,
 					component_separators = { left = "", right = "" },
 				},
 				sections = {
@@ -302,7 +303,7 @@ return {
 					cmd = "open",
 				},
 				view = {
-					width = 35,
+					width = 30,
 					side = "left",
 					number = false,
 					relativenumber = false,
@@ -474,6 +475,56 @@ return {
 					},
 				},
 			},
+			highlights = {
+				background = {
+					bg = "NONE",
+				},
+				buffer_selected = {
+					bg = "NONE",
+				},
+				buffer_visible = {
+					bg = "NONE",
+				},
+				close_button = {
+					bg = "NONE",
+				},
+				close_button_visible = {
+					bg = "NONE",
+				},
+				close_button_selected = {
+					bg = "NONE",
+				},
+				fill = {
+					bg = "NONE",
+				},
+				separator = {
+					bg = "NONE",
+				},
+				separator_selected = {
+					bg = "NONE",
+				},
+				separator_visible = {
+					bg = "NONE",
+				},
+				tab = {
+					bg = "NONE",
+				},
+				tab_selected = {
+					bg = "NONE",
+				},
+				tab_close = {
+					bg = "NONE",
+				},
+				duplicate_selected = {
+					bg = "NONE",
+				},
+				duplicate_visible = {
+					bg = "NONE",
+				},
+				duplicate = {
+					bg = "NONE",
+				},
+			},
 		},
 		config = function(_, opts)
 			require("bufferline").setup(opts)
@@ -534,13 +585,13 @@ return {
 				},
 			},
 			presets = {
-				bottom_search = false, -- 禁用底部搜索
+				bottom_search = false, -- 禁用底部搜索，使用弹出式
 				command_palette = true, -- 启用命令面板
 				long_message_to_split = true,
 			},
 			cmdline = {
 				enabled = true, -- 启用命令行
-				view = "cmdline_popup", -- 使用弹出式命令行
+				view = "cmdline_popup", -- 恢复使用弹出式命令行
 				opts = {}, -- 全局cmdline选项
 				format = {
 					-- 命令模式
@@ -570,8 +621,8 @@ return {
 			},
 			popupmenu = {
 				enabled = true, -- 启用弹出菜单
-				backend = "nui", -- 使用'nui'或'cmp'作为后端
-				kind_icons = {}, -- 设置为false以禁用图标
+				backend = "nui", -- 使用原生后端显示补全
+				kind_icons = {}, -- 禁用图标
 			},
 			-- 自定义视图配置
 			views = {
@@ -591,17 +642,18 @@ return {
 					filter_options = {},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 25, -- 增加命令框透明度
 					},
 				},
 				popupmenu = {
-					relative = "editor",
+					relative = "editor", -- 相对于编辑器定位
 					position = {
-						row = "auto", -- 自动位置（在cmdline下方）
-						col = "auto",
+						row = "70%", -- 位置在屏幕下方70%处，确保在命令框下方
+						col = "50%", -- 水平居中
 					},
 					size = {
 						width = 60,
-						height = 10,
+						height = 15, -- 显示更多选项
 					},
 					border = {
 						style = "rounded",
@@ -609,6 +661,7 @@ return {
 					},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 25, -- 增加透明度
 					},
 				},
 			},

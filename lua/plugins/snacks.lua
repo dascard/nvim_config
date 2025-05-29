@@ -2,13 +2,13 @@
 local preset_header = {
 	[[
 
-	▀████▀                              ▀███                 
+  ▀████▀                              ▀███                 
     ██                                  ██                 
     ██     ▀███  ▀███   ▄██▀██▄ ▄██▀███ ██  ▄██▀▀██▀   ▀██▀
     ██       ██    ██  ██▀   ▀████   ▀▀ ██ ▄█     ██   ▄█  
     ██     ▄ ██    ██  ██     ██▀█████▄ ██▄██      ██ ▄█   
     ██    ▄█ ██    ██  ██▄   ▄███▄   ██ ██ ▀██▄     ███    
-	██████████ ▀████▀███▄ ▀█████▀ ██████▀████▄ ██▄▄   ▄█     
+  ██████████ ▀████▀███▄ ▀█████▀ ██████▀████▄ ██▄▄   ▄█     
                                                   ▄█       
                                                 ██▀        
 	]],
@@ -454,6 +454,7 @@ return {
 		lazygit = { enabled = true },
 		gitbrowse = { enabled = true },
 		styles = {
+			-- 通知历史窗口
 			{
 				border = "rounded",
 				zindex = 100,
@@ -464,15 +465,19 @@ return {
 				title_pos = "center",
 				ft = "markdown",
 				bo = { filetype = "snacks_notif_history", modifiable = false },
-				wo = { winhighlight = "Normal:SnacksNotifierHistory" },
+				wo = { 
+					winhighlight = "Normal:SnacksNotifierHistory",
+					winblend = 25, -- 增加通知历史透明度
+				},
 				keys = { q = "close" },
 			},
+			-- 通知弹窗
 			{
 				border = "rounded",
 				zindex = 100,
 				ft = "markdown",
 				wo = {
-					winblend = 5,
+					winblend = 30, -- 增加通知弹窗透明度
 					wrap = false,
 					conceallevel = 2,
 					colorcolumn = "",

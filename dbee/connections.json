@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sqlite_example",
+    "name": "SQLite Example",
+    "type": "sqlite",
+    "url": "sqlite:example.db"
+  },
+  {
+    "id": "mysql_example",
+    "name": "MySQL Example",
+    "type": "mysql",
+    "url": "mysql://username:password@localhost:3306/database_name"
+  },
+  {
+    "id": "postgresql_example",
+    "name": "PostgreSQL Example", 
+    "type": "postgres",
+    "url": "postgresql://username:password@localhost:5432/database_name"
+  }
+]

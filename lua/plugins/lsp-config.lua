@@ -30,9 +30,7 @@ return {
             virtual_text = true, signs = true, underline = true,
             update_in_insert = false, severity_sort = true,
             float = { border = "rounded", source = "always" },
-        })
-
-        -- 5. 定义通用的 on_attach 函数
+        })        -- 5. 定义通用的 on_attach 函数
         local common_on_attach = function(client, bufnr)
             local opts = { buffer = bufnr, noremap = true, silent = true }
             local keymap = vim.keymap
@@ -47,8 +45,14 @@ return {
             keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
             keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
             keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-            keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-            keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+            keymap.set('n', 'gr', vim.lsp.buf.references, opts)            keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
+              -- 支持 aerial.nvim 符号列表 (安全调用)
+            if client.server_capabilities.documentSymbolProvider then
+                local ok, aerial = pcall(require, "aerial")
+                if ok and type(aerial.on_attach) == "function" then
+                    aerial.on_attach(bufnr)
+                end
+            end
         end
 
         -- 6. **手动、显式地配置每个 LSP 服务**

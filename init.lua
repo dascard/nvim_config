@@ -150,14 +150,11 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
 	callback = set_ime,
 })
 require("config.lazy")
-require("core")
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
 -- require("lazy").setup("plugins")
 -- require("lazy").setup("utils")
--- optionally enable 24-bit colour
-vim.opt.termguicolors = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
