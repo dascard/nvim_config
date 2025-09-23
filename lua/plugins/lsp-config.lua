@@ -1,10 +1,11 @@
 -- lua/plugins/lsp-config.lua
+-- 临时禁用，切换到 coc.nvim
 return {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
+    enabled = false, -- 禁用此插件
+    event = { "BufReadPre", "BufNewFile" },    dependencies = {
         "williamboman/mason.nvim", -- 确保 mason 已加载，以便 LSP 二进制文件存在
-        "hrsh7th/cmp-nvim-lsp",
+        -- "hrsh7th/cmp-nvim-lsp", -- 已禁用，因为现在使用 COC.nvim
         { "folke/neodev.nvim", opts = {} },
         "b0o/schemastore.nvim", -- JSON/YAML schemas
     },

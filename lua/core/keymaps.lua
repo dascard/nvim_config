@@ -23,7 +23,7 @@ keymap("n", "<M-o>", "o<Esc>")
 keymap("n", "<leader>k", ":FloatermKill<CR>")
 keymap("n", "j", "gj")
 keymap("n", "k", "gk")
---keymap("n", "<leader>=", "gg=G")
+keymap("n", "<leader>=", ":call CocActionAsync('format')<CR>")
 
 -- 可视模式映射
 keymap("v", "<C-j>", ":m '>+1<CR>gv=gv")

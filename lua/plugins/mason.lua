@@ -1,6 +1,8 @@
 -- lua/plugins/mason-core.lua
+-- 临时禁用，切换到 coc.nvim
 return {
     "williamboman/mason.nvim",
+    enabled = false, -- 禁用此插件
     lazy = false, -- Mason 需要尽早加载
     priority = 1000,
     config = function()

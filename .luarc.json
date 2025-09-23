@@ -2,5 +2,6 @@
     "diagnostics.globals": [
         "vim",
         "local"
-    ]
+    ],
+    "diagnostics.workspaceDelay": 30000
 }

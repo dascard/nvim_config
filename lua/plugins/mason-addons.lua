@@ -1,6 +1,8 @@
 -- lua/plugins/mason-tool-installer-config.lua
+-- 临时禁用，切换到 coc.nvim
 return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    enabled = false, -- 禁用此插件
     dependencies = { "williamboman/mason.nvim" }, -- 确保 Mason 先加载
     config = function()
         require("mason-tool-installer").setup({

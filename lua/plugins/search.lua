@@ -70,12 +70,10 @@ return {
 			vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "在当前文件搜索当前单词" })
 		end,
 	},
-
-	-- 搜索时的单词补全 - 仅支持搜索模式 (/, ?)
-	{
-		"hrsh7th/cmp-cmdline",
-		event = "CmdlineEnter",
-		dependencies = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-buffer" },
+	-- 搜索时的单词补全 - 已禁用，改为使用 COC.nvim
+	{		"hrsh7th/cmp-cmdline",
+		enabled = false, -- 禁用，因为现在使用 COC.nvim
+		-- dependencies = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-buffer" },
 		config = function()
 			local cmp = require("cmp")
 

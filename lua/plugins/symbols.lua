@@ -1,15 +1,15 @@
--- LSP 符号列表插件
+-- LSP 符号列表插件 - 兼容 COC.nvim
 return {
 	{
 		"stevearc/aerial.nvim",
-		event = "LspAttach",
+		event = { "BufReadPre", "BufNewFile" }, -- 改为普通事件而不是 LspAttach
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons"
 		},
 		opts = {
-			-- 基本配置
-			backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+			-- 基本配置 - 优先使用 treesitter，因为 COC 不直接集成
+			backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
 			
 			-- 布局配置
 			layout = {
@@ -78,39 +78,38 @@ return {
 				"Field",
 				"Property",
 			},
-			
-			-- 图标配置
+					-- 图标配置 - 优化为更兼容的符号
 			icons = {
-				Array = "󰅪",
-				Boolean = "⊨",
-				Class = "󰌗",
-				Constructor = "",
-				Key = "󰌆",
-				Namespace = "󰅪",
-				Null = "NULL",
-				Number = "#",
-				Object = "󰀚",
-				Package = "󰏗",
-				Property = "",
-				Reference = "",
-				Snippet = "",
-				String = "󰀬",
-				TypeParameter = "󰊄",
-				Unit = "",
+				Array = "󰅪",      -- 数组
+				Boolean = "󱓇",    -- 布尔值
+				Class = "󰠱",      -- 类
+				Constructor = "", -- 构造函数
+				Key = "󰌋",        -- 键
+				Namespace = "󰌗",  -- 命名空间
+				Null = "󰟢",       -- 空值
+				Number = "󰎠",     -- 数字
+				Object = "󰅩",     -- 对象
+				Package = "󰏗",    -- 包
+				Property = "󰜢",   -- 属性
+				Reference = "󰈇",  -- 引用
+				Snippet = "󰩫",    -- 代码片段
+				String = "󰉿",     -- 字符串
+				TypeParameter = "󰅲", -- 类型参数
+				Unit = "󰑭",       -- 单位
 				-- LSP 符号
-				File = "󰈙",
-				Module = "",
-				Function = "󰊕",
-				Method = "",
-				Variable = "󰀫",
-				Constant = "󰏿",
-				Field = "",
-				Interface = "",
-				Enum = "",
-				Struct = "󰌗",
-				EnumMember = "",
-				Event = "",
-				Operator = "󰆕",
+				File = "󰈙",       -- 文件
+				Module = "󰏗",     -- 模块
+				Function = "󰊕",   -- 函数
+				Method = "󰆧",     -- 方法
+				Variable = "󰀫",   -- 变量
+				Constant = "󰏿",   -- 常量
+				Field = "󰇽",      -- 字段
+				Interface = "󰜰", -- 接口
+				Enum = "󰕘",       -- 枚举
+				Struct = "󰙅",     -- 结构体
+				EnumMember = "󰕘", -- 枚举成员
+				Event = "󰉁",      -- 事件
+				Operator = "󰆕",   -- 操作符
 			},
 			
 			-- 突出显示配置

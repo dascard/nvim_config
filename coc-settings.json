@@ -1,0 +1,139 @@
+{
+  "suggest.noselect": false,
+  "suggest.enablePreselect": true,
+  "suggest.maxCompleteItemCount": 15,
+  "suggest.timeout": 3000,
+  "suggest.autoTrigger": "always",
+  "suggest.minTriggerInputLength": 1,
+  "suggest.triggerAfterInsertEnter": false,
+  "suggest.snippetIndicator": "►",
+  "suggest.detailField": "preview",
+  "suggest.labelMaxLength": 60,
+  "suggest.selection": "recentlyUsed",
+  "suggest.removeDuplicateItems": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "winblend": 10,
+    "maxWidth": 80,
+    "highlight": "CocFloating",
+    "borderhighlight": "CocFloating"
+  },
+  "suggest.completionItemKindLabels": {
+    "keyword": "🔤",
+    "variable": "📦",
+    "value": "🔢",
+    "operator": "➕",
+    "function": "🔧",
+    "reference": "📌",
+    "constant": "🔒",
+    "method": "⚙️",
+    "struct": "🏗️",
+    "class": "🏛️",
+    "interface": "🔗",
+    "text": "📝",
+    "enum": "📋",
+    "enumMember": "📄",
+    "module": "📦",
+    "color": "🎨",
+    "property": "🔧",
+    "field": "📍",
+    "unit": "📏",
+    "event": "⚡",
+    "file": "📁",
+    "folder": "📂",
+    "snippet": "✂️",
+    "typeParameter": "🎯"
+  },
+  "languageserver.priority": 3,
+  "snippets.priority": 2,
+  "snippets.loadFromExtensions": true,
+  "snippets.ultisnips.enable": true,
+  "snippets.extends": {
+    "cpp": ["c"],
+    "javascript": ["html"],
+    "typescript": ["javascript"],
+    "javascriptreact": ["javascript"],
+    "typescriptreact": ["typescript", "javascript"]
+  },
+
+  "snippets.ultisnips.directories": ["UltiSnips"],
+  "suggest.snippetIndicator": "⚡",
+
+  "coc.source.file.enable": true,
+  "coc.source.around.enable": true,
+  "coc.source.buffer.enable": true,
+
+  "diagnostic.displayByAle": false,
+  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "✗",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "💡",
+
+  "list.indicator": ">",
+  "list.selectedSignText": "►",
+  "list.previewHighlightGroup": "Search",
+
+  "signature.enable": true,
+  "signature.target": "float",
+  "signature.preferShownAbove": true,
+
+  "hover.target": "float",
+  "hover.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "maxWidth": 80,
+    "maxHeight": 20
+  },
+
+  "codeLens.enable": true,
+  "codeLens.separator": "‣",
+  "copilot.enable": true,
+  "copilot.priority": 1,
+
+  "prettier.enable": true,
+  "prettier.onlyUseLocalVersion": false,
+  "prettier.requireConfig": false,
+  "prettier.statusItemText": "Prettier",
+  "prettier.printWidth": 100,
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.semi": false,
+  "prettier.useTabs": false,
+  "prettier.bracketSpacing": true,
+
+  "eslint.autoFixOnSave": true,
+
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "88"],
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.sortImports.args": ["--profile", "black"],
+
+  "java.format.enabled": true,
+  "java.format.settings.url": "",
+  "java.format.settings.profile": "GoogleStyle",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "css",
+    "html",
+    "markdown",
+    "python",
+    "java",
+    "c",
+    "cpp",
+    "lua"
+  ],
+  "languageserver": {},
+
+  "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

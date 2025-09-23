@@ -14,7 +14,7 @@ vim.opt.foldmethod = "marker"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 vim.opt.showtabline = 2
 vim.opt.laststatus = 3
@@ -22,12 +22,12 @@ vim.opt.sidescrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true
 vim.opt.smartindent = true
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 2
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.cursorline = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 500
 vim.opt.undofile = true
@@ -51,13 +51,13 @@ vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
 -- lua tap=2
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "lua",
-	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-	end,
-})
+--vim.api.nvim_create_autocmd("FileType", {
+--	pattern = {"lua", "cpp"}
+--	callback = function()
+--		vim.opt_local.shiftwidth = 2
+--		vim.opt_local.tabstop = 2
+--	end,
+--})
 -- ssh remote copy
 if vim.env.SSH_CONNECTION and pcall(require, "vim.ui.clipboard.osc52") then
 	vim.g.clipboard = {
@@ -110,16 +110,19 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.wo.winhighlight = "NormalFloat:Normal" -- 继承主题背景色
-require("cmp").setup({
-	window = {
-		completion = {
-			winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:None",
-		},
-		documentation = {
-			winhighlight = "Normal:NormalFloat",
-		},
-	},
-})
+
+-- CMP 配置已禁用，现在使用 COC.nvim
+-- require("cmp").setup({
+-- 	window = {
+-- 		completion = {
+-- 			winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:None",
+-- 		},
+-- 		documentation = {
+-- 			winhighlight = "Normal:NormalFloat",
+-- 		},
+-- 	},
+-- })
+
 vim.diagnostic.config({
 	float = {
 		source = "always",

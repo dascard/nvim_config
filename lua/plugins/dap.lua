@@ -1449,6 +1449,7 @@ return {
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
+		enabled = false, -- 禁用，因为现在不使用 Mason
 		---@type MasonNvimDapSettings
 		opts = {
 			-- This line is essential to making automatic installation work
@@ -1499,7 +1500,7 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
-			"jay-babu/mason-nvim-dap.nvim",
+			-- "jay-babu/mason-nvim-dap.nvim", -- 已禁用，因为现在不使用 Mason
 			"leoluz/nvim-dap-go",
 			"mfussenegger/nvim-dap-python",
 			"nvim-neotest/nvim-nio",

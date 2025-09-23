@@ -26,8 +26,10 @@ local kind_icons = {
 	TypeParameter = "󰅲", -- 类型参数
 	Copilot = "",
 }
+-- CMP 配置 - 针对 COC.nvim 优化
 return {
 	"hrsh7th/nvim-cmp",
+	enabled = false, -- 禁用 CMP，使用 COC 的补全系统
 	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer

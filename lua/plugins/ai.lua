@@ -15,12 +15,12 @@ return {
 				auto_trigger = true,
 				debounce = 75,
 				keymap = {
-					accept = "<C-j>",
-					accept_word = "<C-l>",
-					accept_line = "<M-l>", -- Meta/Alt + L
-					next = "<M-]>",
-					prev = "<M-[>",
-					dismiss = "<C-e>",
+					accept = "<C-j>",        -- Ctrl+Y 接受 Copilot 建议
+					accept_word = "<C-l>",   -- Ctrl+L 接受单词
+					accept_line = "<M-l>",   -- Alt+L 接受行
+					next = "<M-]>",          -- Alt+] 下一个建议
+					prev = "<M-[>",          -- Alt+[ 上一个建议
+					dismiss = "<C-e>",       -- Ctrl+E 关闭建议
 				},
 			},
 			panel = {
@@ -276,9 +276,10 @@ return {
 		end,
 	},
 
-	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源
+	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源 - 已禁用，改用 COC
 	{
 		"zbirenbaum/copilot-cmp",
+		enabled = false, -- 禁用，因为现在使用 COC.nvim
 		dependencies = { "nvim-cmp", "zbirenbaum/copilot.lua" },
 		opts = {
 			fix_keymaps = false,
