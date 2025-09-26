@@ -20,11 +20,11 @@ pkg install -y make cmake clang binutils
 
 # 安装编程语言和工具
 echo "💻 Installing programming languages..."
-pkg install -y golang rust lua54 luarocks ruby php
+pkg install -y golang rust lua54 luarocks
 
 # 安装系统工具
 echo "⚙️ Installing system utilities..."
-pkg install -y ripgrep fd fzf tree bat exa htop ncdu
+pkg install -y ripgrep fd fzf tree bat htop ncdu
 
 # 安装字体和终端工具
 echo "🎨 Installing terminal enhancements..."
@@ -32,12 +32,11 @@ pkg install -y termux-api man
 
 # Python 工具
 echo "🐍 Installing Python tools..."
-pip install --upgrade pip
 pip install black isort pyright autopep8 flake8 mypy pynvim
 
 # Node.js 工具
 echo "📦 Installing Node.js tools..."
-npm install -g prettier eslint typescript-language-server \
+npm install -g --force prettier eslint typescript-language-server \
     @fsouza/prettierd eslint_d vscode-langservers-extracted \
     typescript pyright bash-language-server
 
@@ -45,24 +44,15 @@ npm install -g prettier eslint typescript-language-server \
 echo "🦀 Installing Rust tools..."
 cargo install tree-sitter-cli
 
-# Go 工具
-echo "🐹 Installing Go tools..."
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install golang.org/x/tools/gopls@latest
-
-# Ruby 工具
-echo "💎 Installing Ruby tools..."
-gem install solargraph
-
 # 安装 Nerd Font 字体
 echo "🎨 Installing Nerd Font..."
 if [ ! -d "$HOME/.termux/font" ]; then
     mkdir -p $HOME/.termux
-    echo "Downloading JetBrains Mono Nerd Font..."
+    echo "Downloading DroidsansMono Font..."
     curl -fLo "$HOME/.termux/font.ttf" \
-        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" || \
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/DroidsansMono.zip" || \
     wget -O "$HOME/.termux/font.ttf" \
-        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+        "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/DroidsansMono.zip"
     
     if [ -f "$HOME/.termux/font.ttf" ]; then
         echo "Font downloaded. Please restart Termux to apply the font."
