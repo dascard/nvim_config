@@ -58,7 +58,7 @@
   },
 
   "snippets.ultisnips.directories": ["UltiSnips"],
-  "suggest.snippetIndicator": "⚡",
+  "suggest.snippetIndicator": " ⚡",
 
   "coc.source.file.enable": true,
   "coc.source.around.enable": true,

@@ -153,8 +153,7 @@ require("config.lazy")
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")
--- require("lazy").setup("plugins")
--- require("lazy").setup("utils")
+require("utils")  -- 加载工具模块
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -162,29 +161,158 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt.fillchars:append({ eob = " " }) -- 全局替换
 
-vim.g.clipboard = {
-	name = "win32yank-wsl",
-	copy = {
-		["+"] = "win32yank.exe -i --crlf",
-		["*"] = "win32yank.exe -i --crlf",
-	},
-	paste = {
-		["+"] = "win32yank.exe -o --lf",
-		["*"] = "win32yank.exe -o --lf",
-	},
-	cache_enabled = true,
-}
+-- 智能跨平台剪切板配置
+local function setup_clipboard()
+    -- 检测操作系统和环境
+    local os_name = vim.loop.os_uname().sysname:lower()
+    local is_wsl = vim.fn.has('wsl') == 1
+    local is_ssh = vim.env.SSH_CLIENT ~= nil or vim.env.SSH_TTY ~= nil
+    local is_tmux = vim.env.TMUX ~= nil
+    local is_termux = vim.env.PREFIX ~= nil and vim.env.PREFIX:match('/data/data/com.termux')
+    
+    -- Termux (Android)
+    if is_termux then
+        if vim.fn.executable('termux-clipboard-set') == 1 then
+            vim.g.clipboard = {
+                name = "termux",
+                copy = {
+                    ["+"] = "termux-clipboard-set",
+                    ["*"] = "termux-clipboard-set",
+                },
+                paste = {
+                    ["+"] = "termux-clipboard-get",
+                    ["*"] = "termux-clipboard-get",
+                },
+                cache_enabled = true,
+            }
+            return
+        end
+    end
+    
+    -- Windows (包括 WSL)
+    if os_name:match("windows") or is_wsl then
+        if vim.fn.executable('win32yank.exe') == 1 then
+            vim.g.clipboard = {
+                name = "win32yank",
+                copy = {
+                    ["+"] = "win32yank.exe -i --crlf",
+                    ["*"] = "win32yank.exe -i --crlf",
+                },
+                paste = {
+                    ["+"] = "win32yank.exe -o --lf", 
+                    ["*"] = "win32yank.exe -o --lf",
+                },
+                cache_enabled = true,
+            }
+            return
+        elseif vim.fn.executable('clip.exe') == 1 and vim.fn.executable('powershell.exe') == 1 then
+            vim.g.clipboard = {
+                name = "win32-powershell",
+                copy = {
+                    ["+"] = "clip.exe",
+                    ["*"] = "clip.exe",
+                },
+                paste = {
+                    ["+"] = 'powershell.exe -c "Get-Clipboard"',
+                    ["*"] = 'powershell.exe -c "Get-Clipboard"',
+                },
+                cache_enabled = true,
+            }
+            return
+        end
+    end
+    
+    -- macOS
+    if os_name:match("darwin") then
+        if vim.fn.executable('pbcopy') == 1 and vim.fn.executable('pbpaste') == 1 then
+            vim.g.clipboard = {
+                name = "pbcopy",
+                copy = {
+                    ["+"] = "pbcopy",
+                    ["*"] = "pbcopy",
+                },
+                paste = {
+                    ["+"] = "pbpaste",
+                    ["*"] = "pbpaste",
+                },
+                cache_enabled = true,
+            }
+            return
+        end
+    end
+    
+    -- Linux 和其他 Unix 系统
+    if os_name:match("linux") or os_name:match("bsd") or os_name:match("unix") then
+        -- 优先使用 wl-copy (Wayland)
+        if vim.fn.executable('wl-copy') == 1 and vim.fn.executable('wl-paste') == 1 then
+            vim.g.clipboard = {
+                name = "wl-clipboard",
+                copy = {
+                    ["+"] = "wl-copy --type text/plain",
+                    ["*"] = "wl-copy --type text/plain --primary",
+                },
+                paste = {
+                    ["+"] = "wl-paste --no-newline",
+                    ["*"] = "wl-paste --no-newline --primary",
+                },
+                cache_enabled = true,
+            }
+            return
+        -- 其次使用 xclip (X11)
+        elseif vim.fn.executable('xclip') == 1 then
+            vim.g.clipboard = {
+                name = "xclip",
+                copy = {
+                    ["+"] = "xclip -quiet -i -selection clipboard",
+                    ["*"] = "xclip -quiet -i -selection primary",
+                },
+                paste = {
+                    ["+"] = "xclip -o -selection clipboard",
+                    ["*"] = "xclip -o -selection primary",
+                },
+                cache_enabled = true,
+            }
+            return
+        -- 最后使用 xsel
+        elseif vim.fn.executable('xsel') == 1 then
+            vim.g.clipboard = {
+                name = "xsel",
+                copy = {
+                    ["+"] = "xsel --nodetach --input --clipboard",
+                    ["*"] = "xsel --nodetach --input --primary",
+                },
+                paste = {
+                    ["+"] = "xsel --output --clipboard",
+                    ["*"] = "xsel --output --primary",
+                },
+                cache_enabled = true,
+            }
+            return
+        end
+    end
+    
+    -- SSH 或远程环境，使用 OSC 52 (如果支持)
+    if is_ssh or is_tmux then
+        -- 检查终端是否支持 OSC 52
+        if vim.env.TERM_PROGRAM or vim.env.TMUX then
+            vim.g.clipboard = {
+                name = "OSC 52",
+                copy = {
+                    ["+"] = require("vim.ui.clipboard.osc52").copy,
+                    ["*"] = require("vim.ui.clipboard.osc52").copy,
+                },
+                paste = {
+                    ["+"] = require("vim.ui.clipboard.osc52").paste,
+                    ["*"] = require("vim.ui.clipboard.osc52").paste,
+                },
+            }
+            return
+        end
+    end
+    
+    -- 默认回退到系统剪切板
+    vim.opt.clipboard = "unnamedplus"
+end
 
--- init.lua
--- vim.opt.clipboard = "unnamedplus"
--- vim.g.clipboard = {
--- 	name = "OSC 52",
--- 	copy = {
--- 		["+"] = require("vim.ui.clipboard.osc52").copy,
--- 		["*"] = require("vim.ui.clipboard.osc52").copy,
--- 	},
--- 	paste = {
--- 		["+"] = require("vim.ui.clipboard.osc52").paste,
--- 		["*"] = require("vim.ui.clipboard.osc52").paste,
--- 	},
--- }
+-- 设置剪切板
+setup_clipboard()

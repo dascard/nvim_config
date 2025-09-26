@@ -1,44 +1,44 @@
 -- lua/plugins/coc.lua
--- COC.nvim 配置 - 简洁稳定版本
+-- COC.nvim 配置 - 增强版本
 return {
 	{
 		"neoclide/coc.nvim",
 		branch = "release",
 		event = { "BufReadPre", "BufNewFile" },
-		Lazy = true,
-		event = VeryLazy,
 		config = function()
-			-- Windows 兼容的基础扩展列表
+			-- 加载 COC 扩展管理器
+			local coc_manager = require('utils.coc-manager')
+			coc_manager.setup()
+			
+			-- 核心扩展列表 (自动安装)
 			vim.g.coc_global_extensions = {
-				"coc-json",      -- JSON
-				"coc-html",      -- HTML
-				"coc-css",       -- CSS
-				"coc-yaml",      -- YAML
-				"coc-pairs",     -- 自动括号
-				-- 格式化工具
-				"coc-prettier",  -- 前端代码格式化
-				"coc-eslint",    -- JavaScript/TypeScript 检查
-				"coc-stylelintplus", -- CSS/SCSS 格式化
-				"coc-markdownlint", -- Markdown 格式化
-				-- "coc-sql",                   -- SQL 格式化
-
-				-- AI 和增强功能
-				"coc-lists", -- 列表增强
-				"coc-explorer", -- 文件浏览器
-				"coc-git",   -- Git 集成
-				"coc-highlight", -- 语法高亮增强
-
-				-- 文档和工具
-				"coc-spell-checker", -- 拼写检查
-				"coc-translator", -- 翻译工具
-				"coc-marketplace", -- 扩展市场			"co                "coc-snippets",              -- 代码片段引擎
-
-				-- Snippet 扩展
-				"coc-ultisnips", -- UltiSnips 支持
-				"coc-neosnippet", -- NeoSnippet 支持
-				"coc-emoji",  -- Emoji 支持
-				"coc-dictionary", -- 字典补全
-				"coc-syntax", -- 语法增强
+				-- 核心语言支持
+				"coc-json",           -- JSON 支持
+				"coc-html",           -- HTML 支持
+				"coc-css",            -- CSS 支持
+				"coc-yaml",           -- YAML 支持
+				"coc-pairs",          -- 自动括号配对
+				
+				-- JavaScript/TypeScript 生态
+				"coc-tsserver",       -- TypeScript 语言服务器
+				"coc-eslint",         -- ESLint 集成
+				"coc-prettier",       -- Prettier 格式化
+				
+				-- Python 开发
+				"coc-pyright",        -- Python 语言服务器
+				
+				-- Web 开发增强
+				"coc-emmet",          -- Emmet 支持
+				"coc-stylelintplus",  -- CSS/SCSS Lint
+				
+				-- 开发工具
+				"coc-git",            -- Git 集成
+				"coc-snippets",       -- 代码片段
+				"coc-lists",          -- 增强列表
+				"coc-marketplace",    -- 扩展市场
+				
+				-- AI 工具
+				"coc-copilot",        -- GitHub Copilot
 			}
 			-- 基本设置
 			local node_path = "node"
