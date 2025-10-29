@@ -4,9 +4,9 @@ return {
 	-- 1. Copilot.lua: 核心 GitHub Copilot Agent 提供者
 	{
 		"zbirenbaum/copilot.lua",
-		cmd = "Copilot", -- 按需加载
+		cmd = "Copilot",       -- 按需加载
 		event = "InsertEnter", -- 在插入模式时初始化 Copilot
-		branch = "master", -- 该插件的默认分支是 main
+		branch = "master",     -- 该插件的默认分支是 main
 		commit = "acf547e",
 		build = ":Copilot auth", -- 安装后执行认证
 		opts = {
@@ -15,12 +15,12 @@ return {
 				auto_trigger = true,
 				debounce = 75,
 				keymap = {
-					accept = "<C-j>",        -- Ctrl+Y 接受 Copilot 建议
-					accept_word = "<C-l>",   -- Ctrl+L 接受单词
-					accept_line = "<M-l>",   -- Alt+L 接受行
-					next = "<M-]>",          -- Alt+] 下一个建议
-					prev = "<M-[>",          -- Alt+[ 上一个建议
-					dismiss = "<C-e>",       -- Ctrl+E 关闭建议
+					accept = "<C-j>", -- Ctrl+Y 接受 Copilot 建议
+					accept_word = "<C-l>", -- Ctrl+L 接受单词
+					accept_line = "<M-l>", -- Alt+L 接受行
+					next = "<M-]>",   -- Alt+] 下一个建议
+					prev = "<M-[>",   -- Alt+[ 上一个建议
+					dismiss = "<C-e>", -- Ctrl+E 关闭建议
 				},
 			},
 			panel = {
@@ -111,22 +111,23 @@ return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		cmd = { "CopilotChat", "CopilotChatToggle", "CopilotChatReset", "CopilotChatAsk", "CopilotChatSelectPrompt" },
+		commit = "93110a5",
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" }, -- 依赖核心 Copilot 插件
 			{ "nvim-lua/plenary.nvim" }, -- 常用工具库
 			{ "MeanderingProgrammer/render-markdown.nvim" },
 		},
-		build = "make tiktoken", -- 构建 tiktoken 库用于标记化
+		build = "make tiktoken",                                        -- 构建 tiktoken 库用于标记化
 		opts = function()
 			local user_name_env = vim.env.USER or vim.env.USERNAME or "User" -- Windows 兼容
 			local user_name_capitalized = user_name_env:sub(1, 1):upper() .. user_name_env:sub(2)
 
 			return {
-				auto_insert_mode = true, -- 进入聊天窗口自动切换到插入模式
+				auto_insert_mode = true,                            -- 进入聊天窗口自动切换到插入模式
 				question_header = "  " .. user_name_capitalized .. " ", -- 提问标头
-				answer_header = "  Copilot ", -- 回答标头
-				debug = false, -- 调试模式
-				show_help = true, -- 显示帮助信息
+				answer_header = "  Copilot ",                       -- 回答标头
+				debug = false,                                      -- 调试模式
+				show_help = true,                                   -- 显示帮助信息
 				model = "gemini-2.5-pro",
 				-- 中文预设提示词
 				prompts = {
@@ -156,8 +157,8 @@ return {
 				-- 窗口配置
 				window = {
 					layout = "vertical", -- 垂直布局
-					width = 0.30, -- 窗口宽度为编辑器的45%
-					height = 0.9, -- 窗口高度为编辑器的90%
+					width = 0.30,      -- 窗口宽度为编辑器的45%
+					height = 0.9,      -- 窗口高度为编辑器的90%
 					relative = "editor", -- 相对于编辑器定位
 					border = "rounded", -- 圆角边框
 					title = "Copilot Chat", -- 窗口标题
@@ -315,9 +316,9 @@ return {
 	{
 		"folke/edgy.nvim",
 		event = "VeryLazy",
-		optional = true, -- 标记为可选插件
+		optional = true,             -- 标记为可选插件
 		opts = function(_, opts)
-			opts = opts or {} -- 确保 opts 是表格
+			opts = opts or {}          -- 确保 opts 是表格
 			opts.right = opts.right or {} -- 初始化右侧窗口列表
 			-- 添加 Copilot Chat 到右侧窗口
 			table.insert(opts.right, {
@@ -338,8 +339,8 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
+		-- @module 'render-markdown'
+		-- @type render.md.UserConfig
 		opts = {},
-	},
+	}
 }

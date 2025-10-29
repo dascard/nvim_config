@@ -15,7 +15,7 @@ return {
 					"python",
 					"markdown",
 					"markdown_inline",
-					"latex",
+					-- "latex",
 					"html",
 					"java",
 					"typst",
@@ -32,15 +32,15 @@ return {
 		"nvim-treesitter/nvim-treesitter-context",
 		config = function()
 			require("treesitter-context").setup({
-				enable = true, -- Enable this plugin
-				throttle = true, -- Throttles the update, default to false
-				max_lines = 0, -- How many lines the context should occupy, 0 for unlimited
-				min_rows = 8, -- Minimum number of screen rows to enable this plugin
-				line_as_cursor = false, -- When line_as_cursor is true, the cursor line is not an actual line, but a border
-				separate_gitsigns = false, -- Will leave room for gitsigns for example (default true)
+				enable = true,                   -- Enable this plugin
+				throttle = true,                 -- Throttles the update, default to false
+				max_lines = 0,                   -- How many lines the context should occupy, 0 for unlimited
+				min_rows = 8,                    -- Minimum number of screen rows to enable this plugin
+				line_as_cursor = false,          -- When line_as_cursor is true, the cursor line is not an actual line, but a border
+				separate_gitsigns = false,       -- Will leave room for gitsigns for example (default true)
 				multiline_whitespace_check = false, -- For functions with a multiline signature with just whitespaces (like function (a,\n b,\n c) )
 				remove_signcolumn_highlight = false, -- Remove signcolumn highlight of the context line (default true)
-				mode = "auto", -- 'topline', 'cursor', 'auto', 'nvim_treesitter_context_line', 'nvim_treesitter_context_line_cursor'
+				mode = "auto",                   -- 'topline', 'cursor', 'auto', 'nvim_treesitter_context_line', 'nvim_treesitter_context_line_cursor'
 			})
 		end,
 		requires = "nvim-treesitter/nvim-treesitter",
@@ -65,7 +65,7 @@ return {
 					},
 					move = {
 						enable = true,
-						set_jumps = true, -- whether to set jumps in the jumplist
+						set_jumps = true,      -- whether to set jumps in the jumplist
 						goto_next_start = {
 							["]m"] = "@function.outer", -- 下一个函数开始
 							["]M"] = "@class.outer", -- 下一个类开始

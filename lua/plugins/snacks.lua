@@ -2,29 +2,29 @@
 local preset_header = {
 	[[
 
-  ▀████▀                              ▀███                 
-    ██                                  ██                 
+  ▀████▀                              ▀███
+    ██                                  ██
     ██     ▀███  ▀███   ▄██▀██▄ ▄██▀███ ██  ▄██▀▀██▀   ▀██▀
-    ██       ██    ██  ██▀   ▀████   ▀▀ ██ ▄█     ██   ▄█  
-    ██     ▄ ██    ██  ██     ██▀█████▄ ██▄██      ██ ▄█   
-    ██    ▄█ ██    ██  ██▄   ▄███▄   ██ ██ ▀██▄     ███    
-  ██████████ ▀████▀███▄ ▀█████▀ ██████▀████▄ ██▄▄   ▄█     
-                                                  ▄█       
-                                                ██▀        
+    ██       ██    ██  ██▀   ▀████   ▀▀ ██ ▄█     ██   ▄█
+    ██     ▄ ██    ██  ██     ██▀█████▄ ██▄██      ██ ▄█
+    ██    ▄█ ██    ██  ██▄   ▄███▄   ██ ██ ▀██▄     ███
+  ██████████ ▀████▀███▄ ▀█████▀ ██████▀████▄ ██▄▄   ▄█
+                                                  ▄█
+                                                ██▀
 	]],
 	[[
 	██╗     ██╗   ██╗ ██████╗ ███████╗██╗  ██╗██╗   ██╗
 	██║     ██║   ██║██╔═══██╗██╔════╝██║ ██╔╝╚██╗ ██╔╝
-	██║     ██║   ██║██║   ██║███████╗█████╔╝  ╚████╔╝ 
-	██║     ██║   ██║██║   ██║╚════██║██╔═██╗   ╚██╔╝  
-	███████╗╚██████╔╝╚██████╔╝███████║██║  ██╗   ██║   
-	╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   
+	██║     ██║   ██║██║   ██║███████╗█████╔╝  ╚████╔╝
+	██║     ██║   ██║██║   ██║╚════██║██╔═██╗   ╚██╔╝
+	███████╗╚██████╔╝╚██████╔╝███████║██║  ██╗   ██║
+	╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝
 	]],
 	[[
 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 	░   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   ░░░░░░░░░░░░░░░
 	▒   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
-	▒   ▒▒▒▒▒▒▒▒   ▒▒   ▒▒▒▒   ▒▒▒▒▒▒     ▒▒   ▒▒   ▒   ▒▒▒   
+	▒   ▒▒▒▒▒▒▒▒   ▒▒   ▒▒▒▒   ▒▒▒▒▒▒     ▒▒   ▒▒   ▒   ▒▒▒
 	▓   ▓▓▓▓▓▓▓▓   ▓▓   ▓▓   ▓▓   ▓▓   ▓▓▓▓▓   ▓   ▓▓▓   ▓   ▓
 	▓   ▓▓▓▓▓▓▓▓   ▓▓   ▓   ▓▓▓▓   ▓▓▓    ▓▓     ▓▓▓▓▓▓▓    ▓▓
 	▓   ▓▓▓▓▓▓▓▓   ▓▓   ▓▓   ▓▓   ▓▓▓▓▓▓   ▓   ▓   ▓▓▓▓▓▓   ▓▓
@@ -32,14 +32,14 @@ local preset_header = {
 	███████████████████████████████████████████████████   ████
 	]],
 	[[
-	███                                    ███               
-	███                                    ███               
+	███                                    ███
+	███                                    ███
 	███        ███  ███    ███      █████  ███  ███ ███   ███
-	███        ███  ███  ███  ███  ███     ███ ███   ███ ███ 
-	███        ███  ███ ███    ███   ████  █████       ████  
-	███        ███  ███  ███  ███      ███ ███ ███      ███  
-	██████████   ██████    ███     ██████  ███  ███    ███   
-																									  ███    
+	███        ███  ███  ███  ███  ███     ███ ███   ███ ███
+	███        ███  ███ ███    ███   ████  █████       ████
+	███        ███  ███  ███  ███      ███ ███ ███      ███
+	██████████   ██████    ███     ██████  ███  ███    ███
+																									  ███
 	]],
 }
 math.randomseed(os.time())
@@ -140,7 +140,7 @@ return {
 		indent = {
 			indent = {
 				priority = 1,
-				enabled = true, -- enable indent guides
+				enabled = true,   -- enable indent guides
 				char = "│",
 				only_scope = false, -- only show indent guides of the scope
 				only_current = false, -- only show indent guides in the current window
@@ -211,8 +211,8 @@ return {
 			left = { "mark", "sign" }, -- priority of signs on the left (high to low)
 			right = { "fold", "git" }, -- priority of signs on the right (high to low)
 			folds = {
-				open = false, -- show open fold icons
-				git_hl = false, -- use Git Signs hl for fold icons
+				open = false,         -- show open fold icons
+				git_hl = false,       -- use Git Signs hl for fold icons
 			},
 			git = {
 				-- patterns to match Git signs
@@ -274,7 +274,7 @@ return {
 						{ win = "input", height = 1, border = "bottom" },
 						{
 							box = "horizontal",
-							{ win = "list", border = "none" },
+							{ win = "list",    border = "none" },
 							{ win = "preview", title = "{preview}", width = 0.5, border = "left" },
 						},
 					},
@@ -292,9 +292,9 @@ return {
 						border = "rounded",
 						title = "{title} {live} {flags}",
 						title_pos = "center",
-						{ win = "input", height = 1, border = "bottom" },
-						{ win = "list", border = "none" },
-						{ win = "preview", title = "{preview}", height = 0.4, border = "top" },
+						{ win = "input",   height = 1,          border = "bottom" },
+						{ win = "list",    border = "none" },
+						{ win = "preview", title = "{preview}", height = 0.4,     border = "top" },
 					},
 				},
 			},
@@ -338,7 +338,7 @@ return {
 			height = { min = 1, max = 0.6 },
 			-- editor margin to keep free. tabline and statusline are taken into account automatically
 			margin = { top = 0, right = 1, bottom = 0 },
-			padding = true, -- add 1 cell of left/right padding to the notification window
+			padding = true,           -- add 1 cell of left/right padding to the notification window
 			sort = { "level", "added" }, -- sort by level and time
 			-- minimum log level to display. TRACE is the lowest
 			-- all notifications are stored in history
@@ -373,7 +373,7 @@ return {
 			-- try to expand the scope to this size
 			max_size = nil,
 			cursor = true, -- when true, the column of the cursor is used to determine the scope
-			edge = true, -- include the edge of the scope (typically the line above and below with smaller indent)
+			edge = true,   -- include the edge of the scope (typically the line above and below with smaller indent)
 			siblings = false, -- expand single line scopes with single line siblings
 			-- what buffers to attach to
 			filter = function(buf)
@@ -465,7 +465,7 @@ return {
 				title_pos = "center",
 				ft = "markdown",
 				bo = { filetype = "snacks_notif_history", modifiable = false },
-				wo = { 
+				wo = {
 					winhighlight = "Normal:SnacksNotifierHistory",
 					winblend = 25, -- 增加通知历史透明度
 				},

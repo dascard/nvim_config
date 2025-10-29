@@ -16,7 +16,7 @@ keymap("n", "<c-f>", ":Rg<cr>")
 keymap("n", "<c-x>", "<c-w>x")
 keymap("n", "<c-e>", "%")
 keymap("n", "J", "15j")
-keymap("n", "<C-u>", "15k")  -- 改用 Ctrl+u 替代 K，避免与 LSP hover 冲突
+keymap("n", "<C-u>", "15k") -- 改用 Ctrl+u 替代 K，避免与 LSP hover 冲突
 keymap("n", "H", "0")
 keymap("n", "L", "$")
 keymap("n", "<M-o>", "o<Esc>")
@@ -32,7 +32,7 @@ keymap("v", "<Tab>", ">gv")
 keymap("v", "<S-Tab>", "<gv")
 keymap("v", "L", "$")
 keymap("v", "J", "15j")
-keymap("v", "<C-u>", "15k")  -- 保持一致，改用 Ctrl+u
+keymap("v", "<C-u>", "15k") -- 保持一致，改用 Ctrl+u
 keymap("v", "H", "0")
 keymap("v", "L", "$")
 
@@ -42,6 +42,7 @@ keymap("i", "<c-}>", "<Plug>(copilot-prev)")
 keymap("i", "<c-]>", "<Plug>(copilot-next)")
 keymap("i", "<F5>", "<esc><F5>")
 keymap("i", "<leader>a", "<esc>A")
+keymap("i", "<leader>i", "<esc>I")
 keymap("i", ",", ",<c-g>u")
 keymap("i", ".", ".<c-g>u")
 keymap("i", ";", ";<c-g>u")
