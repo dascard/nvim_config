@@ -1,3 +1,44 @@
+-- CRITICAL: Block lazy.nvim entirely in VS Code
+if vim.g.vscode then
+	-- Debug: Confirm we're in VS Code branch
+	vim.schedule(function()
+		vim.notify("VS Code mode detected - blocking lazy.nvim", vim.log.levels.INFO)
+	end)
+	
+	-- Prevent lazy.nvim from loading
+	vim.g.loaded_lazy = 1
+	vim.g.loaded_lazy_plugin = 1
+	vim.g.loaded_lazy_nvim = 1
+	
+	-- Block package loading attempts
+	package.loaded["lazy"] = true
+	package.loaded["lazy.core"] = true
+	package.loaded["lazy.async"] = true
+	package.loaded["lazy.manage.runner"] = true
+	package.loaded["config.lazy"] = true
+	
+	-- Remove lazy.nvim from runtime path if it exists
+	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+	vim.opt.runtimepath:remove(lazypath)
+	
+	-- Prevent any plugin/* files from lazy.nvim loading
+	vim.api.nvim_create_autocmd("SourcePre", {
+		pattern = "**/lazy.nvim/plugin/*.lua",
+		callback = function()
+			return true  -- Skip loading
+		end,
+	})
+	
+	-- Load VS Code specific config
+	local ok, err = pcall(require, "config.vscode")
+	if ok and type(err) == "table" and err.setup then
+		err.setup()
+	end
+	
+	-- Stop all further initialization
+	return
+end
+
 if vim.g.neovide then
 	-- Put anything you want to happen only in Neovide here
 	vim.o.guifont = "JetBrainsMono Nerd Font:h24"

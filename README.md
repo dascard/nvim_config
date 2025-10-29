@@ -1,4 +1,4 @@
-# Neovim 配置
+qing# Neovim 配置
 
 作者: **dascard**
 
