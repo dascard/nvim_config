@@ -183,17 +183,19 @@ return {
 								code = entry.code,
 							})
 						end
-						vim.diagnostic.set(diagnostic_namespace, target_bufnr, converted, {})
+						pcall(vim.diagnostic.set, diagnostic_namespace, target_bufnr, converted, {})
 						seen_buffers[target_bufnr] = true
 					end
 				end
 
-				if vim.diagnostic and vim.diagnostic.reset then
-					for bufnr, _ in pairs(active_buffers) do
-						if not seen_buffers[bufnr] or not vim.api.nvim_buf_is_valid(bufnr) then
-							vim.diagnostic.reset(diagnostic_namespace, bufnr)
-							active_buffers[bufnr] = nil
-						end
+				for bufnr, _ in pairs(active_buffers) do
+					local should_clear = not seen_buffers[bufnr]
+					local valid = vim.api.nvim_buf_is_valid(bufnr)
+					if should_clear and valid and vim.diagnostic and vim.diagnostic.reset then
+						pcall(vim.diagnostic.reset, diagnostic_namespace, bufnr)
+					end
+					if should_clear or not valid then
+						active_buffers[bufnr] = nil
 					end
 				end
 
@@ -336,8 +338,9 @@ return {
 
 			vim.api.nvim_create_autocmd("BufDelete", {
 				callback = function(args)
-					if vim.diagnostic and vim.diagnostic.reset then
-						vim.diagnostic.reset(diagnostic_namespace, args.buf)
+					active_buffers[args.buf] = nil
+					if vim.diagnostic and vim.diagnostic.reset and vim.api.nvim_buf_is_valid(args.buf) then
+						pcall(vim.diagnostic.reset, diagnostic_namespace, args.buf)
 					end
 				end,
 			})
