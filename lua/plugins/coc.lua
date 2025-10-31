@@ -11,6 +11,7 @@ return {
 			pcall(function()
 				symbol_bridge = require("utils.coc_symbols")
 			end)
+			local uv = vim.loop
 			local ensure_result = diagnostics_utils.ensure()
 			local severity = (ensure_result.module and ensure_result.module.severity)
 				or diagnostics_utils.get_severity_map()
@@ -142,21 +143,68 @@ return {
 			end
 
 			local function resolve_bufnr(entry, fallback)
-				if entry.bufnr and vim.api.nvim_buf_is_valid(entry.bufnr) then
+				local function is_valid(buf)
+					return type(buf) == "number" and buf ~= -1 and vim.api.nvim_buf_is_valid(buf)
+				end
+
+				if is_valid(entry.bufnr) then
 					return entry.bufnr
 				end
-				if entry.buffer and vim.api.nvim_buf_is_valid(entry.buffer) then
+				if is_valid(entry.buffer) then
 					return entry.buffer
 				end
-				if entry.file then
-					local candidate = vim.fn.bufnr(entry.file)
-					if candidate ~= -1 and vim.api.nvim_buf_is_valid(candidate) then
+
+				local tried = {}
+
+				local function try_path(path)
+					if not path or tried[path] then
+						return nil
+					end
+					tried[path] = true
+					local candidate = vim.fn.bufnr(path, false)
+					if is_valid(candidate) then
 						return candidate
 					end
+					return nil
 				end
-				if fallback and vim.api.nvim_buf_is_valid(fallback) then
-					return fallback
+
+				if entry.file then
+					local path = entry.file
+					local bufnr = try_path(path)
+					if bufnr then
+						return bufnr
+					end
+					local relative = vim.fn.fnamemodify(path, ":.")
+					bufnr = try_path(relative)
+					if bufnr then
+						return bufnr
+					end
+					local ok_real, real_path = pcall(function()
+						return uv and uv.fs_realpath and uv.fs_realpath(path) or path
+					end)
+					if ok_real and real_path then
+						bufnr = try_path(real_path)
+						if bufnr then
+							return bufnr
+						end
+					end
 				end
+
+				if entry.uri then
+					local ok_uri, uri_bufnr = pcall(function()
+						return vim.uri_to_bufnr(entry.uri)
+					end)
+					if ok_uri and is_valid(uri_bufnr) then
+						return uri_bufnr
+					end
+				end
+
+				if fallback and not entry.file and not entry.uri and not entry.bufnr and not entry.buffer then
+					if is_valid(fallback) then
+						return fallback
+					end
+				end
+
 				return nil
 			end
 
