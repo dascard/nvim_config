@@ -17,6 +17,7 @@ local function safe_require(name)
     return nil
 end
 
+
 local diagnostics = safe_require('utils.diagnostics')
 local icons = safe_require('utils.icons')
 local dap = safe_require('utils.dap')

@@ -13,10 +13,17 @@ return {
 		local symbols = map.gen_encode_symbols.dot("4x2")
 
 		-- 高亮集成模块
+		local diagnostic_integration = map.gen_integration.diagnostic({
+			error = "DiagnosticFloatingError",
+			warn = "DiagnosticFloatingWarn",
+			info = "DiagnosticFloatingInfo",
+			hint = "DiagnosticFloatingHint",
+		})
+
 		local integrations = {
 			map.gen_integration.builtin_search(), -- 搜索结果 (/ 或 ?)
-			map.gen_integration.gitsigns(),    -- Git 变更标记
-			map.gen_integration.diagnostic(),  -- LSP 报错标记
+			map.gen_integration.gitsigns(),        -- Git 变更标记
+			diagnostic_integration,                -- LSP 诊断标记（全部级别）
 		}
 
 		-- 配置主体
