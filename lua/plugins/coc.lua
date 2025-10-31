@@ -179,7 +179,17 @@ return {
 
 						if err and err ~= VIM_NIL and err ~= 0 then
 							if type(err) == "string" and err ~= "" then
-								notify_once("[coc.nvim] diagnostic sync failed: " .. err)
+								if err:lower():find("not ready", 1, true) then
+									if vim.defer_fn then
+										vim.defer_fn(function()
+											schedule_sync(bufnr_hint)
+										end, 200)
+									else
+										schedule_sync(bufnr_hint)
+									end
+								else
+									notify_once("[coc.nvim] diagnostic sync failed: " .. err)
+								end
 							end
 							return
 						end
