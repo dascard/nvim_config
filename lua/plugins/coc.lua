@@ -36,6 +36,27 @@ return {
 			local pending_request = false
 			local request_again = false
 			local last_error_message = nil
+			local waiting_ready = false
+			local coc_ready = false
+
+			local function is_coc_ready()
+				if coc_ready then
+					return true
+				end
+
+				local ok_exists, has_ready = pcall(vim.fn.exists, "*coc#rpc#ready")
+				if not ok_exists or has_ready ~= 1 then
+					return false
+				end
+
+				local ok_ready, ready = pcall(vim.fn["coc#rpc#ready"])
+				if ok_ready and ready == 1 then
+					coc_ready = true
+					return true
+				end
+
+				return false
+			end
 
 			local function normalize_number(value, default)
 				if type(value) ~= "number" then
@@ -136,6 +157,17 @@ return {
 					return
 				end
 
+				if not is_coc_ready() then
+					if vim.defer_fn and not waiting_ready then
+						waiting_ready = true
+						vim.defer_fn(function()
+							waiting_ready = false
+							schedule_sync(bufnr_hint)
+						end, 200)
+					end
+					return
+				end
+
 				local function request()
 					pending_request = true
 					local ok = pcall(vim.fn.CocActionAsync, "diagnosticList", function(err, result)
@@ -199,6 +231,17 @@ return {
 					schedule_sync(args.buf or vim.api.nvim_get_current_buf())
 				end,
 				desc = "Bridge coc.nvim diagnostics to vim.diagnostic",
+			})
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = { "CocNvimInit", "CocReady" },
+				callback = function()
+					if not coc_ready then
+						coc_ready = true
+					end
+					schedule_sync()
+				end,
+				desc = "Attempt diagnostic sync after coc.nvim reports readiness",
 			})
 
 			vim.api.nvim_create_autocmd("BufDelete", {

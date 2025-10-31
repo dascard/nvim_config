@@ -32,11 +32,34 @@ local function mspy_exe_path()
     return candidates[1]
 end
 
-vim.api.nvim_create_autocmd({"InsertLeave", "WinEnter", "WinLeave", "FocusGained"}, {
-    callback = function()
-        vim.fn.system({ mspy_exe_path(), "-k=ctrl+space", "英语模式" })
-    end,
-})
+do
+    local cached_path
+
+    local function get_executable()
+        if cached_path ~= nil then
+            return cached_path
+        end
+
+        local path = mspy_exe_path()
+        if type(path) == "string" and path ~= "" and vim.fn.executable(path) == 1 then
+            cached_path = path
+            return cached_path
+        end
+
+        cached_path = false
+        return cached_path
+    end
+
+    vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter", "WinLeave", "FocusGained" }, {
+        callback = function()
+            local exe = get_executable()
+            if not exe or exe == false then
+                return
+            end
+            vim.fn.system({ exe, "-k=ctrl+space", "英语模式" })
+        end,
+    })
+end
 
 if vim.g.vscode then
     require("config.vscode")
