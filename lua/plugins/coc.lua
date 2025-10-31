@@ -7,38 +7,77 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			-- 加载 COC 扩展管理器
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CocDiagnosticChange",
+				callback = function()
+					local bufnr = vim.api.nvim_get_current_buf()
+					local ok, coc_diagnostics = pcall(vim.fn.CocAction, "diagnosticList")
+					if not ok or type(coc_diagnostics) ~= "table" then
+						return
+					end
+
+					local converted = {}
+					for _, d in ipairs(coc_diagnostics) do
+						table.insert(converted, {
+							lnum = d.lnum - 1,
+							col = d.col - 1,
+							end_lnum = d.end_lnum - 1,
+							end_col = d.end_col - 1,
+							severity = ({
+								Error = vim.diagnostic.severity.ERROR,
+								Warning = vim.diagnostic.severity.WARN,
+								Information = vim.diagnostic.severity.INFO,
+								Hint = vim.diagnostic.severity.HINT,
+							})[d.severity] or vim.diagnostic.severity.INFO,
+							message = d.message,
+							source = "coc.nvim",
+						})
+					end
+
+					local ns = vim.api.nvim_create_namespace("coc2nvim")
+					vim.diagnostic.set(ns, bufnr, converted, {})
+				end,
+				desc = "Bridge coc.nvim diagnostics to vim.diagnostic",
+			})
+
+			-- 2. （可选）自动清空诊断
+			vim.api.nvim_create_autocmd("BufDelete", {
+				callback = function(args)
+					vim.diagnostic.reset(vim.api.nvim_create_namespace("coc2nvim"), args.buf)
+				end,
+			})
 			local coc_manager = require('utils.coc-manager')
 			coc_manager.setup()
-			
+
 			-- 核心扩展列表 (自动安装)
 			vim.g.coc_global_extensions = {
 				-- 核心语言支持
-				"coc-json",           -- JSON 支持
-				"coc-html",           -- HTML 支持
-				"coc-css",            -- CSS 支持
-				"coc-yaml",           -- YAML 支持
-				"coc-pairs",          -- 自动括号配对
-				
+				"coc-json", -- JSON 支持
+				"coc-html", -- HTML 支持
+				"coc-css", -- CSS 支持
+				"coc-yaml", -- YAML 支持
+				"coc-pairs", -- 自动括号配对
+
 				-- JavaScript/TypeScript 生态
-				"coc-tsserver",       -- TypeScript 语言服务器
-				"coc-eslint",         -- ESLint 集成
-				"coc-prettier",       -- Prettier 格式化
-				
+				"coc-tsserver", -- TypeScript 语言服务器
+				"coc-eslint", -- ESLint 集成
+				"coc-prettier", -- Prettier 格式化
+
 				-- Python 开发
-				"coc-pyright",        -- Python 语言服务器
-				
+				"coc-pyright", -- Python 语言服务器
+
 				-- Web 开发增强
-				"coc-emmet",          -- Emmet 支持
-				"coc-stylelintplus",  -- CSS/SCSS Lint
-				
+				"coc-emmet",     -- Emmet 支持
+				"coc-stylelintplus", -- CSS/SCSS Lint
+
 				-- 开发工具
-				"coc-git",            -- Git 集成
-				"coc-snippets",       -- 代码片段
-				"coc-lists",          -- 增强列表
-				"coc-marketplace",    -- 扩展市场
-				
+				"coc-git",     -- Git 集成
+				"coc-snippets", -- 代码片段
+				"coc-lists",   -- 增强列表
+				"coc-marketplace", -- 扩展市场
+
 				-- AI 工具
-				"coc-copilot",        -- GitHub Copilot
+				"coc-copilot", -- GitHub Copilot
 			}
 			-- 基本设置
 			local node_path = "node"
