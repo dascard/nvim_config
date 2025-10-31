@@ -699,67 +699,14 @@ opts = {
 },
 ```
 
-## 🔧 维护和管理
+## 🔧 工具模块
 
-本配置提供了几个内置的维护命令来帮助管理配置：
+`utils/` 目录目前包含以下实用工具：
 
-### 维护命令
-
-```vim
-:ConfigMaintenance    " 执行完整维护（清理缓存 + 更新插件 + 健康检查）
-:ConfigClean         " 清理插件缓存
-:ConfigUpdate        " 更新所有插件
-:ConfigCheck         " 运行健康检查
-```
-
-### 定期维护建议
-
-建议定期执行以下操作来保持配置的最佳状态：
-
-1. **每周运行一次完整维护**：
-   ```vim
-   :ConfigMaintenance
-   ```
-
-2. **遇到问题时清理缓存**：
-   ```vim
-   :ConfigClean
-   ```
-
-3. **定期检查配置健康状态**：
-   ```vim
-   :ConfigCheck
-   ```
-
-### COC 扩展管理
-
-本配置包含自定义的 COC 扩展管理器，提供便捷的扩展管理功能：
-
-```vim
-:CocExtensionManager install    " 安装推荐的 COC 扩展
-:CocExtensionManager status     " 查看扩展安装状态  
-:CocExtensionManager update     " 检查并更新所有扩展
-:CocExtensionManager cleanup    " 清理不需要的扩展
-```
-
-**推荐扩展包括：**
-- 核心语言支持：JSON、HTML、CSS、YAML、XML
-- JavaScript/TypeScript：tsserver、eslint、prettier
-- Python：pyright、python 工具集
-- Web 开发：emmet、stylelint、tailwindcss
-- 开发工具：git、docker、snippets、marketplace
-- AI 工具：copilot
-
-### 工具模块使用
-
-`utils/` 目录包含以下实用工具：
-
-1. **维护工具** (`maintenance.lua`) - 自动加载，提供维护命令
-2. **COC 管理器** (`coc-manager.lua`) - COC 扩展管理
-3. **图标定义** (`icons.lua`) - 统一的图标配置
-4. **DAP 工具** (`dap.lua`) - 调试器辅助功能
-
-这些工具在配置启动时自动初始化，无需手动加载。
+- **diagnostics.lua** —— 提供 `vim.diagnostic` 兼容层与相关辅助函数。
+- **icons.lua** —— 统一的图标配置，便于自定义 UI。
+- **dap.lua** —— 调试器辅助功能函数。
+- **mini.lua** —— 常用实用方法集合（自动命令封装、路径处理等）。
 
 ## 常见问题和故障排除
 

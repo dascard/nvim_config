@@ -20,7 +20,6 @@ return {
 			end
 			local diagnostic_namespace = vim.api.nvim_create_namespace("coc2nvim")
 
-			-- 加载 COC 扩展管理器
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "CocDiagnosticChange",
 				callback = function()
@@ -65,9 +64,6 @@ return {
 					end
 				end,
 			})
-			local coc_manager = require('utils.coc-manager')
-			coc_manager.setup()
-
 			-- 核心扩展列表 (自动安装)
 			vim.g.coc_global_extensions = {
 				-- 核心语言支持
