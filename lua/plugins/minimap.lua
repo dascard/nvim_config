@@ -16,26 +16,47 @@ return {
 		-- 高亮渲染器
 		local symbols = map.gen_encode_symbols.dot("4x2")
 
-		local diagnostic_highlights = {
-			error = "DiagnosticFloatingError",
-			warn = "DiagnosticFloatingWarn",
-			info = "DiagnosticFloatingInfo",
-			hint = "DiagnosticFloatingHint",
-		}
-
-		local default_links = {
-			error = "DiagnosticVirtualTextError",
-			warn = "DiagnosticVirtualTextWarn",
-			info = "DiagnosticVirtualTextInfo",
-			hint = "DiagnosticVirtualTextHint",
-		}
-
-		for key, group in pairs(diagnostic_highlights) do
-			if group then
-				local fallback = default_links[key]
-				if fallback then
-					vim.api.nvim_set_hl(0, group, { default = true, link = fallback })
+		local function ensure_minimap_highlight(target, fallback, defaults)
+			local opts = { default = true }
+			local ok, base = pcall(vim.api.nvim_get_hl, 0, { name = fallback, link = false })
+			if ok and base then
+				if base.bg then
+					opts.bg = base.bg
 				end
+				if base.fg then
+					opts.fg = base.fg
+					if not opts.bg then
+						opts.bg = base.fg
+					end
+				end
+			end
+			if not opts.bg then
+				opts.bg = defaults.bg
+			end
+			if not opts.fg then
+				opts.fg = defaults.fg or opts.bg
+			end
+			vim.api.nvim_set_hl(0, target, opts)
+		end
+
+		local diagnostic_highlights = {
+			error = "MiniMapDiagnosticError",
+			warn = "MiniMapDiagnosticWarn",
+			info = "MiniMapDiagnosticInfo",
+			hint = "MiniMapDiagnosticHint",
+		}
+
+		local highlight_defaults = {
+			error = { fallback = "DiagnosticVirtualTextError", bg = "#F44747", fg = "#1F1F1F" },
+			warn = { fallback = "DiagnosticVirtualTextWarn", bg = "#FFB74C", fg = "#1F1F1F" },
+			info = { fallback = "DiagnosticVirtualTextInfo", bg = "#61AFEF", fg = "#1F1F1F" },
+			hint = { fallback = "DiagnosticVirtualTextHint", bg = "#98C379", fg = "#1F1F1F" },
+		}
+
+		for severity, group in pairs(diagnostic_highlights) do
+			local defaults = highlight_defaults[severity]
+			if defaults then
+				ensure_minimap_highlight(group, defaults.fallback, defaults)
 			end
 		end
 
