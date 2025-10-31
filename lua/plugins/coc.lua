@@ -14,7 +14,7 @@ return {
 			local uv = vim.loop
 			local ensure_result = diagnostics_utils.ensure()
 			local severity = (ensure_result.module and ensure_result.module.severity)
-				or diagnostics_utils.get_severity_map()
+					or diagnostics_utils.get_severity_map()
 			if not severity then
 				severity = {
 					ERROR = 1,
