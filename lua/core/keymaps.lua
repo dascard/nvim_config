@@ -45,7 +45,9 @@ keymap("i", "<leader>a", "<esc>A")
 keymap("i", "<leader>i", "<esc>I")
 keymap("i", ",", ",<c-g>u")
 keymap("i", ".", ".<c-g>u")
-keymap("i", ";", ";<c-g>u")
+if vim.g.mapleader ~= ";" then
+	keymap("i", ";", ";<c-g>u")
+end
 keymap("i", "<C-o>", "<Esc>o")
 
 -- quickfix

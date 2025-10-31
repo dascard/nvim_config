@@ -7,6 +7,8 @@ local M = {}
 
 math.randomseed(vim.loop.hrtime())
 
+local is_vscode = vim.g ~= nil and vim.g.vscode ~= nil
+
 local state = {
 	is_active = false,
 	original_term = '',
@@ -31,6 +33,8 @@ local state = {
 	symbol_index = nil,
 	word_index = nil,
 	partial_samples = nil,
+	-- VSCode picker tracking
+	vscode_picker_open = false,
 }
 
 local function reset_state()
@@ -62,6 +66,7 @@ local function reset_state()
 	state.float_buf = nil
 	state.scroll_offset = 0
 	state.is_partial_search = false
+	state.vscode_picker_open = false
 end
 
 local function should_ignore_case(term)
@@ -508,6 +513,10 @@ end
 
 -- Create or update scrollable floating window
 local function update_float_window()
+	if is_vscode then
+		return
+	end
+
 	if #state.matches == 0 then return end
 
 	-- Prepare all lines (simple format without alignment)
@@ -622,6 +631,10 @@ end
 
 -- Preview the match by jumping to it
 local function preview_match()
+	if is_vscode then
+		return
+	end
+
 	-- Clear previous preview
 	local ns = vim.api.nvim_create_namespace('search_complete_preview')
 	vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
@@ -661,6 +674,101 @@ local function preview_match()
 			priority = 100,
 		})
 	end
+end
+
+local function apply_completion_to_cmdline(word, context)
+	if not word then
+		return
+	end
+
+	local original_cmdline = vim.fn.getcmdline()
+	if context then
+		local prefix = original_cmdline:sub(1, context.term_start_col - 1)
+		local suffix = original_cmdline:sub(context.term_end_col + 1)
+		local new_cmdline = prefix .. word .. suffix
+		local ok = pcall(vim.fn.setcmdline, new_cmdline)
+		if ok then
+			pcall(vim.fn.setcmdpos, #prefix + #word + 1)
+		end
+	else
+		pcall(vim.fn.setcmdline, word)
+	end
+	state.last_completion = word
+end
+
+local function show_vscode_picker(context)
+	if not is_vscode then
+		return false
+	end
+
+	if state.vscode_picker_open then
+		return true
+	end
+
+	state.vscode_picker_open = true
+
+	local items = {}
+	for _, match in ipairs(state.matches) do
+		local label = match.word or ''
+		local detail
+		if match.pos then
+			detail = string.format('行 %d, 列 %d', match.pos[1], match.pos[2])
+		end
+		items[#items + 1] = {
+			label = label,
+			detail = detail,
+			match = match,
+		}
+	end
+
+	if state.original_term ~= '' then
+		items[#items + 1] = {
+			label = string.format('保留原输入: %s', state.original_term),
+			keep_original = true,
+		}
+	end
+
+	if #items == 0 then
+		state.vscode_picker_open = false
+		return false
+	end
+
+	local prompt_suffix = state.is_partial_search and '（范围有限，继续输入以获取更多结果）' or ''
+	local opts = {
+		prompt = '搜索补全 ' .. prompt_suffix,
+		format_item = function(item)
+			if item.keep_original then
+				return item.label
+			end
+			if item.detail and item.detail ~= '' then
+				return string.format('%s   →   %s', item.label, item.detail)
+			end
+			return item.label
+		end,
+	}
+
+	vim.schedule(function()
+		vim.ui.select(items, opts, function(choice)
+			state.vscode_picker_open = false
+			if not choice then
+				reset_state()
+				return
+			end
+
+			local selected_word = state.original_term
+			if not choice.keep_original and choice.match and choice.match.word then
+				selected_word = choice.match.word
+			end
+
+			vim.schedule(function()
+				apply_completion_to_cmdline(selected_word, context)
+			end)
+
+			reset_state()
+		end)
+	end)
+
+	return true
 end
 
 -- Core logic with the new "dirty checking" state machine
@@ -706,6 +814,12 @@ local function complete(direction)
 			reset_state(); return
 		end
 		state.current_index = direction == 'next' and 1 or #state.matches
+
+		if is_vscode then
+			if show_vscode_picker(context) then
+				return
+			end
+		end
 	else
 		if #state.matches == 0 then return end
 		if direction == 'next' then
@@ -716,20 +830,15 @@ local function complete(direction)
 		end
 	end
 
+	if is_vscode then
+		show_vscode_picker(context)
+		return
+	end
+
 	local word_to_show = (state.current_index > #state.matches or state.current_index == 0) and state.original_term or
 			state.matches[state.current_index].word
 
-	local original_cmdline = vim.fn.getcmdline()
-	if context then
-		local new_cmdline = original_cmdline:sub(1, context.term_start_col - 1) ..
-				word_to_show .. original_cmdline:sub(context.term_end_col + 1)
-		vim.fn.setcmdline(new_cmdline)
-		vim.fn.setcmdpos(#(original_cmdline:sub(1, context.term_start_col - 1)) + #word_to_show + 1)
-	else
-		vim.fn.setcmdline(word_to_show)
-	end
-	-- CRITICAL: Update the last completion state for the next dirty check.
-	state.last_completion = word_to_show
+	apply_completion_to_cmdline(word_to_show, context)
 
 	-- Show completion menu immediately, then reschedule to keep UI in sync
 	update_float_window()
