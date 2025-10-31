@@ -44,6 +44,14 @@ return {
 				HINT = severity.HINT,
 			}
 
+			local severity_numeric_lookup = {
+				[0] = severity.ERROR,
+				[1] = severity.ERROR,
+				[2] = severity.WARN,
+				[3] = severity.INFO,
+				[4] = severity.HINT,
+			}
+
 			local diagnostic_namespace = vim.api.nvim_create_namespace("coc2nvim")
 			local pending_request = false
 			local request_again = false
@@ -69,14 +77,11 @@ return {
 				end
 
 				if type(value) == "number" then
+					if severity_numeric_lookup[value] then
+						return severity_numeric_lookup[value]
+					end
 					if value >= severity.ERROR and value <= severity.HINT then
 						return value
-					end
-
-					local offset = value - 1
-					local computed = severity.ERROR + offset
-					if computed >= severity.ERROR and computed <= severity.HINT then
-						return computed
 					end
 				end
 
@@ -113,23 +118,27 @@ return {
 			end
 
 			local function resolve_position(entry)
-				local start_line = entry.lnum or (entry.range and entry.range.start and entry.range.start.line + 1)
-				local start_col = entry.col or (entry.range and entry.range.start and entry.range.start.character + 1)
-				local end_line = entry.end_lnum
-				if not end_line and entry.range and entry.range["end"] then
-					end_line = entry.range["end"].line + 1
-				end
-				local end_col = entry.end_col
-				if not end_col and entry.range and entry.range["end"] then
-					end_col = entry.range["end"].character + 1
+				local range = entry.range
+				if range and range.start and range["end"] then
+					local start_line = math.max(0, normalize_number(range.start.line, 0))
+					local start_col = math.max(0, normalize_number(range.start.character, 0))
+					local end_line = math.max(start_line, normalize_number(range["end"].line, start_line))
+					local end_col = math.max(start_col, normalize_number(range["end"].character, start_col))
+					return start_line, start_col, end_line, end_col
 				end
 
-				local lnum = math.max(0, normalize_number(start_line, 1) - 1)
-				local col = math.max(0, normalize_number(start_col, 1) - 1)
-				local final_end_line = normalize_number(end_line, start_line or (lnum + 1))
-				local final_end_col = normalize_number(end_col, start_col or (col + 1))
+				local start_line = math.max(0, normalize_number(entry.lnum, 0))
+				local start_col = math.max(0, normalize_number(entry.col, 0))
+				local end_line = normalize_number(entry.end_lnum, start_line)
+				if type(end_line) ~= "number" then
+					end_line = start_line
+				end
+				local end_col = normalize_number(entry.end_col, start_col)
+				if type(end_col) ~= "number" then
+					end_col = start_col
+				end
 
-				return lnum, col, math.max(lnum, final_end_line - 1), math.max(col, final_end_col - 1)
+				return start_line, start_col, math.max(start_line, end_line), math.max(start_col, end_col)
 			end
 
 			local function resolve_bufnr(entry, fallback)
@@ -305,6 +314,13 @@ return {
 					schedule_sync(args.buf or vim.api.nvim_get_current_buf())
 				end,
 				desc = "Bridge coc.nvim diagnostics to vim.diagnostic",
+			})
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+				callback = function(args)
+					schedule_sync(args.buf or vim.api.nvim_get_current_buf())
+				end,
+				desc = "Keep coc diagnostics in sync on common buffer events",
 			})
 
 			vim.api.nvim_create_autocmd("User", {

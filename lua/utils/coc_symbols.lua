@@ -12,6 +12,27 @@ local function get_clients(opts)
 	return {}
 end
 
+local function is_coc_ready()
+	local ok_exists, has_ready = pcall(vim.fn.exists, "*coc#rpc#ready")
+	if not ok_exists or has_ready ~= 1 then
+		return false
+	end
+
+	local ok_ready, ready = pcall(vim.fn["coc#rpc#ready"])
+	return ok_ready and ready == 1
+end
+
+local function defer_retry(fn, delay)
+	local delay_ms = delay or 200
+	if vim.defer_fn then
+		vim.defer_fn(fn, delay_ms)
+	elseif vim.schedule then
+		vim.schedule(fn)
+	else
+		fn()
+	end
+end
+
 local function has_document_provider(bufnr)
 	for _, client in ipairs(get_clients({ bufnr = bufnr })) do
 		local caps = client.server_capabilities or client.resolved_capabilities
@@ -52,6 +73,7 @@ local function normalize_error(err)
 	end
 	return err
 end
+
 
 function M.setup()
 	if type(vim.fn.CocActionAsync) ~= "function" then
@@ -97,22 +119,54 @@ function M.setup()
 			return original_document_symbol(cb_params, handler)
 		end
 
-		local function on_result(err, result)
-			local ctx = {
-				method = "textDocument/documentSymbol",
-				bufnr = bufnr,
-				client_id = nil,
-			}
-			schedule_handler(handler, normalize_error(err), result or {}, ctx)
+		local attempts = 0
+
+		local function request()
+			attempts = attempts + 1
+
+			if not is_coc_ready() then
+				if attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				if original_document_symbol then
+					return original_document_symbol(cb_params, handler)
+				end
+				return schedule_handler(handler, "coc.nvim not ready", {}, {
+					method = "textDocument/documentSymbol",
+					bufnr = bufnr,
+				})
+			end
+
+			local function on_result(err, result)
+				if type(err) == "string" and err:lower():find("not ready", 1, true) and attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				local ctx = {
+					method = "textDocument/documentSymbol",
+					bufnr = bufnr,
+					client_id = nil,
+				}
+				schedule_handler(handler, normalize_error(err), result or {}, ctx)
+			end
+
+			local ok = pcall(vim.fn.CocActionAsync, "documentSymbols", function(err, res)
+				on_result(err, res)
+			end)
+
+			if not ok then
+				if attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				if original_document_symbol then
+					return original_document_symbol(cb_params, handler)
+				end
+			end
 		end
 
-		local ok = pcall(vim.fn.CocActionAsync, "documentSymbols", function(err, res)
-			on_result(err, res)
-		end)
-
-		if not ok and original_document_symbol then
-			return original_document_symbol(cb_params, handler)
-		end
+		return request()
 	end
 
 	vim.lsp.buf.workspace_symbol = function(query, handler)
@@ -135,20 +189,51 @@ function M.setup()
 			handler = vim.lsp.handlers["workspace/symbol"]
 		end
 
-		local function on_result(err, result)
-			local ctx = {
-				method = "workspace/symbol",
-			}
-			schedule_handler(handler, normalize_error(err), result or {}, ctx)
+		local attempts = 0
+
+		local function request()
+			attempts = attempts + 1
+
+			if not is_coc_ready() then
+				if attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				if original_workspace_symbol then
+					return original_workspace_symbol(actual_query, handler)
+				end
+				return schedule_handler(handler, "coc.nvim not ready", {}, {
+					method = "workspace/symbol",
+				})
+			end
+
+			local function on_result(err, result)
+				if type(err) == "string" and err:lower():find("not ready", 1, true) and attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				local ctx = {
+					method = "workspace/symbol",
+				}
+				schedule_handler(handler, normalize_error(err), result or {}, ctx)
+			end
+
+			local ok = pcall(vim.fn.CocActionAsync, "workspaceSymbols", actual_query or "", function(err, res)
+				on_result(err, res)
+			end)
+
+			if not ok then
+				if attempts < 5 then
+					defer_retry(request, 150 * attempts)
+					return
+				end
+				if original_workspace_symbol then
+					return original_workspace_symbol(actual_query, handler)
+				end
+			end
 		end
 
-		local ok = pcall(vim.fn.CocActionAsync, "workspaceSymbols", actual_query or "", function(err, res)
-			on_result(err, res)
-		end)
-
-		if not ok and original_workspace_symbol then
-			return original_workspace_symbol(actual_query, handler)
-		end
+		return request()
 	end
 
 	return true

@@ -22,10 +22,12 @@ local diagnostics = safe_require('utils.diagnostics')
 local icons = safe_require('utils.icons')
 local dap = safe_require('utils.dap')
 local treesitter = safe_require('utils.treesitter')
+local coc_symbols = safe_require('utils.coc_symbols')
 
 return {
     diagnostics = diagnostics,
     icons = icons,
     dap = dap,
     treesitter = treesitter,
+    coc_symbols = coc_symbols,
 }
