@@ -7,6 +7,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local diagnostics_utils = require("utils.diagnostics")
+			local symbol_bridge = nil
+			pcall(function()
+				symbol_bridge = require("utils.coc_symbols")
+			end)
 			local ensure_result = diagnostics_utils.ensure()
 			local severity = (ensure_result.module and ensure_result.module.severity)
 				or diagnostics_utils.get_severity_map()
@@ -23,9 +27,17 @@ return {
 
 			local severity_lookup = {
 				Error = severity.ERROR,
+				error = severity.ERROR,
 				Warning = severity.WARN,
+				warning = severity.WARN,
+				Warn = severity.WARN,
+				warn = severity.WARN,
 				Information = severity.INFO,
+				information = severity.INFO,
+				Info = severity.INFO,
+				info = severity.INFO,
 				Hint = severity.HINT,
+				hint = severity.HINT,
 				ERROR = severity.ERROR,
 				WARN = severity.WARN,
 				INFO = severity.INFO,
@@ -38,6 +50,38 @@ return {
 			local last_error_message = nil
 			local waiting_ready = false
 			local coc_ready = false
+			local active_buffers = {}
+
+			local function normalize_severity(value)
+				if value == nil then
+					return severity.INFO
+				end
+
+				if severity_lookup[value] then
+					return severity_lookup[value]
+				end
+
+				if type(value) == "string" then
+					local lowered = value:lower()
+					if severity_lookup[lowered] then
+						return severity_lookup[lowered]
+					end
+				end
+
+				if type(value) == "number" then
+					if value >= severity.ERROR and value <= severity.HINT then
+						return value
+					end
+
+					local offset = value - 1
+					local computed = severity.ERROR + offset
+					if computed >= severity.ERROR and computed <= severity.HINT then
+						return computed
+					end
+				end
+
+				return severity.INFO
+			end
 
 			local function is_coc_ready()
 				if coc_ready then
@@ -112,6 +156,8 @@ return {
 					return
 				end
 
+				local seen_buffers = {}
+
 				for target_bufnr, entries in pairs(per_buffer) do
 					if vim.api.nvim_buf_is_valid(target_bufnr) then
 						local converted = {}
@@ -122,14 +168,28 @@ return {
 								col = col,
 								end_lnum = end_lnum,
 								end_col = end_col,
-								severity = severity_lookup[entry.severity] or severity.INFO,
+								severity = normalize_severity(entry.severity),
 								message = entry.message or "",
 								source = entry.source or entry.server or "coc.nvim",
 								code = entry.code,
 							})
 						end
 						vim.diagnostic.set(diagnostic_namespace, target_bufnr, converted, {})
+						seen_buffers[target_bufnr] = true
 					end
+				end
+
+				if vim.diagnostic and vim.diagnostic.reset then
+					for bufnr, _ in pairs(active_buffers) do
+						if not seen_buffers[bufnr] or not vim.api.nvim_buf_is_valid(bufnr) then
+							vim.diagnostic.reset(diagnostic_namespace, bufnr)
+							active_buffers[bufnr] = nil
+						end
+					end
+				end
+
+				for bufnr, _ in pairs(seen_buffers) do
+					active_buffers[bufnr] = true
 				end
 
 				last_error_message = nil
@@ -233,6 +293,10 @@ return {
 				else
 					request()
 				end
+			end
+
+			if symbol_bridge and symbol_bridge.setup then
+				symbol_bridge.setup()
 			end
 
 			vim.api.nvim_create_autocmd("User", {

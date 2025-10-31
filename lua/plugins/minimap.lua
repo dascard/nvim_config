@@ -8,6 +8,10 @@ return {
 	},
 	config = function()
 		local map = require("mini.map")
+		local ts_bridge = nil
+		pcall(function()
+			ts_bridge = require("utils.treesitter")
+		end)
 
 		-- 高亮渲染器
 		local symbols = map.gen_encode_symbols.dot("4x2")
@@ -25,6 +29,11 @@ return {
 			map.gen_integration.gitsigns(),        -- Git 变更标记
 			diagnostic_integration,                -- LSP 诊断标记（全部级别）
 		}
+
+		local ts_integration = ts_bridge and ts_bridge.minimap_integration and ts_bridge.minimap_integration(map)
+		if ts_integration then
+			table.insert(integrations, 1, ts_integration)
+		end
 
 		-- 配置主体
 		map.setup({

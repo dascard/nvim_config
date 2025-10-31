@@ -21,9 +21,11 @@ end
 local diagnostics = safe_require('utils.diagnostics')
 local icons = safe_require('utils.icons')
 local dap = safe_require('utils.dap')
+local treesitter = safe_require('utils.treesitter')
 
 return {
     diagnostics = diagnostics,
     icons = icons,
     dap = dap,
+    treesitter = treesitter,
 }
