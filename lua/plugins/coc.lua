@@ -18,45 +18,189 @@ return {
 					HINT = 4,
 				}
 			end
+
+			local VIM_NIL = rawget(vim, "NIL")
+
+			local severity_lookup = {
+				Error = severity.ERROR,
+				Warning = severity.WARN,
+				Information = severity.INFO,
+				Hint = severity.HINT,
+				ERROR = severity.ERROR,
+				WARN = severity.WARN,
+				INFO = severity.INFO,
+				HINT = severity.HINT,
+			}
+
 			local diagnostic_namespace = vim.api.nvim_create_namespace("coc2nvim")
+			local pending_request = false
+			local request_again = false
+			local last_error_message = nil
+
+			local function normalize_number(value, default)
+				if type(value) ~= "number" then
+					return default
+				end
+				if value ~= value then
+					return default
+				end
+				return value
+			end
+
+			local function resolve_position(entry)
+				local start_line = entry.lnum or (entry.range and entry.range.start and entry.range.start.line + 1)
+				local start_col = entry.col or (entry.range and entry.range.start and entry.range.start.character + 1)
+				local end_line = entry.end_lnum
+				if not end_line and entry.range and entry.range["end"] then
+					end_line = entry.range["end"].line + 1
+				end
+				local end_col = entry.end_col
+				if not end_col and entry.range and entry.range["end"] then
+					end_col = entry.range["end"].character + 1
+				end
+
+				local lnum = math.max(0, normalize_number(start_line, 1) - 1)
+				local col = math.max(0, normalize_number(start_col, 1) - 1)
+				local final_end_line = normalize_number(end_line, start_line or (lnum + 1))
+				local final_end_col = normalize_number(end_col, start_col or (col + 1))
+
+				return lnum, col, math.max(lnum, final_end_line - 1), math.max(col, final_end_col - 1)
+			end
+
+			local function resolve_bufnr(entry, fallback)
+				if entry.bufnr and vim.api.nvim_buf_is_valid(entry.bufnr) then
+					return entry.bufnr
+				end
+				if entry.buffer and vim.api.nvim_buf_is_valid(entry.buffer) then
+					return entry.buffer
+				end
+				if entry.file then
+					local candidate = vim.fn.bufnr(entry.file)
+					if candidate ~= -1 and vim.api.nvim_buf_is_valid(candidate) then
+						return candidate
+					end
+				end
+				if fallback and vim.api.nvim_buf_is_valid(fallback) then
+					return fallback
+				end
+				return nil
+			end
+
+			local function apply_diagnostics(per_buffer)
+				if not (vim.diagnostic and vim.diagnostic.set) then
+					return
+				end
+
+				for target_bufnr, entries in pairs(per_buffer) do
+					if vim.api.nvim_buf_is_valid(target_bufnr) then
+						local converted = {}
+						for _, entry in ipairs(entries) do
+							local lnum, col, end_lnum, end_col = resolve_position(entry)
+							table.insert(converted, {
+								lnum = lnum,
+								col = col,
+								end_lnum = end_lnum,
+								end_col = end_col,
+								severity = severity_lookup[entry.severity] or severity.INFO,
+								message = entry.message or "",
+								source = entry.source or entry.server or "coc.nvim",
+								code = entry.code,
+							})
+						end
+						vim.diagnostic.set(diagnostic_namespace, target_bufnr, converted, {})
+					end
+				end
+
+				last_error_message = nil
+			end
+
+			local function notify_once(message)
+				if not message or message == "" then
+					return
+				end
+				if last_error_message == message then
+					return
+				end
+				last_error_message = message
+				if vim.schedule then
+					vim.schedule(function()
+						vim.notify(message, vim.log.levels.WARN)
+					end)
+				else
+					vim.notify(message, vim.log.levels.WARN)
+				end
+			end
+
+			local function schedule_sync(bufnr_hint)
+				if type(vim.fn.CocActionAsync) ~= "function" then
+					return
+				end
+
+				local function request()
+					pending_request = true
+					local ok = pcall(vim.fn.CocActionAsync, "diagnosticList", function(err, result)
+						pending_request = false
+						if request_again then
+							request_again = false
+							schedule_sync(bufnr_hint)
+						end
+
+						if err and err ~= VIM_NIL and err ~= 0 then
+							if type(err) == "string" and err ~= "" then
+								notify_once("[coc.nvim] diagnostic sync failed: " .. err)
+							end
+							return
+						end
+
+						if type(result) ~= "table" then
+							return
+						end
+
+						local fallback_bufnr = bufnr_hint and vim.api.nvim_buf_is_valid(bufnr_hint) and bufnr_hint
+						local per_buffer = {}
+						for _, entry in ipairs(result) do
+							local target = resolve_bufnr(entry, fallback_bufnr)
+							if target then
+								per_buffer[target] = per_buffer[target] or {}
+								table.insert(per_buffer[target], entry)
+							end
+						end
+
+						if vim.schedule then
+							vim.schedule(function()
+								apply_diagnostics(per_buffer)
+							end)
+						else
+							apply_diagnostics(per_buffer)
+						end
+					end)
+
+					if not ok then
+						pending_request = false
+						notify_once("[coc.nvim] diagnostic request failed to start")
+					end
+				end
+
+				if pending_request then
+					request_again = true
+					return
+				end
+
+				if vim.schedule then
+					vim.schedule(request)
+				else
+					request()
+				end
+			end
 
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "CocDiagnosticChange",
-				callback = function()
-					local bufnr = vim.api.nvim_get_current_buf()
-					local ok, coc_diagnostics = pcall(vim.fn.CocAction, "diagnosticList")
-					if not ok or type(coc_diagnostics) ~= "table" then
-						return
-					end
-
-					local converted = {}
-					local severity_lookup = {
-						Error = severity.ERROR,
-						Warning = severity.WARN,
-						Information = severity.INFO,
-						Hint = severity.HINT,
-					}
-
-					for _, d in ipairs(coc_diagnostics) do
-						table.insert(converted, {
-							lnum = (d.lnum or 1) - 1,
-							col = (d.col or 1) - 1,
-							end_lnum = (d.end_lnum or d.lnum or 1) - 1,
-							end_col = (d.end_col or d.col or 1) - 1,
-							severity = severity_lookup[d.severity] or severity.INFO,
-							message = d.message,
-							source = "coc.nvim",
-						})
-					end
-
-					if vim.diagnostic and vim.diagnostic.set then
-						vim.diagnostic.set(diagnostic_namespace, bufnr, converted, {})
-					end
+				callback = function(args)
+					schedule_sync(args.buf or vim.api.nvim_get_current_buf())
 				end,
 				desc = "Bridge coc.nvim diagnostics to vim.diagnostic",
 			})
 
-			-- 2. （可选）自动清空诊断
 			vim.api.nvim_create_autocmd("BufDelete", {
 				callback = function(args)
 					if vim.diagnostic and vim.diagnostic.reset then
@@ -64,6 +208,8 @@ return {
 					end
 				end,
 			})
+
+			schedule_sync()
 			-- 核心扩展列表 (自动安装)
 			vim.g.coc_global_extensions = {
 				-- 核心语言支持
