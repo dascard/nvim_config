@@ -6,6 +6,20 @@ return {
 		branch = "release",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
+			local diagnostics_utils = require("utils.diagnostics")
+			local ensure_result = diagnostics_utils.ensure()
+			local severity = (ensure_result.module and ensure_result.module.severity)
+				or diagnostics_utils.get_severity_map()
+			if not severity then
+				severity = {
+					ERROR = 1,
+					WARN = 2,
+					INFO = 3,
+					HINT = 4,
+				}
+			end
+			local diagnostic_namespace = vim.api.nvim_create_namespace("coc2nvim")
+
 			-- 加载 COC 扩展管理器
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "CocDiagnosticChange",
@@ -17,25 +31,28 @@ return {
 					end
 
 					local converted = {}
+					local severity_lookup = {
+						Error = severity.ERROR,
+						Warning = severity.WARN,
+						Information = severity.INFO,
+						Hint = severity.HINT,
+					}
+
 					for _, d in ipairs(coc_diagnostics) do
 						table.insert(converted, {
-							lnum = d.lnum - 1,
-							col = d.col - 1,
-							end_lnum = d.end_lnum - 1,
-							end_col = d.end_col - 1,
-							severity = ({
-								Error = vim.diagnostic.severity.ERROR,
-								Warning = vim.diagnostic.severity.WARN,
-								Information = vim.diagnostic.severity.INFO,
-								Hint = vim.diagnostic.severity.HINT,
-							})[d.severity] or vim.diagnostic.severity.INFO,
+							lnum = (d.lnum or 1) - 1,
+							col = (d.col or 1) - 1,
+							end_lnum = (d.end_lnum or d.lnum or 1) - 1,
+							end_col = (d.end_col or d.col or 1) - 1,
+							severity = severity_lookup[d.severity] or severity.INFO,
 							message = d.message,
 							source = "coc.nvim",
 						})
 					end
 
-					local ns = vim.api.nvim_create_namespace("coc2nvim")
-					vim.diagnostic.set(ns, bufnr, converted, {})
+					if vim.diagnostic and vim.diagnostic.set then
+						vim.diagnostic.set(diagnostic_namespace, bufnr, converted, {})
+					end
 				end,
 				desc = "Bridge coc.nvim diagnostics to vim.diagnostic",
 			})
@@ -43,7 +60,9 @@ return {
 			-- 2. （可选）自动清空诊断
 			vim.api.nvim_create_autocmd("BufDelete", {
 				callback = function(args)
-					vim.diagnostic.reset(vim.api.nvim_create_namespace("coc2nvim"), args.buf)
+					if vim.diagnostic and vim.diagnostic.reset then
+						vim.diagnostic.reset(diagnostic_namespace, args.buf)
+					end
 				end,
 			})
 			local coc_manager = require('utils.coc-manager')

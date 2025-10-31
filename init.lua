@@ -1,6 +1,13 @@
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
+do
+    local ok, diagnostics_utils = pcall(require, "utils.diagnostics")
+    if ok and diagnostics_utils then
+        diagnostics_utils.ensure()
+    end
+end
+
 local function mspy_exe_path()
     if vim.g.ime_mspy_path and vim.g.ime_mspy_path ~= "" then
         return vim.g.ime_mspy_path

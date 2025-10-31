@@ -1,15 +1,32 @@
 -- utils/init.lua
 -- 工具模块初始化
 
--- 加载维护工具
-require('utils.maintenance')
+local function safe_require(name)
+    local ok, module = pcall(require, name)
+    if ok then
+        return module
+    end
 
--- 加载COC管理器
-require('utils.coc-manager')
+    local message = string.format("utils: 无法加载模块 %s: %s", name, module)
+    if vim and vim.schedule and vim.notify and vim.log then
+        vim.schedule(function()
+            vim.notify(message, vim.log.levels.WARN)
+        end)
+    end
+
+    return nil
+end
+
+local maintenance = safe_require('utils.maintenance')
+local coc_manager = safe_require('utils.coc-manager')
+local diagnostics = safe_require('utils.diagnostics')
+local icons = safe_require('utils.icons')
+local dap = safe_require('utils.dap')
 
 return {
-    maintenance = require('utils.maintenance'),
-    coc_manager = require('utils.coc-manager'),
-    icons = require('utils.icons'),
-    dap = require('utils.dap')
+    maintenance = maintenance,
+    coc_manager = coc_manager,
+    diagnostics = diagnostics,
+    icons = icons,
+    dap = dap,
 }
