@@ -16,23 +16,41 @@ return {
 		-- 高亮渲染器
 		local symbols = map.gen_encode_symbols.dot("4x2")
 
-		-- 高亮集成模块
-		local diagnostic_integration = map.gen_integration.diagnostic({
+		local diagnostic_highlights = {
 			error = "DiagnosticFloatingError",
 			warn = "DiagnosticFloatingWarn",
 			info = "DiagnosticFloatingInfo",
 			hint = "DiagnosticFloatingHint",
-		})
+		}
+
+		local default_links = {
+			error = "DiagnosticVirtualTextError",
+			warn = "DiagnosticVirtualTextWarn",
+			info = "DiagnosticVirtualTextInfo",
+			hint = "DiagnosticVirtualTextHint",
+		}
+
+		for key, group in pairs(diagnostic_highlights) do
+			if group then
+				local fallback = default_links[key]
+				if fallback then
+					vim.api.nvim_set_hl(0, group, { default = true, link = fallback })
+				end
+			end
+		end
+
+		-- 高亮集成模块
+		local diagnostic_integration = map.gen_integration.diagnostic(diagnostic_highlights)
 
 		local integrations = {
+			diagnostic_integration,                -- LSP 诊断标记优先显示
 			map.gen_integration.builtin_search(), -- 搜索结果 (/ 或 ?)
 			map.gen_integration.gitsigns(),        -- Git 变更标记
-			diagnostic_integration,                -- LSP 诊断标记（全部级别）
 		}
 
 		local ts_integration = ts_bridge and ts_bridge.minimap_integration and ts_bridge.minimap_integration(map)
 		if ts_integration then
-			table.insert(integrations, 1, ts_integration)
+			table.insert(integrations, ts_integration)
 		end
 
 		-- 配置主体
