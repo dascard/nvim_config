@@ -170,9 +170,18 @@ return {
 				for target_bufnr, entries in pairs(per_buffer) do
 					if vim.api.nvim_buf_is_valid(target_bufnr) then
 						local converted = {}
-						for _, entry in ipairs(entries) do
+						local function append(entry)
+							if entry.bufnr and entry.bufnr ~= target_bufnr then
+								return
+							end
+							if entry.buffer and entry.buffer ~= target_bufnr then
+								return
+							end
 							local lnum, col, end_lnum, end_col = resolve_position(entry)
-							table.insert(converted, {
+							if type(lnum) ~= "number" or type(col) ~= "number" then
+								return
+							end
+							converted[#converted + 1] = {
 								lnum = lnum,
 								col = col,
 								end_lnum = end_lnum,
@@ -181,7 +190,10 @@ return {
 								message = entry.message or "",
 								source = entry.source or entry.server or "coc.nvim",
 								code = entry.code,
-							})
+							}
+						end
+						for _, entry in ipairs(entries) do
+							append(entry)
 						end
 						pcall(vim.diagnostic.set, diagnostic_namespace, target_bufnr, converted, {})
 						seen_buffers[target_bufnr] = true
