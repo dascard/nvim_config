@@ -4,8 +4,15 @@ return {
 	{
 		"neoclide/coc.nvim",
 		branch = "release",
-		event = { "BufReadPre", "BufNewFile" },
+		-- 不使用 enabled，让 lazy.nvim 可以按需加载
+		lazy = true,
+		event = not vim.g.use_native_lsp and { "BufReadPre", "BufNewFile" } or {},
 		config = function()
+			-- 如果当前是原生 LSP 模式，禁用 COC 自动启动
+			if vim.g.use_native_lsp then
+				vim.g.coc_start_at_startup = 0
+			end
+
 			local diagnostics_utils = require("utils.diagnostics")
 			local symbol_bridge = nil
 			pcall(function()
@@ -470,8 +477,7 @@ return {
 				opts)
 			keyset("i", "<up>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<up>"]], opts)
 
-			-- Enter 键 - 确认补全或换行（官方推荐配置）
-			-- keyset("i", "<Tab>", [[coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : "\<C-g>u\<cr>\<c-r>=coc#on_enter()\<TAB>"]], {silent = true, noremap = true, expr = true, replace_keycodes = true, unique = true})
+			-- Tab 键 - 确认补全
 			keyset("i", "<Tab>", [[coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : "\<TAB>"]], opts)
 
 			-- Snippet 和补全触发
@@ -499,7 +505,6 @@ return {
 					vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
 				end
 			end
-
 			keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
 
 			-- 重命名和代码操作

@@ -64,9 +64,9 @@ return {
 		local diagnostic_integration = map.gen_integration.diagnostic(diagnostic_highlights)
 
 		local integrations = {
-			diagnostic_integration,                -- LSP 诊断标记优先显示
+			diagnostic_integration,            -- LSP 诊断标记优先显示
 			map.gen_integration.builtin_search(), -- 搜索结果 (/ 或 ?)
-			map.gen_integration.gitsigns(),        -- Git 变更标记
+			map.gen_integration.gitsigns(),    -- Git 变更标记
 		}
 
 		local ts_integration = ts_bridge and ts_bridge.minimap_integration and ts_bridge.minimap_integration(map)
@@ -88,9 +88,30 @@ return {
 
 		-- 启动时打开 minimap（排除特定类型）
 		vim.api.nvim_create_autocmd("BufEnter", {
+			group = vim.api.nvim_create_augroup("KeepFeatureClosedInSpecialBuffers", { clear = true }),
 			callback = function()
-				local ignore_ft = { "NvimTree", "TelescopePrompt", "help", "dashboard" }
-				if not vim.tbl_contains(ignore_ft, vim.bo.filetype) then
+				-- 1. 定义一个不应触发功能的“黑名单”文件类型
+				local ignored_filetypes = {
+					"NvimTree",
+					"TelescopePrompt",
+					"help",
+					"dashboard",
+					"lazy",
+					"mason",
+					"sidekick_terminal",
+					"qf", -- Quickfix 列表
+				}
+
+				-- 2. 检查当前文件类型是否在黑名单中
+				if vim.tbl_contains(ignored_filetypes, vim.bo.filetype) then
+					-- 如果是，则执行“关闭”操作
+					-- 请将下面的示例命令替换成你自己的
+					-- vim.cmd('YourPluginCloseCommand')
+					map.close()
+				else
+					-- 否则（对于普通文件），执行“打开”操作
+					-- 请将下面的示例命令替换成你自己的
+					-- vim.cmd('YourPluginOpenCommand')
 					map.open()
 				end
 			end,

@@ -1,9 +1,10 @@
 -- lua/plugins/mason-tool-installer-config.lua
--- 临时禁用，切换到 coc.nvim
+-- Mason 工具安装器 - 原生 LSP 模式时启用
 return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    enabled = false, -- 禁用此插件
-    dependencies = { "williamboman/mason.nvim" }, -- 确保 Mason 先加载
+    lazy = true,
+    event = vim.g.use_native_lsp and { "BufReadPre", "BufNewFile" } or {},
+    dependencies = { "williamboman/mason.nvim" },
     config = function()
         require("mason-tool-installer").setup({
             ensure_installed = {

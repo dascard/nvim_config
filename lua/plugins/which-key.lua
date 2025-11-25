@@ -29,11 +29,11 @@ return {
 		layout = {
 			height = { min = 4, max = 30 }, -- 增加最大高度以显示更多快捷键
 			width = { min = 20, max = 60 }, -- 增加最大宽度以显示更长的描述
-			spacing = 3, -- spacing between columns
-			align = "left", -- align columns left, center or right
+			spacing = 3,                 -- spacing between columns
+			align = "left",              -- align columns left, center or right
 		},
-		show_help = true, -- show a help message in the command line for using WhichKey
-		show_keys = true, -- show the currently pressed key and its label as a message in the command line
+		show_help = true,              -- show a help message in the command line for using WhichKey
+		show_keys = true,              -- show the currently pressed key and its label as a message in the command line
 		disable = {
 			buftypes = {},
 			filetypes = { "TelescopePrompt" },
@@ -77,7 +77,7 @@ return {
 			{ "<leader>gl", desc = "Git Log" },
 			{ "<leader>gb", desc = "Git Branches" },
 
-			-- 调试操作组  
+			-- 调试操作组
 			{ "<leader>d", group = icons.get("dap").Play .. " Debug", icon = "" },
 			{ "<leader>dp", desc = "Toggle Breakpoint" },
 			{ "<leader>dc", desc = "Continue" },
@@ -161,10 +161,6 @@ return {
 
 			-- AI/Copilot 操作组
 			{ "<leader>a", group = "🤖 AI (Copilot)", icon = "🤖" },
-			{ "<leader>ao", desc = "打开/关闭 Copilot 聊天", icon = "󰭹" },
-			{ "<leader>ar", desc = "重置 Copilot 聊天会话", icon = "󰑓" },
-			{ "<leader>aq", desc = "快速提问 (CopilotChat)", icon = "󰘦" },
-			{ "<leader>ap", desc = "选择预设 Prompt (CopilotChat)", icon = "󰒓" },
 
 			-- 单键映射说明
 			{ "gd", desc = "Go to Definition", icon = "󰈮" },

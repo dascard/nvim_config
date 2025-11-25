@@ -35,6 +35,11 @@ vim.opt.updatetime = 300
 vim.opt.writebackup = false
 vim.opt.confirm = true
 
+-- LSP 切换命令已移至 lua/lsp_switch.lua
+-- 使用 :ToggleLSP 在 coc.nvim 和原生 LSP 之间切换
+-- 使用 :LSPMode 查看当前模式
+-- 使用 :UseCoc 或 :UseNativeLSP 直接切换到指定模式
+
 -- 命令行补全设置（由 noice.nvim 接管）
 vim.opt.wildmenu = true  -- 启用命令行补全菜单
 vim.opt.wildmode = "longest:full,full"  -- 设置补全行为

@@ -135,5 +135,6 @@
   "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

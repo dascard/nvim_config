@@ -1,0 +1,94 @@
+﻿return {
+  'saghen/blink.cmp',
+  dependencies = 'rafamadriz/friendly-snippets',
+  version = 'v0.*',
+  
+  -- 涓嶄娇鐢?enabled锛岃 lazy.nvim 鍙互鎸夐渶鍔犺浇
+  lazy = true,
+  event = vim.g.use_native_lsp and { "InsertEnter", "CmdlineEnter" } or {},
+
+  ---@module 'blink.cmp'
+  ---@type blink.cmp.Config
+  opts = {
+    -- 鍔ㄦ€佹鏌ユ槸鍚﹀惎鐢?    enabled = function()
+      return vim.g.use_native_lsp == true
+    end,
+
+    keymap = {
+      preset = 'default',
+      -- 绫讳技 COC 鐨勬寜閿範鎯?      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<C-e>'] = { 'hide' },
+      ['<CR>'] = { 'accept', 'fallback' },
+      
+      ['<Tab>'] = {
+        function(cmp)
+          if cmp.snippet_active() then return cmp.accept() end
+          if cmp.is_visible() then return cmp.select_next() end
+        end,
+        'snippet_forward',
+        'fallback'
+      },
+      ['<S-Tab>'] = {
+        function(cmp)
+          if cmp.is_visible() then return cmp.select_prev() end
+        end,
+        'snippet_backward',
+        'fallback'
+      },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' },
+    },
+
+    appearance = {
+      use_nvim_cmp_as_default = true,
+      nerd_font_variant = 'mono',
+      kind_icons = {
+        Text = '蟀壙',
+        Method = '蟀啩',
+        Function = '蟀姇',
+        Constructor = '飷?,
+        Field = '蟀湤',
+        Variable = '蟀€?,
+        Class = '蟀牨',
+        Interface = '飪?,
+        Module = '飹?,
+        Property = '蟀湤',
+        Unit = '蟀懎',
+        Value = '蟀帬',
+        Enum = '飬?,
+        Keyword = '蟀寢',
+        Snippet = '飸?,
+        Color = '蟀彉',
+        File = '蟀垯',
+        Reference = '蟀垏',
+        Folder = '蟀墜',
+        EnumMember = '飬?,
+        Constant = '蟀彿',
+        Struct = '蟀檯',
+        Event = '飪?,
+        Operator = '蟀啎',
+        TypeParameter = '蟀叢',
+      },
+    },
+
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+
+    -- 绛惧悕甯姪
+    signature = { enabled = true },
+    
+    -- 琛ュ叏鏂囨。
+    completion = {
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 200,
+        },
+        ghost_text = {
+            enabled = true,
+        },
+    },
+  },
+  opts_extend = { "sources.default" }
+}
+

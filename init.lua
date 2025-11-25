@@ -1,6 +1,9 @@
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
+-- 加载 LSP 开关配置 (必须在 lazy.nvim 之前加载)
+require("lsp_switch")
+
 do
     local ok, diagnostics_utils = pcall(require, "utils.diagnostics")
     if ok and diagnostics_utils then
@@ -133,64 +136,12 @@ vim.keymap.set({"n", "i"}, "<F10>", toggle_neovide_opacity, {
     silent = true,
     desc = "Toggle Neovide Opacity"
 })
-local original_notify = vim.notify
--- 请将下面的字符串替换为你从 :messages 中精确复制的错误消息！
-local exact_copilot_error_message =
-    '[Copilot.lua] RPC[Error] code_name = ServerNotInitialized, message = "Agent service not initialized."'
 
-vim.notify = function(msg, level, opts)
-    if type(msg) == "string" and msg == exact_copilot_error_message then
-        -- vim.print("Exact match: Suppressed Copilot error: " .. msg) -- 调试用
-        return
-    end
+-- Copilot 错误消息过滤已移至 Noice 插件配置中
+-- 如果需要在 Noice 加载前过滤，可以使用下面的代码，但会与 Noice 冲突
+-- 建议在 plugins/snacks.lua 或 plugins/ui.lua 中的 noice 配置里添加过滤规则
 
-    -- 如果不是完全匹配，再尝试模式匹配（以防消息中有动态部分，但ServerNotInitialized通常是固定的）
-    local copilot_error_pattern =
-        '%[Copilot%.lua%] RPC%[Error%] code_name = ServerNotInitialized, message = %"Agent service not initialized%.%"'
-    if type(msg) == "string" and string.match(msg, copilot_error_pattern) then
-        -- vim.print("Pattern match: Suppressed Copilot error: " .. msg) -- 调试用
-        return
-    end
-
-    return original_notify(msg, level, opts)
-end
-
-local original_print = vim.print
--- 请将下面的字符串替换为你从 :messages 中精确复制的错误消息！
-local exact_copilot_error_message_for_print =
-    '[Copilot.lua] RPC[Error] code_name = ServerNotInitialized, message = "Agent service not initialized."'
-
-vim.print = function(...)
-    local args = {...}
-    local first_arg = args[1]
-
-    if type(first_arg) == "string" then
-        -- 尝试从第一个参数中匹配，因为 vim.print 可以接收多个参数
-        -- 完整的错误消息可能被拆分或与其他内容混合，这使得过滤更难
-        if first_arg == exact_copilot_error_message_for_print or
-            string.find(first_arg, "Agent service not initialized", 1, true) then -- 更宽松的查找
-            -- vim.api.nvim_echo({{"Suppressed print: " .. first_arg, "Comment"}}, false, {}) -- 调试
-            return
-        end
-    end
-    return original_print(...)
-end
-
--- 包装 vim.echoerr (如果错误是通过它发出的)
-local original_echoerr = vim.echoerr
 vim.cmd("highlight Cursor gui=NONE guifg=bg guibg=#ffb6c1")
-
-vim.echoerr = function(...)
-    local args = {...}
-    local first_arg = args[1]
-    if type(first_arg) == "string" and
-        (first_arg == exact_copilot_error_message_for_print or
-            string.find(first_arg, "Agent service not initialized", 1, true)) then
-        -- vim.api.nvim_echo({{"Suppressed echoerr: " .. first_arg, "ErrorMsg"}}, false, {}) -- 调试
-        return
-    end
-    return original_echoerr(...)
-end
 
 require("config.lazy")
 require("core.options")

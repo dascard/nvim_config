@@ -106,175 +106,87 @@ return {
 			end, 8000) -- 延迟8秒，给予足够时间进行初次尝试后再重连
 		end,
 	},
-
-	-- 2. CopilotChat.nvim: Copilot 聊天界面
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		cmd = { "CopilotChat", "CopilotChatToggle", "CopilotChatReset", "CopilotChatAsk", "CopilotChatSelectPrompt" },
-		commit = "93110a5",
-		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- 依赖核心 Copilot 插件
-			{ "nvim-lua/plenary.nvim" }, -- 常用工具库
-			{ "MeanderingProgrammer/render-markdown.nvim" },
+		"folke/sidekick.nvim",
+		opts = {
+			-- add any options here
+			cli = {
+				mux = {
+					backend = "tmux",
+					enabled = true,
+				},
+				win = {
+					split = {
+						width = 0.4,
+					}
+				}
+			},
 		},
-		build = "make tiktoken",                                        -- 构建 tiktoken 库用于标记化
-		opts = function()
-			local user_name_env = vim.env.USER or vim.env.USERNAME or "User" -- Windows 兼容
-			local user_name_capitalized = user_name_env:sub(1, 1):upper() .. user_name_env:sub(2)
-
-			return {
-				auto_insert_mode = true,                            -- 进入聊天窗口自动切换到插入模式
-				question_header = "  " .. user_name_capitalized .. " ", -- 提问标头
-				answer_header = "  Copilot ",                       -- 回答标头
-				debug = false,                                      -- 调试模式
-				show_help = true,                                   -- 显示帮助信息
-				model = "gemini-2.5-pro",
-				-- 中文预设提示词
-				prompts = {
-					Explain = {
-						prompt = "请使用中文逐步解释当前选中的代码片段的功能和逻辑，并为关键部分添加注释。",
-					},
-					Review = {
-						prompt = "请仔细检查这段代码，指出潜在的bug、不优雅的实现、性能问题或不符合最佳实践的地方，并用中文提供改进建议。",
-					},
-					Fix = {
-						prompt = "这段代码似乎有问题。请使用中文描述可能存在的问题，并提供一个修复后的代码版本。",
-					},
-					Optimize = {
-						prompt = "请分析这段代码的性能瓶颈或可以优化的地方，并用中文提出具体的优化方案和代码示例。",
-					},
-					Docs = {
-						prompt = "请为这段代码生成中文的文档说明，包括其主要功能、参数（如果有）、返回值（如果有）和使用示例，并为其添加必要的行内注释。",
-					},
-					Test = {
-						prompt = "请为这段代码编写一些重要的测试用例（例如使用Vimscript的vader测试或者目标语言的测试框架），并用中文解释每个测试用例的目的。",
-					},
-					Commit = {
-						prompt = "请根据当前 Git staged 区的更改，生成一条符合规范的中文提交消息（例如 Conventional Commits 格式）。",
-						context = "git:staged",
-					},
-				},
-				-- 窗口配置
-				window = {
-					layout = "vertical", -- 垂直布局
-					width = 0.30,      -- 窗口宽度为编辑器的45%
-					height = 0.9,      -- 窗口高度为编辑器的90%
-					relative = "editor", -- 相对于编辑器定位
-					border = "rounded", -- 圆角边框
-					title = "Copilot Chat", -- 窗口标题
-					win_options = {
-						-- signcolumn = "no", -- 不显示符号列
-					},
-				},
-				-- 键盘映射
-				mappings = {
-					submit = {
-						insert = "<C-s>", -- 插入模式下提交
-						normal = "<C-s>", -- 正常模式下提交
-					},
-					close = {
-						normal = "q", -- 正常模式下关闭
-						insert = "<C-c>", -- 插入模式下关闭
-					},
-					reset = {
-						normal = "<C-r>", -- 正常模式下重置
-						insert = "<C-r>", -- 插入模式下重置
-					},
-				},
-			}
-		end,
 		keys = {
-			-- 定义键盘映射
 			{
-				"<C-s>",
-				"<CR>",
-				ft = "copilot-chat",
-				mode = "i",
-				desc = "提交 Prompt (聊天插入模式)",
-				remap = true,
+				"<tab>",
+				function()
+					-- if there is a next edit, jump to it, otherwise apply it if any
+					if not require("sidekick").nes_jump_or_apply() then
+						return "<Tab>" -- fallback to normal tab
+					end
+				end,
+				expr = true,
+				desc = "Goto/Apply Next Edit Suggestion",
 			},
 			{
-				"<leader>ao",
-				function()
-					pcall(function()
-						require("CopilotChat").toggle()
-					end)
-				end,
-				desc = "打开/关闭 Copilot 聊天",
-				mode = { "n", "v" },
+				"<M-|>",
+				function() require("sidekick.cli").toggle() end,
+				desc = "Sidekick Toggle",
+				mode = { "n", "t", "i", "x" },
 			},
 			{
-				"<leader>ar",
-				function()
-					pcall(function()
-						require("CopilotChat").reset()
-					end)
-				end,
-				desc = "重置 Copilot 聊天会话",
-				mode = { "n", "v" },
+				"<leader>aa",
+				function() require("sidekick.cli").toggle() end,
+				desc = "Sidekick Toggle CLI",
 			},
 			{
-				"<leader>aq",
-				function()
-					vim.ui.input({ prompt = "快速提问 (Copilot): " }, function(input)
-						if input and input ~= "" then
-							pcall(function()
-								require("CopilotChat").ask(
-									input,
-									{ selection = require("CopilotChat.select").get_visual_selection() }
-								)
-							end)
-						end
-					end)
-				end,
-				desc = "快速提问 (CopilotChat)",
-				mode = { "n", "v" },
+				"<leader>as",
+				function() require("sidekick.cli").select() end,
+				-- Or to select only installed tools:
+				-- require("sidekick.cli").select({ filter = { installed = true } })
+				desc = "Select CLI",
+			},
+			{
+				"<leader>ad",
+				function() require("sidekick.cli").close() end,
+				desc = "Detach a CLI Session",
+			},
+			{
+				"<leader>at",
+				function() require("sidekick.cli").send({ msg = "{this}" }) end,
+				mode = { "x", "n" },
+				desc = "Send This",
+			},
+			{
+				"<leader>af",
+				function() require("sidekick.cli").send({ msg = "{file}" }) end,
+				desc = "Send File",
+			},
+			{
+				"<leader>av",
+				function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+				mode = { "x" },
+				desc = "Send Visual Selection",
 			},
 			{
 				"<leader>ap",
-				function()
-					pcall(function()
-						require("CopilotChat").select_prompt({
-							selection = require("CopilotChat.select").get_visual_selection(),
-						})
-					end)
-				end,
-				desc = "选择预设 Prompt (CopilotChat)",
-				mode = { "n", "v" },
+				function() require("sidekick.cli").prompt() end,
+				mode = { "n", "x" },
+				desc = "Sidekick Select Prompt",
+			},
+			-- Example of a keybinding to open Claude directly
+			{
+				"<leader>ac",
+				function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
+				desc = "Sidekick Toggle Claude",
 			},
 		},
-		config = function(_, opts)
-			-- 检查 CopilotChat 模块是否能够加载
-			if not pcall(require, "CopilotChat") then
-				vim.notify("[CopilotChat.nvim] Failed to load CopilotChat module.", vim.log.levels.ERROR)
-				return
-			end
-			-- 设置 CopilotChat
-			require("CopilotChat").setup(opts)
-			require("render-markdown").setup({
-				file_types = { "markdown", "copilot-chat" },
-			})
-
-			-- Adjust chat display settings
-			require("CopilotChat").setup({
-				highlight_headers = false,
-				separator = "---",
-				error_header = "> [!ERROR] Error",
-			})
-
-			-- 为 copilot-chat 缓冲区设置本地选项
-			vim.api.nvim_create_autocmd("BufEnter", {
-				pattern = "copilot-chat",
-				group = vim.api.nvim_create_augroup("MyCopilotChatLocalOpts", { clear = true }),
-				callback = function(args)
-					vim.opt_local.relativenumber = false
-					vim.opt_local.number = false
-					vim.opt_local.wrap = true
-					vim.opt_local.spell = false
-					vim.bo[args.buf].bufhidden = "hide"
-				end,
-			})
-		end,
 	},
 
 	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源 - 已禁用，改用 COC

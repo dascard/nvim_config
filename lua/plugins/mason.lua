@@ -1,10 +1,10 @@
 -- lua/plugins/mason-core.lua
--- 临时禁用，切换到 coc.nvim
+-- Mason 包管理器 - 原生 LSP 模式时启用
 return {
     "williamboman/mason.nvim",
-    enabled = false, -- 禁用此插件
-    lazy = false, -- Mason 需要尽早加载
-    priority = 1000,
+    lazy = true,
+    event = vim.g.use_native_lsp and { "BufReadPre", "BufNewFile" } or {},
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     config = function()
         require("mason").setup({
             ui = {
@@ -15,7 +15,6 @@ return {
                     package_uninstalled = "✗",
                 },
             },
-            -- 重要：不在这里配置 mason-lspconfig 或 mason-tool-installer
         })
     end,
 }
