@@ -467,7 +467,7 @@ return {
 				bo = { filetype = "snacks_notif_history", modifiable = false },
 				wo = {
 					winhighlight = "Normal:SnacksNotifierHistory",
-					winblend = 25, -- 增加通知历史透明度
+					winblend = 20, -- 增加通知历史透明度
 				},
 				keys = { q = "close" },
 			},
@@ -477,7 +477,7 @@ return {
 				zindex = 100,
 				ft = "markdown",
 				wo = {
-					winblend = 30, -- 增加通知弹窗透明度
+					winblend = 20, -- 增加通知弹窗透明度
 					wrap = false,
 					conceallevel = 2,
 					colorcolumn = "",
@@ -485,7 +485,7 @@ return {
 				bo = { filetype = "snacks_notif" },
 			},
 			picker = {
-				winblend = 100, -- 窗口透明度（0-100）
+				winblend = 20, -- 窗口透明度（0-100）
 				border_style = "rounded", -- 边框样式（none/single/double/rounded）
 				title_icon = "", -- 标题区图标（需 nerd font 支持）
 				prompt_prefix = "🔍 ", -- 搜索前缀符号
@@ -506,6 +506,7 @@ return {
 				wo = {
 					winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
 					cursorline = false,
+                    winblend = 20,
 				},
 				bo = {
 					filetype = "snacks_input",

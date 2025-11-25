@@ -9,7 +9,7 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.mouse = "a"
-vim.opt.pumheight = 20
+-- vim.opt.pumheight = 20 -- Duplicate removed
 vim.opt.foldmethod = "marker"
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -48,8 +48,8 @@ vim.opt.wildmode = "longest:full,full"  -- 设置补全行为
 vim.opt.pumheight = 15  -- 设置补全菜单最大高度
 
 -- 透明度配置
-vim.opt.pumblend = 30  -- 补全菜单透明度 (增加透明度)
-vim.opt.winblend = 25  -- 浮动窗口透明度 (增加透明度)
+vim.opt.pumblend = 20  -- 补全菜单透明度 (统一为 20)
+vim.opt.winblend = 20  -- 浮动窗口透明度 (统一为 20)
 
 -- 设置 leader 键
 vim.g.mapleader = ";"
@@ -238,10 +238,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- 设置全局浮动窗口默认配置
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
-	winblend = 25,  -- 增加 LSP 悬停窗口透明度
+	winblend = 20,  -- 统一透明度
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 	border = "rounded",
-	winblend = 25,  -- 增加 LSP 签名帮助透明度
+	winblend = 20,  -- 统一透明度
 })

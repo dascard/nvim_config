@@ -642,7 +642,7 @@ return {
 					filter_options = {},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 25, -- 增加命令框透明度
+						winblend = 20, -- 增加命令框透明度
 					},
 				},
 				popupmenu = {
@@ -661,7 +661,7 @@ return {
 					},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 25, -- 增加透明度
+						winblend = 20, -- 增加透明度
 					},
 				},
 			},

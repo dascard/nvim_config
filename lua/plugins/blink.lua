@@ -82,7 +82,15 @@ return {
     
     -- 补全文档
     completion = {
+        menu = {
+            border = 'rounded',
+            winblend = 20,
+        },
         documentation = {
+            window = {
+                border = 'rounded',
+                winblend = 20,
+            },
             auto_show = true,
             auto_show_delay_ms = 200,
         },
