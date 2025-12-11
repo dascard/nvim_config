@@ -1,0 +1,210 @@
+[DEBUG] 2025-12-10 21:30:56
+Starting ACP process: { "gemini", "--experimental-acp" }
+[DEBUG] 2025-12-10 21:30:56
+[acp::start_agent_process] ACP process started
+[DEBUG] 2025-12-10 21:30:56
+[acp::write_message] Sending data:
+{"params":{"protocolVersion":1,"clientCapabilities":{"fs":{"readTextFile":true,"writeTextFile":true}},"clientInfo":{"name":"CodeCompanion.nvim","version":"1.0.0"}},"id":1,"method":"initialize","jsonrpc":"2.0"}
+
+[DEBUG] 2025-12-10 21:31:01
+[acp::stderr] Loaded cached credentials.
+[DEBUG] 2025-12-10 21:31:02
+[acp::buffer_stdout_and_dispatch] Received stdout:
+{"jsonrpc":"2.0","id":1,"result":{"protocolVersion":1,"authMethods":[{"id":"oauth-personal","name":"Log in with Google","description":null},{"id":"gemini-api-key","name":"Use Gemini API key","description":"Requires setting the `GEMINI_API_KEY` environment variable"},{"id":"vertex-ai","name":"Vertex AI","description":null}],"agentCapabilities":{"loadSession":false,"promptCapabilities":{"image":true,"audio":true,"embeddedContext":true}}}}
+
+[DEBUG] 2025-12-10 21:31:02
+[acp::connect_and_initialize] ACP connection initialized
+[DEBUG] 2025-12-10 21:31:02
+[acp::write_message] Sending data:
+{"params":{"methodId":"oauth-personal"},"id":2,"method":"authenticate","jsonrpc":"2.0"}
+
+[DEBUG] 2025-12-10 21:31:02
+[acp::buffer_stdout_and_dispatch] Received stdout:
+{"jsonrpc":"2.0","id":2,"error":{"code":-32602,"message":"Invalid params","data":{"details":"{\n  \"_errors\": [],\n  \"authMethod\": {\n    \"_errors\": [\n      \"Required\"\n    ]\n  }\n}"}}}
+
+[ERROR] 2025-12-10 21:31:05
+[acp::handle_rpc_message] Error: {
+  code = -32602,
+  data = {
+    details = '{\n  "_errors": [],\n  "authMethod": {\n    "_errors": [\n      "Required"\n    ]\n  }\n}'
+  },
+  message = "Invalid params"
+}
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr] Experiments loaded {
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]   experimentIds: [
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105867471,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105640665,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104638466,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105704191,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     101868197,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104817729,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105695344,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104913215,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105821930,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105742851,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105867544,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105867546,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104922093,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     103012598,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105898505,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105886386,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     102617194,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105772007,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105098746,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105865008,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105737996,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105761458,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105852960,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105865103,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104892493,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105723762,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105785684,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105721273,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105658067,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105864343,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104764657,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105620019,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104739378,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105890590,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105867469,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105640661,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104638459,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105704187,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     101551624,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104673683,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105695346,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104913210,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105821928,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104922082,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     103012592,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105885093,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     102519585,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105098743,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105865006,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105737994,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105761456,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105852958,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105865101,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104892490,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105011762,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105721268,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105658064,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105863625,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     104764653,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105620012,
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     105890588
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]   ],
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]   flags: [
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     {
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       flagId: '45740197',
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       floatValue: 0.7
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     },
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     {
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       flagId: '45740199',
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       stringValue: 'Gemini 3 is now available. \\nTo use Gemini 3, enable "Preview features" in /settings. \\nLearn more at https://goo.gle/enable-preview-features'
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     },
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     {
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       flagId: '45740200',
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       stringValue: ''
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     },
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     {
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       flagId: '45743869',
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]       boolValue: true
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]     }
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr]   ]
+[DEBUG] 2025-12-10 21:31:06
+[acp::stderr] }
+[ERROR] 2025-12-10 21:31:07
+[acp::connect_and_initialize] Failed to authenticate with method oauth-personal
+[DEBUG] 2025-12-10 21:40:15
+[Subscription] Stopping
+[INFO] 2025-12-10 21:40:15
+[Edit Tracker] Clearing all tracked edits for chat 7942063
+[DEBUG] 2025-12-10 21:40:15
+[acp::disconnect] Disconnecting ACP connection: [No session ID]
+[DEBUG] 2025-12-10 21:40:15
+[acp::handle_process_exit] Process exited: code=0, signal=9
+[DEBUG] 2025-12-10 21:41:33
+[acp::disconnect] Disconnecting ACP connection: [No session ID]

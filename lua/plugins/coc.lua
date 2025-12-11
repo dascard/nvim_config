@@ -471,7 +471,7 @@ return {
 			end
 
 			-- 补全和导航键映射
-			local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
+			local opts = { silent = true, noremap = true, expr = true, replace_keycodes = true }
 			-- Tab 键 - 选择下一个补全项或缩进
 			keyset("i", "<down>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<down>" : coc#refresh()',
 				opts)

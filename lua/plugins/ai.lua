@@ -15,11 +15,11 @@ return {
 				auto_trigger = true,
 				debounce = 75,
 				keymap = {
-					accept = "<C-j>", -- Ctrl+Y 接受 Copilot 建议
+					accept = "<C-j>", -- Ctrl+J 接受 Copilot 建议
 					accept_word = "<C-l>", -- Ctrl+L 接受单词
-					accept_line = "<M-l>", -- Alt+L 接受行
-					next = "<M-]>",   -- Alt+] 下一个建议
-					prev = "<M-[>",   -- Alt+[ 上一个建议
+					accept_line = "<C-y>", -- Ctrl+Y 接受行（避免与 avante 的 <M-l> 冲突）
+					next = "<C-]>",   -- Ctrl+] 下一个建议（避免与 avante 的 <M-]> 冲突）
+					prev = "<C-[>",   -- Ctrl+[ 上一个建议（避免与 avante 的 <M-[> 冲突）
 					dismiss = "<C-e>", -- Ctrl+E 关闭建议
 				},
 			},
@@ -27,8 +27,8 @@ return {
 				enabled = true,
 				auto_refresh = true,
 				keymap = {
-					jump_prev = "[[",
-					jump_next = "]]",
+					jump_prev = "gk", -- 改为 gk 避免与 avante jump 冲突
+					jump_next = "gj", -- 改为 gj 避免与 avante jump 冲突
 					accept = "<CR>",
 					refresh = "gr",
 					open = "<M-o>", -- Meta/Alt + o
@@ -108,6 +108,7 @@ return {
 	},
 	{
 		"folke/sidekick.nvim",
+		enabled = false, -- 禁用 sidekick，使用 avante.nvim 替代
 		opts = {
 			-- add any options here
 			cli = {
@@ -123,17 +124,6 @@ return {
 			},
 		},
 		keys = {
-			{
-				"<tab>",
-				function()
-					-- if there is a next edit, jump to it, otherwise apply it if any
-					if not require("sidekick").nes_jump_or_apply() then
-						return "<Tab>" -- fallback to normal tab
-					end
-				end,
-				expr = true,
-				desc = "Goto/Apply Next Edit Suggestion",
-			},
 			{
 				"<M-|>",
 				function() require("sidekick.cli").toggle() end,
@@ -189,10 +179,369 @@ return {
 		},
 	},
 
-	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源 - 已禁用，改用 COC
+	-- CodeCompanion.nvim: AI Chat 界面
+	{
+		"olimorris/codecompanion.nvim",
+		enabled = false, -- 启用 CodeCompanion
+		version = "v17.33.0", -- 固定版本以避免破坏性变更
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"zbirenbaum/copilot.lua", -- 用于 copilot adapter
+			{
+				-- 确保你安装了 render-markdown 以获得更好的渲染效果
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "codecompanion" },
+				},
+				ft = { "markdown", "codecompanion" },
+			},
+		},
+		opts = {
+			strategies = {
+				chat = {
+					adapter = "gemini_cli", -- 使用 gemini-cli ACP adapter
+				},
+				inline = {
+					adapter = "copilot",
+				},
+				cmd = {
+					adapter = "copilot",
+				},
+			},
+			adapters = {
+				-- HTTP adapters
+				http = {
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
+							schema = {
+								model = {
+									default = "gpt-4o",
+								},
+							},
+						})
+					end,
+				},
+				-- ACP adapters (使用 Agent Client Protocol)
+				acp = {
+					gemini_cli = function()
+						return require("codecompanion.adapters").extend("gemini_cli", {
+							commands = {
+								default = {
+									"gemini",
+									"--experimental-acp",
+								},
+							},
+							defaults = {
+								auth_method = "oauth-personal", -- 使用 Google 登录凭证
+								mcpServers = {},
+								timeout = 30000,
+							},
+							env = {
+								NODE_NO_WARNINGS = "1",
+								IS_AI_TERMINAL = "1",
+							},
+						})
+					end,
+				},
+			},
+			display = {
+				chat = {
+					window = {
+						layout = "vertical", -- float|vertical|horizontal|buffer
+						width = 0.3,
+						height = 0.8,
+						relative = "editor",
+						border = "rounded",
+					},
+					intro_message = "欢迎使用 CodeCompanion！输入你的问题开始对话。",
+					show_settings = false,
+					show_token_count = true,
+				},
+				diff = {
+					enabled = true,
+					close_chat_at = 240,
+					layout = "vertical",
+					provider = "default",
+				},
+				inline = {
+					layout = "vertical",
+				},
+			},
+			opts = {
+				log_level = "ERROR",
+				system_prompt = [[你是一位 AI 编程助手，名为 CodeCompanion。
+				你是一位专家级程序员，帮助用户编写、调试和优化代码。
+				你应该用中文回复用户的问题。
+				当你提供代码修改建议时，请提供清晰的解释。]],
+			},
+		},
+		keys = {
+			-- 聊天相关
+			{
+				"<leader>aa",
+				"<cmd>CodeCompanionChat Toggle<cr>",
+				desc = "CodeCompanion: Toggle Chat",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>ac",
+				"<cmd>CodeCompanionChat<cr>",
+				desc = "CodeCompanion: New Chat",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>ap",
+				"<cmd>CodeCompanionActions<cr>",
+				desc = "CodeCompanion: Actions Palette",
+				mode = { "n", "v" },
+			},
+			-- Inline 相关
+			{
+				"<leader>ai",
+				"<cmd>CodeCompanion<cr>",
+				desc = "CodeCompanion: Inline Assistant",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>ae",
+				"<cmd>CodeCompanion /explain<cr>",
+				desc = "CodeCompanion: Explain Code",
+				mode = "v",
+			},
+			{
+				"<leader>af",
+				"<cmd>CodeCompanion /fix<cr>",
+				desc = "CodeCompanion: Fix Code",
+				mode = "v",
+			},
+			{
+				"<leader>at",
+				"<cmd>CodeCompanion /tests<cr>",
+				desc = "CodeCompanion: Generate Tests",
+				mode = "v",
+			},
+			-- 快速添加到聊天
+			{
+				"<leader>av",
+				"<cmd>CodeCompanionChat Add<cr>",
+				desc = "CodeCompanion: Add Selection to Chat",
+				mode = "v",
+			},
+		},
+		config = function(_, opts)
+			require("codecompanion").setup(opts)
+
+			-- 设置命令缩写 (可选)
+			vim.cmd([[cab cc CodeCompanion]])
+			vim.cmd([[cab ccc CodeCompanionChat]])
+			vim.cmd([[cab cca CodeCompanionActions]])
+		end,
+	},
+
+	-- Avante.nvim: AI Chat 界面
+	{
+		"yetone/avante.nvim",
+		enabled = true, -- 已启用
+		event = "VeryLazy",
+		lazy = false,
+		version = false,
+		opts = {
+			-- 使用 agentic 模式（官方默认，更智能的代码生成和应用）
+			mode = "agentic",
+			provider = "gemini-cli", -- 使用 Gemini CLI ACP 模式
+			auto_suggestions_provider = "copilot",
+			providers = {
+				copilot = {
+					endpoint = "https://api.githubcopilot.com",
+					model = "gpt-4o-2024-05-13",
+					timeout = 30000,
+					extra_request_body = {
+						temperature = 0,
+						max_tokens = 4096,
+					},
+				},
+			},
+			acp_providers = {
+				["gemini-cli"] = {
+					command = "gemini", -- 使用已安装的 gemini-cli v0.21.0-preview.2
+					args = { "--experimental-acp" },
+					auth_method = "oauth-personal", -- 使用 Google 登录凭证
+					env = {
+						HOME = vim.fn.expand("~"),
+						XDG_CONFIG_HOME = vim.fn.expand("~/.config"),
+						GEMINI_HOME = vim.fn.expand("~/.gemini"),
+						NODE_NO_WARNINGS = "1",
+						IS_AI_TERMINAL = "1",
+					},
+				},
+			},
+			behaviour = {
+				auto_suggestions = false,
+				auto_set_highlight_group = true,
+				auto_set_keymaps = true,
+				auto_apply_diff_after_generation = false,
+				support_paste_from_clipboard = false,
+				auto_focus_sidebar = true, -- 自动聚焦侧边栏
+			},
+			mappings = {
+				diff = {
+					ours = "co",
+					theirs = "ct",
+					all_theirs = "ca",
+					both = "cb",
+					cursor = "cc",
+					next = "]x",
+					prev = "[x",
+				},
+				suggestion = {
+					accept = "<M-l>",
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
+				},
+				jump = {
+					next = "]]",
+					prev = "[[",
+				},
+				submit = {
+					normal = "<CR>",
+					insert = "<C-s>",
+				},
+				sidebar = {
+					apply_all = "A",
+					apply_cursor = "a",
+					switch_windows = "<Tab>",
+					reverse_switch_windows = "<S-Tab>",
+				},
+			},
+			hints = { enabled = true },
+			windows = {
+				position = "right",
+				wrap = true,
+				width = 30, -- 默认百分比
+				height = 30,
+				fillchars = "eob: ",
+				sidebar_header = {
+					enabled = true,
+					align = "center",
+					rounded = true,
+				},
+				-- 官方默认的 spinner 动画
+				spinner = {
+					editing = {
+						"⡀", "⠄", "⠂", "⠁", "⠈", "⠐", "⠠", "⢀",
+						"⣀", "⢄", "⢂", "⢁", "⢈", "⢐", "⢠", "⣠",
+						"⢤", "⢢", "⢡", "⢨", "⢰", "⣰", "⢴", "⢲",
+						"⢱", "⢸", "⣸", "⢼", "⢺", "⢹", "⣹", "⢽",
+						"⢻", "⣻", "⢿", "⣿",
+					},
+					generating = { "·", "✢", "✳", "∗", "✻", "✽" },
+					thinking = { "🤔", "💭" },
+				},
+				input = {
+					prefix = "> ",
+					height = 8,
+				},
+				selected_files = {
+					height = 6, -- 选中文件窗口的最大高度
+				},
+				edit = {
+					border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- 无边框（官方默认）
+					start_insert = true,
+				},
+				ask = {
+					floating = false,
+					border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- 无边框（官方默认）
+					start_insert = true,
+					focus_on_apply = "ours", -- 应用后聚焦到哪个 diff
+				},
+			},
+			highlights = {
+				diff = {
+					current = "DiffText",
+					incoming = "DiffAdd",
+				},
+			},
+			diff = {
+				autojump = true,
+				list_opener = "copen",
+				override_timeoutlen = 500, -- 避免进入 operator-pending 模式
+			},
+			-- Selector 配置 (用于选择文件等)
+			selector = {
+				provider = "fzf_lua", -- 使用 fzf-lua 作为选择器
+				provider_opts = {},
+			},
+		},
+		build = vim.fn.has("win32") ~= 0
+		and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+		or "make",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			--- The below dependencies are optional,
+			"nvim-mini/mini.pick", -- for file_selector provider mini.pick
+			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+			"ibhagwan/fzf-lua", -- for file_selector provider fzf
+			"stevearc/dressing.nvim", -- for input provider dressing
+			"folke/snacks.nvim", -- for input provider snacks
+			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+			"zbirenbaum/copilot.lua", -- for providers='copilot'
+			{
+				-- support for image pasting
+				"HakonHarnes/img-clip.nvim",
+				event = "VeryLazy",
+				opts = {
+					-- recommended settings
+					default = {
+						embed_image_as_base64 = false,
+						prompt_for_file_name = false,
+						drag_and_drop = {
+							insert_mode = true,
+						},
+						-- required for Windows users
+						use_absolute_path = true,
+					},
+				},
+			},
+			{
+				-- Make sure to set this up properly if you have lazy=true
+				'MeanderingProgrammer/render-markdown.nvim',
+				opts = {
+					file_types = { "markdown", "Avante" },
+				},
+				ft = { "markdown", "Avante" },
+			},
+		},
+		keys = {
+			{
+				"<leader>aA",
+				function() require("avante.api").ask() end,
+				desc = "avante: ask",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>aR",
+				function() require("avante.api").refresh() end,
+				desc = "avante: refresh",
+			},
+			{
+				"<leader>aE",
+				function() require("avante.api").edit() end,
+				desc = "avante: edit",
+				mode = "v",
+			},
+		},
+		-- 不需要自定义 config，使用默认高亮
+	},
+
+	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源
 	{
 		"zbirenbaum/copilot-cmp",
-		enabled = false, -- 禁用，因为现在使用 COC.nvim
+		enabled = false, -- 禁用，因为 nvim-cmp 已被 blink.cmp 替代
 		dependencies = { "nvim-cmp", "zbirenbaum/copilot.lua" },
 		opts = {
 			fix_keymaps = false,
@@ -203,56 +552,29 @@ return {
 			-- 检查 cmp 模块是否能够加载
 			-- if not pcall(require, "cmp") then
 			-- 	vim.notify(
-			-- 		"[copilot-cmp] nvim-cmp 未加载，copilot-cmp 将不会被配置。",
-			-- 		vim.log.levels.WARN,
-			-- 		{ title = "Plugin Dependency" }
-			-- 	)
-			-- 	return
-			-- end
-			-- 检查 copilot_cmp 模块是否能够加载
-			if not pcall(require, "copilot_cmp") then
-				vim.notify("[copilot-cmp] Failed to load copilot_cmp module.", vim.log.levels.ERROR)
-				return
-			end
-			-- 设置 copilot-cmp
-			require("copilot_cmp").setup(opts)
-			-- vim.notify(
-			-- 	"[copilot-cmp] 已配置。请确保在 nvim-cmp 的 sources 中添加 'copilot' 并考虑使用 'copilot_cmp.comparators.prioritize'。",
-			-- 	vim.log.levels.INFO,
-			-- 	{ title = "Copilot CMP" }
-			-- )
-		end,
-	},
+				-- 		"[copilot-cmp] nvim-cmp 未加载，copilot-cmp 将不会被配置。",
+				-- 		vim.log.levels.WARN,
+				-- 		{ title = "Plugin Dependency" }
+				-- 	)
+				-- 	return
+				-- end
+				-- 检查 copilot_cmp 模块是否能够加载
+				if not pcall(require, "copilot_cmp") then
+					vim.notify("[copilot-cmp] Failed to load copilot_cmp module.", vim.log.levels.ERROR)
+					return
+				end
+				-- 设置 copilot-cmp
+				require("copilot_cmp").setup(opts)
+				-- vim.notify(
+					-- 	"[copilot-cmp] 已配置。请确保在 nvim-cmp 的 sources 中添加 'copilot' 并考虑使用 'copilot_cmp.comparators.prioritize'。",
+					-- 	vim.log.levels.INFO,
+					-- 	{ title = "Copilot CMP" }
+					-- )
+				end,
+			},
 
-	-- 4. edgy.nvim: 窗口管理集成 (可选)
-	{
-		"folke/edgy.nvim",
-		event = "VeryLazy",
-		optional = true,             -- 标记为可选插件
-		opts = function(_, opts)
-			opts = opts or {}          -- 确保 opts 是表格
-			opts.right = opts.right or {} -- 初始化右侧窗口列表
-			-- 添加 Copilot Chat 到右侧窗口
-			table.insert(opts.right, {
-				ft = "copilot-chat",
-				title = "󰚩 Copilot Chat",
-				size = { width = 0.4 },
-				-- open_fn = function() pcall(function() require("CopilotChat").open() end) end,
-			})
+			-- 4. edgy.nvim: 窗口管理集成 (可选)
 
-			-- 确保底部窗口列表存在
-			opts.bottom = opts.bottom or {}
 
-			return opts
-		end,
-	},
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		-- @module 'render-markdown'
-		-- @type render.md.UserConfig
-		opts = {},
-	}
-}
+			-- 5. Test Plugin (Irrelevant code for testing)
+		}

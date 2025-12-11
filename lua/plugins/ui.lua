@@ -560,6 +560,24 @@ return {
 			lsp = {
 				override = {
 					["cmp.entry.get_documentation"] = true,
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+				},
+				signature = {
+					enabled = true,
+					auto_open = {
+						enabled = true,
+						trigger = true,
+						luasnip = true,
+						throttle = 50,
+					},
+					view = "hover", -- 使用 hover 视图显示签名帮助
+					opts = {},
+				},
+				hover = {
+					enabled = true,
+					view = nil, -- 使用默认视图
+					opts = {},
 				},
 			},
 			routes = {
@@ -642,7 +660,7 @@ return {
 					filter_options = {},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 20, -- 增加命令框透明度
+						winblend = 10, -- 降低透明度以增加对比度
 					},
 				},
 				popupmenu = {
@@ -661,7 +679,17 @@ return {
 					},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 20, -- 增加透明度
+						winblend = 10, -- 降低透明度以增加对比度
+					},
+				},
+				hover = {
+					border = {
+						style = "rounded",
+						padding = { 0, 1 },
+					},
+					win_options = {
+						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 10,
 					},
 				},
 			},

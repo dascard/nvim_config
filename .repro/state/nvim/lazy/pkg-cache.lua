@@ -1,0 +1,1 @@
+return {pkgs={{name="plenary.nvim",file="community",dir="/home/dascard/.config/nvim/.repro/data/nvim/lazy/plenary.nvim",spec={"nvim-lua/plenary.nvim",lazy=true,},source="lazy",},},version=12,}

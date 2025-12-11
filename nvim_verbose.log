@@ -1,0 +1,1807 @@
+
+sourcing "nvim_exec2()"
+finished sourcing nvim_exec2()
+sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/ftplugin.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/ftplugin.vim
+sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/indent.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/indent.vim
+sourcing "/home/dascard/.config/nvim/init.lua"
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua"
+line 0: sourcing "nvim_exec2() called at /home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua:0"
+not found in runtime path: "ftdetect/*.{vim,lua}"
+finished sourcing nvim_exec2() called at /home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua:0
+continuing in /home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+Executing ColorSchemePre Autocommands for "*"
+autocommand <Lua 90: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:31>
+
+line 0: sourcing "/home/dascard/.local/share/nvim/lazy/tokyonight.nvim/colors/tokyonight.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/tokyonight.nvim/colors/tokyonight.lua
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/snacks.nvim/plugin/snacks.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/snacks.nvim/plugin/snacks.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-treesitter-context/plugin/treesitter-context.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-treesitter-context/plugin/treesitter-context.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/telescope.nvim/plugin/telescope.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/telescope.nvim/plugin/telescope.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/wxapp.vim/plugin/wxapp.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/wxapp.vim/plugin/wxapp.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxml.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxml.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxs.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxs.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxss.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxss.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/Comment.nvim/plugin/Comment.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/Comment.nvim/plugin/Comment.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-floaterm/plugin/floaterm.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-floaterm/plugin/floaterm.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-dap/plugin/dap.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-dap/plugin/dap.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/gitsigns.nvim/plugin/gitsigns.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/gitsigns.nvim/plugin/gitsigns.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-web-devicons/plugin/nvim-web-devicons.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-web-devicons/plugin/nvim-web-devicons.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/git-blame.nvim/plugin/gitblame.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/git-blame.nvim/plugin/gitblame.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+--- Autocommands ---
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+--- Autocommands ---
+lualine  BufEnter
+    *         lua require'lualine.components.branch.git_branch'.find_git_dir()
+	Last set from ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/utils/utils.lua line 98
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+--- Autocommands ---
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+--- Autocommands ---
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/asyncrun.vim/plugin/asyncrun.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/asyncrun.vim/plugin/asyncrun.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/asyncrun.vim/plugin/script_load.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/asyncrun.vim/plugin/script_load.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/ultisnips/plugin/UltiSnips.vim"
+line 46: sourcing "/home/dascard/.local/share/nvim/lazy/ultisnips/autoload/UltiSnips/map_keys.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/ultisnips/autoload/UltiSnips/map_keys.vim
+continuing in /home/dascard/.local/share/nvim/lazy/ultisnips/plugin/UltiSnips.vim
+finished sourcing /home/dascard/.local/share/nvim/lazy/ultisnips/plugin/UltiSnips.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/ultisnips/ftdetect/snippets.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/ultisnips/ftdetect/snippets.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-snippets/plugin/vimsnippets.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-snippets/plugin/vimsnippets.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim"
+line 3: sourcing "nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-treesitter/plugin/nvim-treesitter.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-treesitter/plugin/nvim-treesitter.lua
+continuing in nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3
+finished sourcing nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3
+continuing in /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+line 3: sourcing "nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3"
+finished sourcing nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3
+continuing in /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+line 3: sourcing "nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3"
+finished sourcing nvim_exec2() called at /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim:3
+continuing in /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/nvim-dbee/plugin/dbee.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/nvim-dbee/plugin/dbee.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/typst-preview.nvim/plugin/init.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/typst-preview.nvim/plugin/init.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/dressing.nvim/plugin/dressing.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/dressing.nvim/plugin/dressing.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/copilot.lua/plugin/copilot.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/copilot.lua/plugin/copilot.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/img-clip.nvim/plugin/img-clip.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/img-clip.nvim/plugin/img-clip.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/render-markdown.nvim/plugin/render-markdown.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/render-markdown.nvim/plugin/render-markdown.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/avante.nvim/plugin/avante.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/avante.nvim/plugin/avante.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+Executing command: "print -N >/tmp/nvim.dascard/feLioM/1 $XDG_CONFIG_HOME"
+
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/asynctasks.vim/plugin/asynctasks.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/asynctasks.vim/plugin/asynctasks.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/asynctasks.vim/plugin/task_help.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/asynctasks.vim/plugin/task_help.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim"
+Error in /home/dascard/.config/nvim/init.lua..nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0[1]../home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim:
+line   48:
+E716: Key not present in Dictionary: "expanded"
+Error in /home/dascard/.config/nvim/init.lua..nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0[1]../home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim:
+line   55:
+E716: Key not present in Dictionary: "collapsed"
+Error in /home/dascard/.config/nvim/init.lua..nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0[1]../home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim:
+line  118:
+E716: Key not present in Dictionary: "expanded"
+Error in /home/dascard/.config/nvim/init.lua..nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0[1]../home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim:
+line  119:
+E716: Key not present in Dictionary: "collapsed"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/plugin/vim_dadbod_completion.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/plugin/vim_dadbod_completion.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-dadbod/plugin/dadbod.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-dadbod/plugin/dadbod.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/gzip.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/gzip.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/man.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/man.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/matchit.vim"
+not found in 'packpath': "pack/*/start/matchit"
+line 3: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+continuing in /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/matchit.vim
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/matchit.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/matchparen.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/matchparen.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/netrwPlugin.vim"
+not found in 'packpath': "pack/*/start/netrw"
+line 7: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/netrw/plugin/netrwPlugin.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/netrw/plugin/netrwPlugin.vim
+continuing in /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/netrwPlugin.vim
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/netrwPlugin.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/net.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/net.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/spellfile.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/spellfile.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/osc52.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/osc52.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/rplugin.vim"
+  1: ~/.config/nvim/vim/_defaults.lua
+  2: ~/.local/share/bob/nightly/share/nvim/runtime/ftplugin.vim
+  3: ~/.local/share/bob/nightly/share/nvim/runtime/indent.vim
+  4: ~/.config/nvim/init.lua
+  5: ~/.config/nvim/lua/lsp_switch.lua
+  6: ~/.local/share/bob/nightly/share/nvim/runtime/lua/vim/diagnostic.lua
+  7: ~/.config/nvim/lua/config/lazy.lua
+  8: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/config.lua
+  9: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/view/commands.lua
+ 10: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/util.lua
+ 11: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua
+ 12: ~/.config/nvim/lua/plugins/comment.lua
+ 13: ~/.config/nvim/lua/plugins/dap.lua
+ 14: ~/.config/nvim/lua/plugins/search-complete.lua
+ 15: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/handler/event.lua
+ 16: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/handler/cmd.lua
+ 17: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/handler/keys.lua
+ 18: ~/.local/share/bob/nightly/share/nvim/runtime/filetype.lua
+ 19: ~/.local/share/nvim/lazy/tokyonight.nvim/colors/tokyonight.lua
+ 20: ~/.local/share/nvim/lazy/tokyonight.nvim/lua/tokyonight/theme.lua
+ 21: ~/.local/share/nvim/lazy/snacks.nvim/plugin/snacks.lua
+ 22: ~/.local/share/nvim/lazy/snacks.nvim/lua/snacks/init.lua
+ 23: ~/.local/share/nvim/lazy/snacks.nvim/lua/snacks/util/init.lua
+ 24: ~/.local/share/nvim/lazy/nvim-treesitter-context/plugin/treesitter-context.lua
+ 25: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua
+ 26: ~/.local/share/bob/nightly/share/nvim/runtime/lua/vim/treesitter/query.lua
+ 27: ~/.local/share/nvim/lazy/project.nvim/lua/project_nvim/config.lua
+ 28: ~/.local/share/bob/nightly/share/nvim/runtime/lua/vim/lsp.lua
+ 29: ~/.local/share/nvim/lazy/project.nvim/lua/project_nvim/project.lua
+ 30: ~/.local/share/nvim/lazy/plenary.nvim/plugin/plenary.vim
+ 31: ~/.local/share/nvim/lazy/telescope.nvim/plugin/telescope.lua
+ 32: ~/.config/nvim/lua/plugins/project.lua
+ 33: ~/.local/share/nvim/lazy/wxapp.vim/plugin/wxapp.vim
+ 34: ~/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxml.vim
+ 35: ~/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxs.vim
+ 36: ~/.local/share/nvim/lazy/wxapp.vim/ftdetect/wxss.vim
+ 37: ~/.local/share/nvim/lazy/Comment.nvim/plugin/Comment.lua
+ 38: ~/.local/share/nvim/lazy/Comment.nvim/lua/Comment/init.lua
+ 39: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/config/highlights.lua
+ 40: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/config/init.lua
+ 41: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua
+ 42: ~/.local/share/nvim/lazy/vim-floaterm/plugin/floaterm.vim
+ 43: ~/.local/share/nvim/lazy/nvim-dap/plugin/dap.lua
+ 44: ~/.local/share/nvim/lazy/nvim-dap/lua/dap.lua
+ 45: ~/.local/share/nvim/lazy/nvim-dap-virtual-text/lua/nvim-dap-virtual-text.lua
+ 46: ~/.local/share/nvim/lazy/gitsigns.nvim/plugin/gitsigns.lua
+ 47: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua
+ 48: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/highlight.lua
+ 49: ~/.local/share/nvim/lazy/nvim-web-devicons/plugin/nvim-web-devicons.vim
+ 50: ~/.local/share/nvim/lazy/git-blame.nvim/plugin/gitblame.lua
+ 51: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua
+ 52: ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/highlight.lua
+ 53: ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine.lua
+ 54: ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/utils/utils.lua
+ 55: ~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/utils/nvim_opts.lua
+ 56: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/highlights.lua
+ 57: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua
+ 58: ~/.local/share/nvim/lazy/asyncrun.vim/plugin/asyncrun.vim
+ 59: ~/.local/share/nvim/lazy/asyncrun.vim/plugin/script_load.vim
+ 60: ~/.local/share/nvim/lazy/ultisnips/plugin/UltiSnips.vim
+ 61: ~/.local/share/nvim/lazy/ultisnips/autoload/UltiSnips/map_keys.vim
+ 62: ~/.local/share/nvim/lazy/ultisnips/ftdetect/snippets.vim
+ 63: ~/.local/share/nvim/lazy/vim-snippets/plugin/vimsnippets.vim
+ 64: ~/.local/share/nvim/lazy/pretty-fold.nvim/lua/pretty-fold/init.lua
+ 65: ~/.local/share/nvim/lazy/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+ 66: ~/.local/share/nvim/lazy/nvim-treesitter/plugin/nvim-treesitter.lua
+ 67: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/utils.lua
+ 68: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua
+ 69: ~/.local/share/nvim/lazy/nvim-dbee/plugin/dbee.lua
+ 70: ~/.config/nvim/lua/plugins/database.lua
+ 71: ~/.config/nvim/lua/plugins/folder.lua
+ 72: ~/.local/share/nvim/lazy/nvim-ufo/lua/ufo/main.lua
+ 73: ~/.local/share/nvim/lazy/nvim-ufo/lua/ufo/highlight.lua
+ 74: ~/.local/share/nvim/lazy/typst-preview.nvim/plugin/init.lua
+ 75: ~/.local/share/nvim/lazy/typst-preview.nvim/lua/typst-preview/commands.lua
+ 76: ~/.local/share/nvim/lazy/typst-preview.nvim/lua/typst-preview/utils.lua
+ 77: ~/.local/share/nvim/lazy/dressing.nvim/plugin/dressing.lua
+ 78: ~/.local/share/nvim/lazy/copilot.lua/plugin/copilot.lua
+ 79: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/highlight.lua
+ 80: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/init.lua
+ 81: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/client.lua
+ 82: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/panel.lua
+ 83: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua
+ 84: ~/.local/share/nvim/lazy/img-clip.nvim/plugin/img-clip.lua
+ 85: ~/.local/share/nvim/lazy/render-markdown.nvim/plugin/render-markdown.lua
+ 86: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/colors.lua
+ 87: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/command.lua
+ 88: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/log.lua
+ 89: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua
+ 90: ~/.local/share/nvim/lazy/avante.nvim/plugin/avante.lua
+ 91: ~/.local/share/nvim/lazy/snacks.nvim/lua/snacks/notifier.lua
+ 92: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/init.lua
+ 93: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/highlights.lua
+ 94: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/diff.lua
+ 95: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/providers/init.lua
+ 96: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/providers/copilot.lua
+ 97: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/utils/init.lua
+ 98: ~/.local/share/nvim/lazy/asynctasks.vim/plugin/asynctasks.vim
+ 99: ~/.local/share/nvim/lazy/asynctasks.vim/plugin/task_help.vim
+100: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/config/highlights.lua
+101: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/windows/init.lua
+102: ~/.config/nvim/lua/plugins/vimspector.lua
+103: ~/.local/share/nvim/lazy/vim-dadbod-ui/plugin/db_ui.vim
+104: ~/.local/share/nvim/lazy/vim-dadbod-completion/plugin/vim_dadbod_completion.vim
+105: ~/.local/share/nvim/lazy/vim-dadbod/plugin/dadbod.vim
+106: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua
+107: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/gzip.vim
+108: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/man.lua
+109: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/matchit.vim
+110: ~/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+111: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/matchparen.vim
+112: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/netrwPlugin.vim
+113: ~/.local/share/bob/nightly/share/nvim/runtime/pack/dist/opt/netrw/plugin/netrwPlugin.vim
+114: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/net.lua
+115: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/nvim/spellfile.lua
+116: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/osc52.lua
+117: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/rplugin.vim
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/rplugin.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/shada.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/shada.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tarPlugin.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tarPlugin.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tohtml.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tohtml.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tutor.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/tutor.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/zipPlugin.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/plugin/zipPlugin.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/after/plugin/vim_dadbod_completion.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/after/plugin/vim_dadbod_completion.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/after/plugin/vim_dadbod_completion.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/vim-dadbod-completion/after/plugin/vim_dadbod_completion.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/ultisnips/after/plugin/UltiSnips_after.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/ultisnips/after/plugin/UltiSnips_after.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/indent-blankline.nvim/after/plugin/commands.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/indent-blankline.nvim/after/plugin/commands.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+Executing User Autocommands for "LazyDone"
+autocommand <Lua 89: ~/.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/util.lua:183>
+
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/syntax/syntax.vim"
+line 20: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/syntax/synload.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/syntax/synload.vim
+continuing in /home/dascard/.local/share/bob/nightly/share/nvim/runtime/syntax/syntax.vim
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/syntax/syntax.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/filetype.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+line 1: sourcing "/home/dascard/.local/share/bob/nightly/share/nvim/runtime/indent.vim"
+finished sourcing /home/dascard/.local/share/bob/nightly/share/nvim/runtime/indent.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/fzf-lua/plugin/fzf-lua.lua"
+finished sourcing /home/dascard/.local/share/nvim/lazy/fzf-lua/plugin/fzf-lua.lua
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+line 1: sourcing "/home/dascard/.local/share/nvim/lazy/fzf-lua/autoload/fzf_lua.vim"
+finished sourcing /home/dascard/.local/share/nvim/lazy/fzf-lua/autoload/fzf_lua.vim
+continuing in nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+line 0: sourcing "nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0"
+finished sourcing nvim_exec2() called at /home/dascard/.config/nvim/init.lua:0
+continuing in /home/dascard/.config/nvim/init.lua
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_breakpoints[.]{vim,lua} ftplugin/dapui_breakpoints_*.{vim,lua} ftplugin/dapui_breakpoints/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_breakpoints[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_breakpoints.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dap-repl[.]{vim,lua} ftplugin/dap-repl_*.{vim,lua} ftplugin/dap-repl/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dap-repl[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dap-repl.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing WinLeave Autocommands for "*"
+autocommand <Lua 80: ~/.config/nvim/init.lua:57>
+
+Executing WinLeave Autocommands for "*"
+autocommand <Lua 287: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:72>
+
+Executing WinLeave Autocommands for "*"
+autocommand call s:Remove_Matches()
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 79: ~/.config/nvim/init.lua:57>
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 272: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:142>
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 317: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua:16>
+
+Executing WinEnter Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing WinEnter Autocommands for "*"
+autocommand call s:Highlight_Matching_Pair()
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 714: ~/.config/nvim/lua/core/autocmds.lua:2>
+
+Executing BufLeave Autocommands for "*"
+autocommand <Lua 286: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:72>
+
+Executing BufLeave Autocommands for "*"
+autocommand <Lua 492: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:559>
+
+Executing BufLeave Autocommands for "*"
+autocommand call s:Remove_Matches()
+
+Executing BufLeave Autocommands for "*"
+autocommand if &ft != "netrw"|let w:netrw_prvfile= expand("%:p")|endif
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 258: ~/.local/share/nvim/lazy/snacks.nvim/lua/snacks/init.lua:187>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 280: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:142>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require("project_nvim.project").on_buf_enter()
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 316: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua:16>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 392: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:480>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require'lualine.components.branch.git_branch'.find_git_dir()
+
+autocommand lua require'lualine.components.diff.git_diff'.update_diff_args()
+
+Executing BufEnter Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 494: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:571>
+
+Executing BufEnter Autocommands for "*"
+autocommand sil call s:LocalBrowse(expand("<amatch>"))
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 737: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/manager.lua:505>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 417: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 447: ~/.local/share/nvim/lazy/pretty-fold.nvim/lua/pretty-fold/init.lua:158>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 432: ~/.local/share/nvim/lazy/nvim-ufo/lua/ufo/main.lua:24>
+
+line 0: sourcing "nvim_exec2() called at BufWinEnter Autocommands for "*":0"
+finished sourcing nvim_exec2() called at BufWinEnter Autocommands for "*":0
+continuing in BufWinEnter Autocommands for "*"
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 645: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/windows/init.lua:107>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand autocmd SafeState * ++once call s:Highlight_Matching_Pair()
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dap-repl[.]{vim,lua} ftplugin/dap-repl_*.{vim,lua} ftplugin/dap-repl/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dap-repl[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufLeave Autocommands for "*"
+autocommand <Lua 286: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:72>
+
+Executing BufLeave Autocommands for "*"
+autocommand <Lua 492: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:559>
+
+Executing BufLeave Autocommands for "*"
+autocommand call s:Remove_Matches()
+
+Executing BufLeave Autocommands for "*"
+autocommand if &ft != "netrw"|let w:netrw_prvfile= expand("%:p")|endif
+
+Executing WinLeave Autocommands for "*"
+autocommand <Lua 80: ~/.config/nvim/init.lua:57>
+
+Executing WinLeave Autocommands for "*"
+autocommand <Lua 287: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:72>
+
+Executing WinLeave Autocommands for "*"
+autocommand call s:Remove_Matches()
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 79: ~/.config/nvim/init.lua:57>
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 272: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:142>
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 317: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua:16>
+
+Executing WinEnter Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing WinEnter Autocommands for "*"
+autocommand call s:Highlight_Matching_Pair()
+
+Executing WinEnter Autocommands for "*"
+autocommand <Lua 714: ~/.config/nvim/lua/core/autocmds.lua:2>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 280: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:142>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require("project_nvim.project").on_buf_enter()
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 316: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua:16>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 392: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:480>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require'lualine.components.branch.git_branch'.find_git_dir()
+
+autocommand lua require'lualine.components.diff.git_diff'.update_diff_args()
+
+Executing BufEnter Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 494: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:571>
+
+Executing BufEnter Autocommands for "*"
+autocommand sil call s:LocalBrowse(expand("<amatch>"))
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 737: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/manager.lua:505>
+
+Executing WinClosed Autocommands for "*"
+autocommand <Lua 288: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:72>
+
+Executing WinClosed Autocommands for "*"
+autocommand <Lua 29: ~/.local/share/nvim/lazy/nvim-ufo/lua/ufo/main.lua:30>
+
+Executing BufWinLeave Autocommands for "*"
+autocommand <Lua 646: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/windows/init.lua:107>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+auto-removing autocommand: CursorMoved <buffer=3>
+auto-removing autocommand: InsertEnter <buffer=3>
+auto-removing autocommand: TextYankPost <buffer=3>
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_scopes[.]{vim,lua} ftplugin/dapui_scopes_*.{vim,lua} ftplugin/dapui_scopes/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_scopes[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_scopes.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_stacks[.]{vim,lua} ftplugin/dapui_stacks_*.{vim,lua} ftplugin/dapui_stacks/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_stacks[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_stacks.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_watches[.]{vim,lua} ftplugin/dapui_watches_*.{vim,lua} ftplugin/dapui_watches/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_watches[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_watches.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_hover[.]{vim,lua} ftplugin/dapui_hover_*.{vim,lua} ftplugin/dapui_hover/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_hover[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_hover.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing BufFilePre Autocommands for "*"
+autocommand <Lua 738: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:108>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 361: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns.lua:170>
+
+Executing BufFilePost Autocommands for "*"
+autocommand <Lua 666: ~/.local/share/bob/nightly/share/nvim/runtime/plugin/editorconfig.lua:4>
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/dapui_console[.]{vim,lua} ftplugin/dapui_console_*.{vim,lua} ftplugin/dapui_console/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/dapui_console[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/dapui_console.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 276: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:220>
+
+Executing BufDelete Autocommands for "*"
+autocommand <Lua 384: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:458>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+auto-removing autocommand: CursorMoved <buffer=8>
+auto-removing autocommand: InsertEnter <buffer=8>
+finished sourcing /home/dascard/.config/nvim/init.lua
+Reading ShaDa file "/home/dascard/.local/state/nvim/shada/main.shada" info marks oldfiles
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 417: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 447: ~/.local/share/nvim/lazy/pretty-fold.nvim/lua/pretty-fold/init.lua:158>
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 432: ~/.local/share/nvim/lazy/nvim-ufo/lua/ufo/main.lua:24>
+
+line 0: sourcing "nvim_exec2() called at BufWinEnter Autocommands for "*":0"
+finished sourcing nvim_exec2() called at BufWinEnter Autocommands for "*":0
+continuing in BufWinEnter Autocommands for "*"
+Executing BufWinEnter Autocommands for "*"
+autocommand autocmd SafeState * ++once call s:Highlight_Matching_Pair()
+
+Executing BufWinEnter Autocommands for "*"
+autocommand <Lua 645: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/windows/init.lua:107>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 280: ~/.local/share/nvim/lazy/nvim-treesitter-context/lua/treesitter-context.lua:142>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require("project_nvim.project").on_buf_enter()
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 316: ~/.local/share/nvim/lazy/trouble.nvim/lua/trouble/view/main.lua:16>
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 392: ~/.local/share/nvim/lazy/git-blame.nvim/lua/gitblame/init.lua:480>
+
+Executing BufEnter Autocommands for "*"
+autocommand lua require'lualine.components.branch.git_branch'.find_git_dir()
+
+autocommand lua require'lualine.components.diff.git_diff'.update_diff_args()
+
+Executing BufEnter Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 494: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:571>
+
+Executing BufEnter Autocommands for "*"
+autocommand sil call s:LocalBrowse(expand("<amatch>"))
+
+Executing BufEnter Autocommands for "*"
+autocommand <Lua 737: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/manager.lua:505>
+
+Executing QuitPre Autocommands for "*"
+autocommand <Lua 541: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/init.lua:286>
+
+Executing ExitPre Autocommands for "*"
+autocommand <Lua 345: ~/.local/share/nvim/lazy/nvim-dap/lua/dap.lua:1358>
+
+Executing ExitPre Autocommands for "*"
+autocommand <Lua 707: ~/.local/share/nvim/lazy/fzf-lua/lua/fzf-lua/init.lua:47>
+
+Executing BufWinLeave Autocommands for "*"
+autocommand <Lua 770: ~/.local/share/nvim/lazy/nvim-dap-ui/lua/dapui/windows/init.lua:107>
+
+Executing BufUnload Autocommands for "*"
+autocommand <Lua 498: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:596>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 296: ~/.local/share/bob/nightly/share/nvim/runtime/lua/vim/lsp.lua:1142>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand lua require("project_nvim.utils.history").write_projects_to_history()
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 467: ~/.local/share/nvim/lazy/typst-preview.nvim/lua/typst-preview/servers/manager.lua:91>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 499: ~/.local/share/nvim/lazy/copilot.lua/lua/copilot/suggestion.lua:601>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 470: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/providers/copilot.lua:486>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 543: ~/.local/share/nvim/lazy/avante.nvim/lua/avante/init.lua:329>
+
+Executing VimLeavePre Autocommands for "*"
+autocommand <Lua 739: ~/.local/share/nvim/lazy/gitsigns.nvim/lua/gitsigns/attach.lua:401>
+
+Writing ShaDa file "/home/dascard/.local/state/nvim/shada/main.shada"
+Executing VimLeave Autocommands for "*"
+autocommand <Lua 513: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/log.lua:154>
+
+line 0: sourcing "nvim_exec2() called at command line:0"
+finished sourcing nvim_exec2() called at command line:0
+continuing in command line
+line 0: sourcing "nvim_exec2() called at command line:0"
+finished sourcing nvim_exec2() called at command line:0
+continuing in command line
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/snacks_notif[.]{vim,lua} ftplugin/snacks_notif_*.{vim,lua} ftplugin/snacks_notif/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/snacks_notif[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+not found in runtime path: "parser/snacks_notif.*"
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing Syntax Autocommands for "*"
+autocommand call s:SynSet()
+
+Executing FileType Autocommands for "*"
+autocommand call s:LoadFTPlugin()
+
+not found in runtime path: "ftplugin/snacks_notif[.]{vim,lua} ftplugin/snacks_notif_*.{vim,lua} ftplugin/snacks_notif/*.{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call s:LoadIndent()
+
+not found in runtime path: "indent/snacks_notif[.]{vim,lua}"
+Executing FileType Autocommands for "*"
+autocommand call v:lua.require'lualine'.refresh({'kind': 'tabpage', 'place': ['statusline'], 'trigger': 'autocmd'})
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 420: ~/.local/share/nvim/lazy/indent-blankline.nvim/lua/ibl/autocmds.lua:26>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 265: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 309: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 310: ~/.local/share/nvim/lazy/nvim-treesitter/lua/nvim-treesitter/configs.lua:132>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 482: vim/_editor.lua:0>
+
+Executing FileType Autocommands for "*"
+autocommand <Lua 514: ~/.local/share/nvim/lazy/render-markdown.nvim/lua/render-markdown/core/manager.lua:39>
+
+Executing FileType Autocommands for "*"
+autocommand if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
+
+Executing Syntax Autocommands for "*"
+autocommand call s:SynSet()

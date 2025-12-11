@@ -29,7 +29,7 @@ local kind_icons = {
 -- CMP 配置 - 针对 COC.nvim 优化
 return {
 	"hrsh7th/nvim-cmp",
-	enabled = false, -- 禁用 CMP，使用 COC 的补全系统
+	enabled = false, -- 已被 blink.cmp 替代
 	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-buffer", -- source for text in buffer
@@ -58,6 +58,16 @@ return {
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
+			window = {
+				completion = cmp.config.window.bordered({
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+					winblend = 0,
+				}),
+				documentation = cmp.config.window.bordered({
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+					winblend = 0,
+				}),
+			},
 			preselect = cmp.PreselectMode.Item,
 			completion = {
 				completeopt = "menu,menuone,preview,noselect,noinsert",

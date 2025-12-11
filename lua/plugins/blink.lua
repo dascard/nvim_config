@@ -1,6 +1,16 @@
 return {
   'saghen/blink.cmp',
-  dependencies = 'rafamadriz/friendly-snippets',
+  dependencies = {
+    'rafamadriz/friendly-snippets',
+    -- Avante 补全源
+    {
+      "Kaiser-Yang/blink-cmp-avante",
+      -- 仅在 avante 启用时加载
+      cond = function()
+        return pcall(require, "avante")
+      end,
+    },
+  },
   version = 'v0.*',
   
   -- 不使用 enabled，让 lazy.nvim 可以按需加载
@@ -28,7 +38,11 @@ return {
           if cmp.is_visible() then return cmp.select_next() end
         end,
         'snippet_forward',
-        'fallback'
+        function(cmp)
+          -- 使用 feedkeys 强制发送 Tab 键，并使用 'n' 标志避免递归映射
+          -- 这可以绕过任何可能导致 <t_ü> 的错误映射
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", true)
+        end
       },
       ['<S-Tab>'] = {
         function(cmp)
@@ -74,22 +88,35 @@ return {
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'avante' },
+      providers = {
+        avante = {
+          module = "blink-cmp-avante",
+          name = "Avante",
+          opts = {},
+        },
+      },
     },
 
     -- 签名帮助
-    signature = { enabled = true },
+    signature = { 
+      enabled = true,
+      window = {
+        border = 'rounded',
+        winblend = 10,
+      },
+    },
     
     -- 补全文档
     completion = {
         menu = {
             border = 'rounded',
-            winblend = 20,
+            winblend = 10, -- 降低透明度以增加对比度
         },
         documentation = {
             window = {
                 border = 'rounded',
-                winblend = 20,
+                winblend = 10, -- 降低透明度以增加对比度
             },
             auto_show = true,
             auto_show_delay_ms = 200,

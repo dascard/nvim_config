@@ -100,6 +100,9 @@ return {
 					"mason",
 					"sidekick_terminal",
 					"qf", -- Quickfix 列表
+					"Avante",
+					"AvanteSelectedFiles",
+					"AvanteInput",
 				}
 
 				-- 2. 检查当前文件类型是否在黑名单中

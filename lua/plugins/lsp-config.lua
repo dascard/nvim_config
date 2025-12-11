@@ -12,7 +12,14 @@ return {
     },
     config = function()
         local lspconfig = require("lspconfig")
-        -- local cmp_nvim_lsp = require("cmp_nvim_lsp") -- 已移除，改用 blink.cmp
+        local configs = require("lspconfig.configs")
+        local lspconfig_util = require("lspconfig.util")
+        
+        -- 检查 lspconfig 是否正常加载
+        if not lspconfig then
+            vim.notify("Failed to load lspconfig", vim.log.levels.ERROR)
+            return
+        end
 
         -- 1. 设置 neodev
         require("neodev").setup({})
@@ -68,10 +75,52 @@ return {
             capabilities = blink.get_lsp_capabilities(capabilities)
         end
 
-        -- 7. 配置各个 LSP 服务器
+        -- 7. 安全配置 LSP 服务器的辅助函数
+        local function safe_setup(server_name, config)
+            local ok, err = pcall(function()
+                -- 尝试加载配置定义
+                local config_def = configs[server_name]
+                if not config_def then
+                    local ok_req, module = pcall(require, "lspconfig.configs." .. server_name)
+                    if ok_req then
+                        config_def = module
+                    end
+                end
+
+                if not config_def then
+                     vim.notify("Could not load config for " .. server_name, vim.log.levels.WARN)
+                     return
+                end
+
+                -- 检查是否支持 vim.lsp.config (Nvim 0.11+)
+                if vim.lsp.config and vim.lsp.enable then
+                    local default_config = config_def.default_config or {}
+                    -- 合并配置
+                    local final_config = vim.tbl_deep_extend("force", default_config, config)
+                    
+                    -- 使用新 API
+                    vim.lsp.config(server_name, final_config)
+                    vim.lsp.enable(server_name)
+                else
+                    -- 旧版本回退
+                    if lspconfig[server_name] then
+                        lspconfig[server_name].setup(config)
+                    end
+                end
+            end)
+            
+            if not ok then
+                vim.notify(
+                    string.format("Failed to setup LSP server '%s': %s", server_name, err or "unknown error"),
+                    vim.log.levels.WARN
+                )
+            end
+        end
+
+        -- 8. 配置各个 LSP 服务器
 
         -- Lua
-        lspconfig.lua_ls.setup({
+        safe_setup("lua_ls", {
             capabilities = capabilities,
             on_attach = common_on_attach,
             settings = {
@@ -85,7 +134,7 @@ return {
         })
 
         -- TypeScript / JavaScript
-        lspconfig.ts_ls.setup({
+        safe_setup("ts_ls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = function(client, bufnr)
@@ -120,7 +169,7 @@ return {
         })
 
         -- Python
-        lspconfig.pyright.setup({
+        safe_setup("pyright", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -136,7 +185,7 @@ return {
         })
 
         -- Rust
-        lspconfig.rust_analyzer.setup({
+        safe_setup("rust_analyzer", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -156,7 +205,7 @@ return {
         })
 
         -- Go
-        lspconfig.gopls.setup({
+        safe_setup("gopls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -172,7 +221,7 @@ return {
         })
 
         -- C/C++
-        lspconfig.clangd.setup({
+        safe_setup("clangd", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -191,7 +240,7 @@ return {
         })
 
         -- JSON
-        lspconfig.jsonls.setup({
+        safe_setup("jsonls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -204,7 +253,7 @@ return {
         })
 
         -- YAML
-        lspconfig.yamlls.setup({
+        safe_setup("yamlls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -220,14 +269,14 @@ return {
         })
 
         -- PHP
-        lspconfig.phpactor.setup({
+        safe_setup("phpactor", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
         })
 
         -- C#
-        lspconfig.omnisharp.setup({
+        safe_setup("omnisharp", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -235,7 +284,7 @@ return {
         })
 
         -- PowerShell
-        lspconfig.powershell_es.setup({
+        safe_setup("powershell_es", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -243,14 +292,14 @@ return {
         })
 
         -- Docker
-        lspconfig.dockerls.setup({
+        safe_setup("dockerls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
         })
 
         -- VimScript
-        lspconfig.vimls.setup({
+        safe_setup("vimls", {
             offset_encoding = "utf-8",
             capabilities = capabilities,
             on_attach = common_on_attach,
@@ -261,15 +310,11 @@ return {
             "html", "cssls", "tailwindcss", "bashls", "marksman",
         }
         for _, server_name in ipairs(simple_servers) do
-            if lspconfig[server_name] then
-                lspconfig[server_name].setup({
-                    offset_encoding = "utf-8",
-                    capabilities = capabilities,
-                    on_attach = common_on_attach,
-                })
-            else
-                vim.notify("LSP config: server " .. server_name .. " not found in lspconfig.", vim.log.levels.WARN)
-            end
+            safe_setup(server_name, {
+                offset_encoding = "utf-8",
+                capabilities = capabilities,
+                on_attach = common_on_attach,
+            })
         end
     end,
 }
