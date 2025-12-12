@@ -23,7 +23,13 @@ keymap("n", "<M-o>", "o<Esc>")
 keymap("n", "<leader>k", ":FloatermKill<CR>")
 keymap("n", "j", "gj")
 keymap("n", "k", "gk")
-keymap("n", "<leader>=", ":call CocActionAsync('format')<CR>")
+if vim.g.use_native_lsp then
+	keymap("n", "<leader>=", function()
+		vim.lsp.buf.format({ async = true })
+	end, { desc = "格式化代码 (Native LSP)" })
+else
+	keymap("n", "<leader>=", ":call CocActionAsync('format')<CR>", { desc = "格式化代码 (COC)" })
+end
 
 -- 可视模式映射
 keymap("v", "<C-j>", ":m '>+1<CR>gv=gv")

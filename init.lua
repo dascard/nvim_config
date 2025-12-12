@@ -11,57 +11,10 @@ do
     end
 end
 
-local function mspy_exe_path()
-    if vim.g.ime_mspy_path and vim.g.ime_mspy_path ~= "" then
-        return vim.g.ime_mspy_path
-    end
-
-    local data_dir = vim.fn.stdpath("data")
-    local win_drive = (vim.env.LOCALAPPDATA or ""):gsub("\\", "/")
-    local fallback = win_drive ~= "" and (win_drive .. "/../nvim-data/im-select-mspy/im-select-mspy.exe")
-
-    local candidates = {
-        data_dir .. "/im-select-mspy/im-select-mspy.exe",
-        data_dir .. "\\im-select-mspy\\im-select-mspy.exe",
-        fallback,
-    }
-
-    for _, candidate in ipairs(candidates) do
-        if candidate and candidate ~= "" and vim.fn.filereadable(candidate) == 1 then
-            return candidate
-        end
-    end
-
-    return candidates[1]
-end
-
-do
-    local cached_path
-
-    local function get_executable()
-        if cached_path ~= nil then
-            return cached_path
-        end
-
-        local path = mspy_exe_path()
-        if type(path) == "string" and path ~= "" and vim.fn.executable(path) == 1 then
-            cached_path = path
-            return cached_path
-        end
-
-        cached_path = false
-        return cached_path
-    end
-
-    vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter", "WinLeave", "FocusGained" }, {
-        callback = function()
-            local exe = get_executable()
-            if not exe or exe == false then
-                return
-            end
-            vim.fn.system({ exe, "-k=ctrl+space", "英语模式" })
-        end,
-    })
+-- 加载 WSL 输入法切换配置
+local ok_ime, wsl_ime = pcall(require, "utils.wsl_ime")
+if ok_ime then
+    wsl_ime.setup()
 end
 
 if vim.g.vscode then

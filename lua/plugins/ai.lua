@@ -348,9 +348,19 @@ return {
 		lazy = false,
 		version = false,
 		opts = {
+			system_prompt = (function()
+				local file = io.open(vim.fn.stdpath("config") .. "/avante_system_prompt.md", "r")
+				if file then
+					local content = file:read("*a")
+					file:close()
+					return content
+				end
+				return nil
+			end)(),
 			-- 使用 agentic 模式（官方默认，更智能的代码生成和应用）
-			mode = "agentic",
+			mode = "legacy",
 			provider = "gemini-cli", -- 使用 Gemini CLI ACP 模式
+			-- provider = "copilot", -- 使用 Copilot HTTP 模式
 			auto_suggestions_provider = "copilot",
 			providers = {
 				copilot = {
@@ -384,6 +394,9 @@ return {
 				auto_apply_diff_after_generation = false,
 				support_paste_from_clipboard = false,
 				auto_focus_sidebar = true, -- 自动聚焦侧边栏
+				auto_approve_tool_permissions = false, -- 禁止自动应用更改，需要手动确认
+				confirmation_ui_style = "popup", -- 使用弹窗确认 (而不是 inline_buttons)
+				-- popup 模式下: y=允许, Y/a/A=全部允许, n/N=拒绝, <CR>=点击选中按钮
 			},
 			mappings = {
 				diff = {
@@ -407,8 +420,15 @@ return {
 				},
 				submit = {
 					normal = "<CR>",
-					insert = "<C-s>",
+					insert = "<M-CR>", -- Ctrl+S 发送 (原 <C-CR> 在终端中不可用)
 				},
+				-- 取消/停止快捷键
+				cancel = {
+					normal = { "<Esc>","<C-c>", "q" },
+					insert = { "<C-c>" },
+				},
+				-- 停止模型输出
+				stop = "<leader>aS",
 				sidebar = {
 					apply_all = "A",
 					apply_cursor = "a",
@@ -419,14 +439,14 @@ return {
 			hints = { enabled = true },
 			windows = {
 				position = "right",
-				wrap = true,
-				width = 30, -- 默认百分比
+				wrap = true, -- 启用自动换行，避免长行割裂边框
+				width = 35, -- 稍宽一点，减少换行
 				height = 30,
 				fillchars = "eob: ",
 				sidebar_header = {
 					enabled = true,
 					align = "center",
-					rounded = true,
+					rounded = true, -- 使用圆角，符合官方演示
 				},
 				-- 官方默认的 spinner 动画
 				spinner = {
@@ -448,12 +468,12 @@ return {
 					height = 6, -- 选中文件窗口的最大高度
 				},
 				edit = {
-					border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- 无边框（官方默认）
+					border = "rounded", -- 使用圆角边框
 					start_insert = true,
 				},
 				ask = {
 					floating = false,
-					border = { " ", " ", " ", " ", " ", " ", " ", " " }, -- 无边框（官方默认）
+					border = "rounded", -- 使用圆角边框
 					start_insert = true,
 					focus_on_apply = "ours", -- 应用后聚焦到哪个 diff
 				},
@@ -475,9 +495,21 @@ return {
 				provider_opts = {},
 			},
 		},
-		build = vim.fn.has("win32") ~= 0
-		and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-		or "make",
+		-- 构建命令 + 自动应用补丁
+		build = function()
+			-- 先执行原始构建
+			if vim.fn.has("win32") ~= 0 then
+				vim.fn.system("powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false")
+			else
+				vim.fn.system("make")
+			end
+			-- 然后应用补丁
+			local patch_script = vim.fn.stdpath("config") .. "/scripts/patch-avante.sh"
+			if vim.fn.filereadable(patch_script) == 1 then
+				vim.fn.system("bash " .. patch_script)
+				vim.notify("[Avante] 补丁已自动应用", vim.log.levels.INFO)
+			end
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
@@ -534,8 +566,52 @@ return {
 				desc = "avante: edit",
 				mode = "v",
 			},
+			{
+				"<leader>aS",
+				function() require("avante.api").stop() end,
+				desc = "avante: stop output",
+			},
+			{
+				"<leader>at",
+				function() require("avante.api").toggle() end,
+				desc = "avante: toggle sidebar",
+			},
 		},
-		-- 不需要自定义 config，使用默认高亮
+		config = function(_, opts)
+			require("avante").setup(opts)
+
+			-- 为 Avante 窗口设置透明度和样式
+			-- 使用 BufEnter 而不是 FileType，并延迟执行以确保窗口完全初始化
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = "*",
+				callback = function()
+					local ft = vim.bo.filetype
+					if ft == "Avante" or ft == "AvanteInput" or ft == "AvanteSelectedFiles" then
+						vim.schedule(function()
+							-- 确保窗口有效
+							if not vim.api.nvim_win_is_valid(0) then
+								return
+							end
+
+							-- 设置窗口透明度 (0=不透明, 100=完全透明)
+							vim.wo.winblend = 10
+
+							-- 强制设置换行选项
+							vim.wo.wrap = true
+							vim.wo.linebreak = true -- 在单词边界换行
+							vim.wo.breakindent = true -- 换行时保持缩进
+							vim.wo.cursorline = false -- 禁用光标行高亮
+							vim.wo.sidescrolloff = 0 -- 禁用水平滚动偏移
+						end)
+					end
+				end,
+			})
+
+			-- 设置自定义高亮（只需要设置一次）
+			vim.api.nvim_set_hl(0, "AvanteTitle", { fg = "#7dcfff", bold = true })
+			vim.api.nvim_set_hl(0, "AvanteConflictCurrent", { bg = "#2e4a3a" })
+			vim.api.nvim_set_hl(0, "AvanteConflictIncoming", { bg = "#2d3f5a" })
+		end,
 	},
 
 	-- 3. copilot-cmp: 为 nvim-cmp 提供 Copilot 补全源

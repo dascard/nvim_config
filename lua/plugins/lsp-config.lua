@@ -307,7 +307,7 @@ return {
 
         -- 其他简单的 LSP 配置
         local simple_servers = {
-            "html", "cssls", "tailwindcss", "bashls", "marksman",
+            "html", "cssls", "tailwindcss", "bashls",
         }
         for _, server_name in ipairs(simple_servers) do
             safe_setup(server_name, {
@@ -316,5 +316,19 @@ return {
                 on_attach = common_on_attach,
             })
         end
+
+        -- 为 marksman 提供更健壮的配置
+        safe_setup("marksman", {
+            offset_encoding = "utf-8",
+            capabilities = capabilities,
+            on_attach = common_on_attach,
+            root_dir = function(fname)
+                -- 确保只在文件缓冲区上运行
+                if vim.api.nvim_buf_get_option(0, "buftype") == "" then
+                    return lspconfig_util.root_pattern(".marksman.toml", ".git")(fname)
+                end
+                return nil
+            end,
+        })
     end,
 }

@@ -59,27 +59,7 @@ local function irregularWhitespace()
 	return nonDefaultSetting .. wrongIndent .. linebreakIcon
 end
 
--- 字符统计函数
-local function count_eng_zh_chars(text)
-	local eng_count = 0
-	local zh_count = 0
-	local digit_count = 0
 
-	if not text or text == "" then
-		return 0, 0, 0
-	end
-
-	-- Count English letters (ASCII a-z, A-Z)
-	eng_count = select(2, text:gsub("[a-zA-Z]", ""))
-
-	-- Count digits (0-9)
-	digit_count = select(2, text:gsub("[0-9]", ""))
-
-	-- Count likely Chinese characters in the CJK Unified Ideographs block (U+4E00 to U+9FFF)
-	zh_count = select(2, text:gsub("[\xE4-\xE9][\x80-\xBF][\x80-\xBF]", ""))
-
-	return eng_count, zh_count, digit_count
-end
 
 -- 获取可视选择文本
 local function get_visual_selection()
@@ -121,48 +101,39 @@ local function get_visual_selection()
 	end
 end
 
--- 选择计数显示
+-- 选择计数显示（简化版，使用 Vim 内置功能）
 local function selectionCount()
 	local mode = vim.fn.mode()
-
-	-- 只在可视模式下显示计数
 	if not (mode == "v" or mode == "V" or mode == "\22") then
 		return ""
 	end
 
-	local text = get_visual_selection()
-	if text == "" then
-		return ""
+	-- 使用 Vim 内置的选择信息
+	local start_pos = vim.fn.getpos("v")
+	local end_pos = vim.fn.getpos(".")
+	
+	if mode == "V" then
+		-- 行选择模式
+		local lines = math.abs(end_pos[2] - start_pos[2]) + 1
+		return string.format("📝%d lines", lines)
+	elseif mode == "\22" then
+		-- 块选择模式
+		local lines = math.abs(end_pos[2] - start_pos[2]) + 1
+		local cols = math.abs(end_pos[3] - start_pos[3]) + 1
+		return string.format("⬛%dx%d", lines, cols)
+	else
+		-- 字符选择模式 - 使用简单的字符计数
+		local text = get_visual_selection()
+		local chars = vim.fn.strchars(text)
+		local bytes = vim.fn.strlen(text)
+		
+		-- 如果字符数和字节数不同，说明有多字节字符（如中文）
+		if chars ~= bytes then
+			return string.format("�%d chars (%d bytes)", chars, bytes)
+		else
+			return string.format("�%d chars", chars)
+		end
 	end
-
-	local eng_count, zh_count, digit_count = count_eng_zh_chars(text)
-	local total_chars = vim.fn.strchars(text)
-	local other_chars = total_chars - eng_count - zh_count - digit_count
-
-	-- 返回格式化的计数信息，使用更美观的图标和格式
-	local result_parts = {}
-
-	if eng_count > 0 then
-		table.insert(result_parts, string.format("🔤%d", eng_count))
-	end
-
-	if zh_count > 0 then
-		table.insert(result_parts, string.format("🀄%d", zh_count))
-	end
-
-	if digit_count > 0 then
-		table.insert(result_parts, string.format("🔢%d", digit_count))
-	end
-
-	if other_chars > 0 then
-		table.insert(result_parts, string.format("📝%d", other_chars))
-	end
-
-	if #result_parts == 0 then
-		return string.format("📄%d", total_chars)
-	end
-
-	return table.concat(result_parts, " ")
 end
 
 return {
