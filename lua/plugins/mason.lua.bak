@@ -5,9 +5,6 @@ return {
     lazy = true,
     event = vim.g.use_native_lsp and { "BufReadPre", "BufNewFile" } or {},
     cmd = { "Mason", "MasonInstall", "MasonUpdate" },
-    dependencies = {
-        "williamboman/mason-lspconfig.nvim",
-    },
     config = function()
         require("mason").setup({
             ui = {
@@ -18,11 +15,6 @@ return {
                     package_uninstalled = "✗",
                 },
             },
-        })
-        
-        require("mason-lspconfig").setup({
-            automatic_installation = true,
-            ensure_installed = {}, -- 让 mason-tool-installer 处理具体的安装列表
         })
     end,
 }

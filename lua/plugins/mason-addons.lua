@@ -9,7 +9,7 @@ return {
         require("mason-tool-installer").setup({
             ensure_installed = {
                 -- LSP 服务器
-                -- "lua-language-server",        -- Lua
+                "lua-language-server",        -- Lua
                 "typescript-language-server", -- TypeScript/JavaScript
                 "pyright",                   -- Python
                 "rust-analyzer",             -- Rust

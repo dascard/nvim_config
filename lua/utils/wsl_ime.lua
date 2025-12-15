@@ -1,6 +1,35 @@
 local M = {}
 
+-- 检测是否在 WSL 环境中运行
+local function is_wsl()
+	-- 方法1: 检查 vim.fn.has("wsl")
+	if vim.fn.has("wsl") == 1 then
+		return true
+	end
+	
+	-- 方法2: 检查 WSL 环境变量
+	if vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
+		return true
+	end
+	
+	-- 方法3: 检查 /proc/version 是否包含 microsoft/WSL 字样
+	local proc_version = vim.fn.readfile("/proc/version")
+	if proc_version and #proc_version > 0 then
+		local version_str = proc_version[1]:lower()
+		if version_str:find("microsoft") or version_str:find("wsl") then
+			return true
+		end
+	end
+	
+	return false
+end
+
 function M.setup()
+	-- 仅在 WSL 或 Windows 环境下初始化
+	if not is_wsl() and vim.fn.has("win32") ~= 1 and vim.fn.has("win64") ~= 1 then
+		return
+	end
+
 	local function mspy_exe_path()
 		-- 1. 允许用户通过全局变量覆盖
 		if vim.g.ime_mspy_path and vim.g.ime_mspy_path ~= "" then
@@ -13,10 +42,10 @@ function M.setup()
 		local win_local_appdata = nil
 		if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
 			win_local_appdata = vim.env.LOCALAPPDATA
-		elseif vim.fn.has("wsl") == 1 then
+		elseif is_wsl() then
 			-- 在 WSL 中通过 cmd.exe 获取
-			local path = vim.fn.system("cmd.exe /c echo %LOCALAPPDATA%")
-			if vim.v.shell_error == 0 then
+			local path = vim.fn.system("cmd.exe /c echo %LOCALAPPDATA% 2>/dev/null")
+			if vim.v.shell_error == 0 and path and path ~= "" then
 				win_local_appdata = path:gsub("%s+", "") -- 去除空白字符
 			end
 		end
@@ -25,7 +54,7 @@ function M.setup()
 		if win_local_appdata and win_local_appdata ~= "" then
 			local im_select_subpath = "\\nvim-data\\im-select-mspy\\im-select-mspy.exe"
 			
-			if vim.fn.has("wsl") == 1 then
+			if is_wsl() then
 				-- 将 Windows 路径转换为 WSL 路径
 				local win_full_path = win_local_appdata .. im_select_subpath
 				local wsl_path = vim.fn.system({ "wslpath", "-u", win_full_path })

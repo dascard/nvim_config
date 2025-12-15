@@ -28,13 +28,16 @@ if [ ! -d "$AVANTE_DIR" ]; then
     exit 1
 fi
 
+# 注意: 以下补丁 0a 和 0b 已被移除，因为它们会破坏 ACP 功能
+# 要控制 AI 的行为，请使用 system_prompt 或 gemini-cli 的 settings.json
+
+ACP_CLIENT_FILE="$AVANTE_DIR/lua/avante/libs/acp_client.lua"
+
 # ============================================================
 # 补丁 1: acp_client.lua - 添加 authMethod 到 initialize 请求
 # 修复: gemini-cli 新版本需要在初始化时知道认证方式
 # ============================================================
-echo -e "${YELLOW}[1/3] 应用补丁: acp_client.lua - authMethod${NC}"
-
-ACP_CLIENT_FILE="$AVANTE_DIR/lua/avante/libs/acp_client.lua"
+echo -e "${YELLOW}[1/4] 应用补丁: acp_client.lua - authMethod${NC}"
 
 if [ -f "$ACP_CLIENT_FILE" ]; then
     # 检查是否已经应用过补丁
@@ -53,7 +56,7 @@ fi
 # 补丁 2: acp_client.lua - 继承所有系统环境变量
 # 修复: gemini-cli 需要完整环境变量（特别是 HOME）才能找到 oauth 凭证
 # ============================================================
-echo -e "${YELLOW}[2/3] 应用补丁: acp_client.lua - 环境变量继承${NC}"
+echo -e "${YELLOW}[2/4] 应用补丁: acp_client.lua - 环境变量继承${NC}"
 
 if [ -f "$ACP_CLIENT_FILE" ]; then
     # 检查是否已经应用过补丁
@@ -146,7 +149,7 @@ fi
 # 补丁 3: openai.lua - 修复 content 为 nil 的问题
 # 修复: copilot provider 中 tool_result 的 content 字段可能为 nil
 # ============================================================
-echo -e "${YELLOW}[3/3] 应用补丁: openai.lua - content nil fix${NC}"
+echo -e "${YELLOW}[3/4] 应用补丁: openai.lua - content nil fix${NC}"
 
 OPENAI_FILE="$AVANTE_DIR/lua/avante/providers/openai.lua"
 
@@ -319,6 +322,61 @@ else
     echo -e "${RED}  ✗ 文件不存在: $RENDER_FILE${NC}"
 fi
 
+# ============================================================
+# 补丁 5: sidebar.lua - 修复单行消息 retry 无效的 bug
+# 修复: content_lines 只有一行时被 slice 成空，导致 retry/edit 失败
+# ============================================================
+echo -e "${YELLOW}[5/5] 应用补丁: sidebar.lua - 单行消息 retry 修复${NC}"
+
+SIDEBAR_FILE="$AVANTE_DIR/lua/avante/sidebar.lua"
+
+if [ -f "$SIDEBAR_FILE" ]; then
+    # 检查是否已经应用过补丁
+    if grep -q "Only remove last line if there are multiple lines" "$SIDEBAR_FILE"; then
+        echo -e "${GREEN}  ✓ 补丁已存在，跳过${NC}"
+    else
+        # 修复单行消息问题
+        sed -i 's/content_lines = vim.list_slice(content_lines, 1, #content_lines - 1)/-- Fix: Only remove last line if there are multiple lines (bug fix for single-line messages)\n  if #content_lines > 1 then\n    content_lines = vim.list_slice(content_lines, 1, #content_lines - 1)\n  end/' "$SIDEBAR_FILE"
+        
+        # 验证补丁
+        if grep -q "Only remove last line if there are multiple lines" "$SIDEBAR_FILE"; then
+            echo -e "${GREEN}  ✓ 补丁已应用 - 单行消息 retry 已修复${NC}"
+        else
+            echo -e "${YELLOW}  ⚠ 补丁可能未完全应用，请手动检查${NC}"
+        fi
+    fi
+else
+    echo -e "${RED}  ✗ 文件不存在: $SIDEBAR_FILE${NC}"
+fi
+
+# ============================================================
+# 补丁 6: init.lua - 修复 ACP stop 无法正常工作的 bug
+# 修复: get_registered_acp_clients() 返回错误变量导致 stop 找不到客户端
+# ============================================================
+echo -e "${YELLOW}[6/6] 应用补丁: init.lua - ACP stop 修复${NC}"
+
+INIT_FILE="$AVANTE_DIR/lua/avante/init.lua"
+
+if [ -f "$INIT_FILE" ]; then
+    # 修复 get_registered_acp_clients
+    if grep -q "return M._acp_clients or {}" "$INIT_FILE"; then
+        sed -i 's/return M._acp_clients or {}/return M.acp_clients or {}/' "$INIT_FILE"
+        echo -e "${GREEN}  ✓ 修复 get_registered_acp_clients${NC}"
+    else
+        echo -e "${GREEN}  ✓ get_registered_acp_clients 已修复，跳过${NC}"
+    fi
+    
+    # 修复 clear_acp_clients
+    if grep -q "M._acp_clients = {}" "$INIT_FILE"; then
+        sed -i 's/M._acp_clients = {}/M.acp_clients = {}/' "$INIT_FILE"
+        echo -e "${GREEN}  ✓ 修复 clear_acp_clients${NC}"
+    else
+        echo -e "${GREEN}  ✓ clear_acp_clients 已修复，跳过${NC}"
+    fi
+else
+    echo -e "${RED}  ✗ 文件不存在: $INIT_FILE${NC}"
+fi
+
 echo ""
 echo -e "${GREEN}=== 补丁应用完成 ===${NC}"
 echo ""
@@ -327,5 +385,9 @@ echo "  1. authMethod: 修复 gemini-cli 新版本的认证问题"
 echo "  2. 环境变量: 修复 gemini-cli 无法找到 oauth 凭证的问题"
 echo "  3. content nil: 修复 copilot provider 的 nil 字段错误"
 echo "  4. 长行换行: 代码块中的长行自动换行并保留 │ 前缀"
+echo "  5. 单行 retry: 修复单行消息无法 retry/edit 的问题"
+echo "  6. ACP stop: 修复 stop 变量名错误导致找不到 ACP 客户端"
+echo "  7. sidebar 状态: 修复 stop 后 UI 卡在 generating 状态 (需手动应用)"
 echo ""
 echo -e "${YELLOW}注意: 每次更新 avante.nvim 后需要重新运行此脚本${NC}"
+echo -e "${YELLOW}补丁 7 需要手动修改 llm.lua，无法通过 sed 自动应用${NC}"

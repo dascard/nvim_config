@@ -103,20 +103,27 @@ return {
 					"Avante",
 					"AvanteSelectedFiles",
 					"AvanteInput",
+					"AvanteConflict",
 				}
 
 				-- 2. 检查当前文件类型是否在黑名单中
-				if vim.tbl_contains(ignored_filetypes, vim.bo.filetype) then
-					-- 如果是，则执行“关闭”操作
-					-- 请将下面的示例命令替换成你自己的
-					-- vim.cmd('YourPluginCloseCommand')
-					map.close()
-				else
-					-- 否则（对于普通文件），执行“打开”操作
-					-- 请将下面的示例命令替换成你自己的
-					-- vim.cmd('YourPluginOpenCommand')
-					map.open()
-				end
+				local ft = vim.bo.filetype
+				local should_close = vim.tbl_contains(ignored_filetypes, ft)
+				
+				-- 3. 使用 vim.schedule 延迟执行，避免在其他插件操作窗口时发生冲突
+				vim.schedule(function()
+					-- 检查当前窗口是否仍然有效
+					if not vim.api.nvim_win_is_valid(0) then
+						return
+					end
+					
+					-- 使用 pcall 包装，避免错误中断
+					if should_close then
+						pcall(map.close)
+					else
+						pcall(map.open)
+					end
+				end)
 			end,
 		})
 

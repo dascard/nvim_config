@@ -118,7 +118,7 @@ keymap("n", "n", "nzzzv", { desc = "下一个搜索结果并居中" })
 keymap("n", "N", "Nzzzv", { desc = "上一个搜索结果并居中" })
 
 -- 清除搜索高亮
-keymap("n", "<Esc>", ":nohlsearch<CR>", { desc = "清除搜索高亮" })
+-- keymap("n", "<Esc>", ":nohlsearch<CR>", { desc = "清除搜索高亮" })
 
 -- 搜索替换增强键位映射
 keymap("n", "<leader>ss", ":%s/", { desc = "全局搜索替换 (带补全)" })
@@ -149,4 +149,4 @@ end, { expr = true, desc = "替换选中文本 (带补全)" })
 
 -- 数据库相关键位映射 (这些会被 database.lua 插件覆盖，但提供默认映射)
 keymap("n", "<leader>db", ":echo '数据库插件未加载'<CR>", { desc = "数据库UI (需要插件)" })
-keymap("n", "<leader>df", ":echo '数据库插件未加载'<CR>", { desc = "查找数据库缓冲区 (需要插件)" })
+

@@ -7,6 +7,7 @@ return {
     event = vim.g.use_native_lsp and { "BufReadPre", "BufNewFile" } or {},
     dependencies = {
         "williamboman/mason.nvim", -- 确保 mason 已加载，以便 LSP 二进制文件存在
+        "williamboman/mason-lspconfig.nvim",
         { "folke/neodev.nvim", opts = {} },
         "b0o/schemastore.nvim", -- JSON/YAML schemas
     },

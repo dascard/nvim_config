@@ -19,7 +19,7 @@ return {
 					accept_word = "<C-l>", -- Ctrl+L 接受单词
 					accept_line = "<C-y>", -- Ctrl+Y 接受行（避免与 avante 的 <M-l> 冲突）
 					next = "<C-]>",   -- Ctrl+] 下一个建议（避免与 avante 的 <M-]> 冲突）
-					prev = "<C-[>",   -- Ctrl+[ 上一个建议（避免与 avante 的 <M-[> 冲突）
+					prev = "<M-p>",   -- Alt+p 上一个建议（避免与 <Esc> 冲突，<C-[> 等同于 <Esc>）
 					dismiss = "<C-e>", -- Ctrl+E 关闭建议
 				},
 			},
@@ -342,7 +342,8 @@ return {
 
 	-- Avante.nvim: AI Chat 界面
 	{
-		"yetone/avante.nvim",
+		"guojinc/avante.nvim",
+		branch = "fix/acp-improvements",
 		enabled = true, -- 已启用
 		event = "VeryLazy",
 		lazy = false,
@@ -357,9 +358,13 @@ return {
 				end
 				return nil
 			end)(),
-			-- 使用 agentic 模式（官方默认，更智能的代码生成和应用）
-			mode = "legacy",
-			provider = "gemini-cli", -- 使用 Gemini CLI ACP 模式
+			-- 模式选择:
+			-- "agentic": AI 使用工具直接修改代码（弹窗确认后直接应用）
+			-- "legacy": AI 生成 diff，显示冲突标记供你手动选择（co/ct）
+			-- 注意: gemini-cli (ACP) 只支持 agentic 模式
+			mode = "agentic",
+			provider = "gemini-cli", -- 使用 Gemini CLI (免费 OAuth)
+			-- provider = "gemini", -- 使用 Gemini HTTP API (需要 API key，有配额限制)
 			-- provider = "copilot", -- 使用 Copilot HTTP 模式
 			auto_suggestions_provider = "copilot",
 			providers = {
@@ -371,6 +376,16 @@ return {
 						temperature = 0,
 						max_tokens = 4096,
 					},
+				},
+				-- Gemini API (HTTP 模式) - 需要设置环境变量 GEMINI_API_KEY
+				-- 获取 API Key: https://aistudio.google.com/app/apikey
+				gemini = {
+					endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+					model = "gemini-2.5-flash", -- 或 gemini-1.5-pro, gemini-1.5-flash
+					api_key_name = "GEMINI_API_KEY",
+					timeout = 30000,
+					temperature = 0,
+					max_tokens = 8192,
 				},
 			},
 			acp_providers = {
@@ -391,11 +406,12 @@ return {
 				auto_suggestions = false,
 				auto_set_highlight_group = true,
 				auto_set_keymaps = true,
-				auto_apply_diff_after_generation = false,
+				auto_apply_diff_after_generation = true,
 				support_paste_from_clipboard = false,
 				auto_focus_sidebar = true, -- 自动聚焦侧边栏
 				auto_approve_tool_permissions = false, -- 禁止自动应用更改，需要手动确认
 				confirmation_ui_style = "popup", -- 使用弹窗确认 (而不是 inline_buttons)
+				enable_fastapply = false, -- 禁用 fastapply，确保使用 str_replace
 				-- popup 模式下: y=允许, Y/a/A=全部允许, n/N=拒绝, <CR>=点击选中按钮
 			},
 			mappings = {
@@ -422,16 +438,18 @@ return {
 					normal = "<CR>",
 					insert = "<M-CR>", -- Ctrl+S 发送 (原 <C-CR> 在终端中不可用)
 				},
-				-- 取消/停止快捷键
+				-- 取消/停止快捷键 (注意: 在 Avante 窗口中使用)
 				cancel = {
-					normal = { "<Esc>","<C-c>", "q" },
+					normal = { "<C-c>", "q" },
 					insert = { "<C-c>" },
 				},
 				-- 停止模型输出
-				stop = "<leader>aS",
+				stop = "<C-c>",
 				sidebar = {
 					apply_all = "A",
 					apply_cursor = "a",
+					retry_user_request = "r",    -- 重试上一次请求
+					edit_user_request = "e",     -- 编辑上一次请求
 					switch_windows = "<Tab>",
 					reverse_switch_windows = "<S-Tab>",
 				},
@@ -494,6 +512,14 @@ return {
 				provider = "fzf_lua", -- 使用 fzf-lua 作为选择器
 				provider_opts = {},
 			},
+			-- 注意: disabled_tools 仅影响 Avante 本地工具，不影响 ACP provider (gemini-cli)
+			-- ACP 模式下的工具控制需要在 gemini-cli 的 settings.json 中配置
+			-- disabled_tools = {
+			-- 	"write_to_file",    -- 禁用整体写入工具
+			-- 	"create",           -- 禁用创建文件工具
+			-- 	"insert",           -- 禁用插入工具
+			-- 	"write_global_file", -- 禁用全局文件写入
+			-- },
 		},
 		-- 构建命令 + 自动应用补丁
 		build = function()
@@ -527,16 +553,23 @@ return {
 				"HakonHarnes/img-clip.nvim",
 				event = "VeryLazy",
 				opts = {
-					-- recommended settings
 					default = {
+						-- 禁用详细日志，避免非图像剪贴板时显示警告
+						verbose = false,
+						-- recommended settings
 						embed_image_as_base64 = false,
 						prompt_for_file_name = false,
 						drag_and_drop = {
 							insert_mode = true,
 						},
-						-- required for Windows users
+						-- required for Windows/WSL users
 						use_absolute_path = true,
+						-- 支持更多图像格式 (默认只有 jpeg, jpg, png)
+						formats = { "jpeg", "jpg", "png", "bmp", "gif", "webp" },
 					},
+				},
+				keys = {
+					{ "<leader>pi", "<cmd>PasteImage<cr>", desc = "Paste image from clipboard" },
 				},
 			},
 			{
@@ -568,8 +601,26 @@ return {
 			},
 			{
 				"<leader>aS",
-				function() require("avante.api").stop() end,
+				function()
+					-- 尝试多种方式停止输出
+					local ok, avante = pcall(require, "avante")
+					if ok then
+						-- 尝试使用 api.stop()
+						local api_ok = pcall(function() require("avante.api").stop() end)
+						if not api_ok then
+							-- 备用: 发送中断信号给 ACP 进程
+							pcall(function()
+								local acp = require("avante.providers.acp")
+								if acp and acp.abort then
+									acp.abort()
+								end
+							end)
+						end
+						vim.notify("[Avante] 已停止输出", vim.log.levels.INFO)
+					end
+				end,
 				desc = "avante: stop output",
+				mode = { "n", "i" },
 			},
 			{
 				"<leader>at",
