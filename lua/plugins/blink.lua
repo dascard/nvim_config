@@ -15,7 +15,7 @@ return {
   
   -- 不使用 enabled，让 lazy.nvim 可以按需加载
   lazy = true,
-  event = vim.g.use_native_lsp and { "InsertEnter", "CmdlineEnter" } or {},
+  event = vim.g.use_native_lsp and { "InsertEnter" } or {},
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -24,6 +24,12 @@ return {
     enabled = function()
       return vim.g.use_native_lsp == true
     end,
+
+    -- 禁用命令行补全，防止 :! 卡死
+    cmdline = {
+      enabled = false,
+      sources = {}, -- 显式清空来源
+    },
 
     keymap = {
       preset = 'default',

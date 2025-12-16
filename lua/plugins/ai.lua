@@ -119,61 +119,79 @@ return {
 				win = {
 					split = {
 						width = 0.4,
-					}
-				}
+					},
+				},
 			},
 		},
 		keys = {
 			{
 				"<M-|>",
-				function() require("sidekick.cli").toggle() end,
+				function()
+					require("sidekick.cli").toggle()
+				end,
 				desc = "Sidekick Toggle",
 				mode = { "n", "t", "i", "x" },
 			},
 			{
 				"<leader>aa",
-				function() require("sidekick.cli").toggle() end,
+				function()
+					require("sidekick.cli").toggle()
+				end,
 				desc = "Sidekick Toggle CLI",
 			},
 			{
 				"<leader>as",
-				function() require("sidekick.cli").select() end,
+				function()
+					require("sidekick.cli").select()
+				end,
 				-- Or to select only installed tools:
 				-- require("sidekick.cli").select({ filter = { installed = true } })
 				desc = "Select CLI",
 			},
 			{
 				"<leader>ad",
-				function() require("sidekick.cli").close() end,
+				function()
+					require("sidekick.cli").close()
+				end,
 				desc = "Detach a CLI Session",
 			},
 			{
 				"<leader>at",
-				function() require("sidekick.cli").send({ msg = "{this}" }) end,
+				function()
+					require("sidekick.cli").send({ msg = "{this}" })
+				end,
 				mode = { "x", "n" },
 				desc = "Send This",
 			},
 			{
 				"<leader>af",
-				function() require("sidekick.cli").send({ msg = "{file}" }) end,
+				function()
+					require("sidekick.cli").send({ msg = "{file}" })
+				end,
 				desc = "Send File",
 			},
 			{
 				"<leader>av",
-				function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+				function()
+					require("sidekick.cli").send({ msg = "{selection}" })
+				end,
 				mode = { "x" },
 				desc = "Send Visual Selection",
 			},
 			{
 				"<leader>ap",
-				function() require("sidekick.cli").prompt() end,
+				function()
+					require("sidekick.cli").prompt()
+				end,
 				mode = { "n", "x" },
 				desc = "Sidekick Select Prompt",
 			},
 			-- Example of a keybinding to open Claude directly
 			{
 				"<leader>ac",
-				function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
+				function()
+					require("sidekick.cli").toggle({ name = "claude", focus = true })
+				end,
 				desc = "Sidekick Toggle Claude",
 			},
 		},
@@ -182,7 +200,7 @@ return {
 	-- CodeCompanion.nvim: AI Chat 界面
 	{
 		"olimorris/codecompanion.nvim",
-		enabled = false, -- 启用 CodeCompanion
+		enabled = false,    -- 启用 CodeCompanion
 		version = "v17.33.0", -- 固定版本以避免破坏性变更
 		event = "VeryLazy",
 		dependencies = {
@@ -390,8 +408,8 @@ return {
 			},
 			acp_providers = {
 				["gemini-cli"] = {
-					command = "gemini", -- 使用已安装的 gemini-cli v0.21.0-preview.2
-					args = { "--experimental-acp" },
+					command = "gemini",        -- 使用已安装的 gemini-cli v0.21.0-preview.2
+					args = { "--experimental-acp", "-m", "gemini-3-pro-preview" },
 					auth_method = "oauth-personal", -- 使用 Google 登录凭证
 					env = {
 						HOME = vim.fn.expand("~"),
@@ -408,10 +426,10 @@ return {
 				auto_set_keymaps = true,
 				auto_apply_diff_after_generation = true,
 				support_paste_from_clipboard = false,
-				auto_focus_sidebar = true, -- 自动聚焦侧边栏
+				auto_focus_sidebar = true,         -- 自动聚焦侧边栏
 				auto_approve_tool_permissions = false, -- 禁止自动应用更改，需要手动确认
-				confirmation_ui_style = "popup", -- 使用弹窗确认 (而不是 inline_buttons)
-				enable_fastapply = false, -- 禁用 fastapply，确保使用 str_replace
+				confirmation_ui_style = "popup",   -- 使用弹窗确认 (而不是 inline_buttons)
+				enable_fastapply = false,          -- 禁用 fastapply，确保使用 str_replace
 				-- popup 模式下: y=允许, Y/a/A=全部允许, n/N=拒绝, <CR>=点击选中按钮
 			},
 			mappings = {
@@ -448,8 +466,8 @@ return {
 				sidebar = {
 					apply_all = "A",
 					apply_cursor = "a",
-					retry_user_request = "r",    -- 重试上一次请求
-					edit_user_request = "e",     -- 编辑上一次请求
+					retry_user_request = "r", -- 重试上一次请求
+					edit_user_request = "e", -- 编辑上一次请求
 					switch_windows = "<Tab>",
 					reverse_switch_windows = "<S-Tab>",
 				},
@@ -469,11 +487,42 @@ return {
 				-- 官方默认的 spinner 动画
 				spinner = {
 					editing = {
-						"⡀", "⠄", "⠂", "⠁", "⠈", "⠐", "⠠", "⢀",
-						"⣀", "⢄", "⢂", "⢁", "⢈", "⢐", "⢠", "⣠",
-						"⢤", "⢢", "⢡", "⢨", "⢰", "⣰", "⢴", "⢲",
-						"⢱", "⢸", "⣸", "⢼", "⢺", "⢹", "⣹", "⢽",
-						"⢻", "⣻", "⢿", "⣿",
+						"⡀",
+						"⠄",
+						"⠂",
+						"⠁",
+						"⠈",
+						"⠐",
+						"⠠",
+						"⢀",
+						"⣀",
+						"⢄",
+						"⢂",
+						"⢁",
+						"⢈",
+						"⢐",
+						"⢠",
+						"⣠",
+						"⢤",
+						"⢢",
+						"⢡",
+						"⢨",
+						"⢰",
+						"⣰",
+						"⢴",
+						"⢲",
+						"⢱",
+						"⢸",
+						"⣸",
+						"⢼",
+						"⢺",
+						"⢹",
+						"⣹",
+						"⢽",
+						"⢻",
+						"⣻",
+						"⢿",
+						"⣿",
 					},
 					generating = { "·", "✢", "✳", "∗", "✻", "✽" },
 					thinking = { "🤔", "💭" },
@@ -540,14 +589,14 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
-			"nvim-mini/mini.pick", -- for file_selector provider mini.pick
+			"nvim-mini/mini.pick",        -- for file_selector provider mini.pick
 			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua", -- for file_selector provider fzf
-			"stevearc/dressing.nvim", -- for input provider dressing
-			"folke/snacks.nvim", -- for input provider snacks
+			"hrsh7th/nvim-cmp",           -- autocompletion for avante commands and mentions
+			"ibhagwan/fzf-lua",           -- for file_selector provider fzf
+			"stevearc/dressing.nvim",     -- for input provider dressing
+			"folke/snacks.nvim",          -- for input provider snacks
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
+			"zbirenbaum/copilot.lua",     -- for providers='copilot'
 			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",
@@ -574,7 +623,7 @@ return {
 			},
 			{
 				-- Make sure to set this up properly if you have lazy=true
-				'MeanderingProgrammer/render-markdown.nvim',
+				"MeanderingProgrammer/render-markdown.nvim",
 				opts = {
 					file_types = { "markdown", "Avante" },
 				},
@@ -584,18 +633,24 @@ return {
 		keys = {
 			{
 				"<leader>aA",
-				function() require("avante.api").ask() end,
+				function()
+					require("avante.api").ask()
+				end,
 				desc = "avante: ask",
 				mode = { "n", "v" },
 			},
 			{
 				"<leader>aR",
-				function() require("avante.api").refresh() end,
+				function()
+					require("avante.api").refresh()
+				end,
 				desc = "avante: refresh",
 			},
 			{
 				"<leader>aE",
-				function() require("avante.api").edit() end,
+				function()
+					require("avante.api").edit()
+				end,
 				desc = "avante: edit",
 				mode = "v",
 			},
@@ -606,7 +661,9 @@ return {
 					local ok, avante = pcall(require, "avante")
 					if ok then
 						-- 尝试使用 api.stop()
-						local api_ok = pcall(function() require("avante.api").stop() end)
+						local api_ok = pcall(function()
+							require("avante.api").stop()
+						end)
 						if not api_ok then
 							-- 备用: 发送中断信号给 ACP 进程
 							pcall(function()
@@ -624,7 +681,9 @@ return {
 			},
 			{
 				"<leader>at",
-				function() require("avante.api").toggle() end,
+				function()
+					require("avante.api").toggle()
+				end,
 				desc = "avante: toggle sidebar",
 			},
 		},
@@ -679,29 +738,28 @@ return {
 			-- 检查 cmp 模块是否能够加载
 			-- if not pcall(require, "cmp") then
 			-- 	vim.notify(
-				-- 		"[copilot-cmp] nvim-cmp 未加载，copilot-cmp 将不会被配置。",
-				-- 		vim.log.levels.WARN,
-				-- 		{ title = "Plugin Dependency" }
-				-- 	)
-				-- 	return
-				-- end
-				-- 检查 copilot_cmp 模块是否能够加载
-				if not pcall(require, "copilot_cmp") then
-					vim.notify("[copilot-cmp] Failed to load copilot_cmp module.", vim.log.levels.ERROR)
-					return
-				end
-				-- 设置 copilot-cmp
-				require("copilot_cmp").setup(opts)
-				-- vim.notify(
-					-- 	"[copilot-cmp] 已配置。请确保在 nvim-cmp 的 sources 中添加 'copilot' 并考虑使用 'copilot_cmp.comparators.prioritize'。",
-					-- 	vim.log.levels.INFO,
-					-- 	{ title = "Copilot CMP" }
-					-- )
-				end,
-			},
+			-- 		"[copilot-cmp] nvim-cmp 未加载，copilot-cmp 将不会被配置。",
+			-- 		vim.log.levels.WARN,
+			-- 		{ title = "Plugin Dependency" }
+			-- 	)
+			-- 	return
+			-- end
+			-- 检查 copilot_cmp 模块是否能够加载
+			if not pcall(require, "copilot_cmp") then
+				vim.notify("[copilot-cmp] Failed to load copilot_cmp module.", vim.log.levels.ERROR)
+				return
+			end
+			-- 设置 copilot-cmp
+			require("copilot_cmp").setup(opts)
+			-- vim.notify(
+			-- 	"[copilot-cmp] 已配置。请确保在 nvim-cmp 的 sources 中添加 'copilot' 并考虑使用 'copilot_cmp.comparators.prioritize'。",
+			-- 	vim.log.levels.INFO,
+			-- 	{ title = "Copilot CMP" }
+			-- )
+		end,
+	},
 
-			-- 4. edgy.nvim: 窗口管理集成 (可选)
+	-- 4. edgy.nvim: 窗口管理集成 (可选)
 
-
-			-- 5. Test Plugin (Irrelevant code for testing)
-		}
+	-- 5. Test Plugin (Irrelevant code for testing)
+}

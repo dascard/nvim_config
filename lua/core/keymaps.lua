@@ -123,7 +123,7 @@ keymap("n", "N", "Nzzzv", { desc = "上一个搜索结果并居中" })
 -- 搜索替换增强键位映射
 keymap("n", "<leader>ss", ":%s/", { desc = "全局搜索替换 (带补全)" })
 keymap("n", "<leader>sl", ":s/", { desc = "当前行搜索替换 (带补全)" })
-
+keymap("c", "<C-V>", "<C-r>+", {desc = "粘贴"})
 -- 可视模式下的搜索替换
 keymap("v", "<leader>ss", ":s/", { desc = "选中区域搜索替换 (带补全)" })
 

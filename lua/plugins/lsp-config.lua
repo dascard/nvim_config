@@ -12,7 +12,7 @@ return {
         "b0o/schemastore.nvim", -- JSON/YAML schemas
     },
     config = function()
-        local lspconfig = require("lspconfig")
+        local lspconfig = vim.lsp.config or require("lspconfig")
         local configs = require("lspconfig.configs")
         local lspconfig_util = require("lspconfig.util")
         
@@ -78,43 +78,29 @@ return {
 
         -- 7. 安全配置 LSP 服务器的辅助函数
         local function safe_setup(server_name, config)
+            -- vim.notify("Setting up LSP: " .. server_name, vim.log.levels.INFO)
             local ok, err = pcall(function()
-                -- 尝试加载配置定义
-                local config_def = configs[server_name]
-                if not config_def then
-                    local ok_req, module = pcall(require, "lspconfig.configs." .. server_name)
-                    if ok_req then
-                        config_def = module
-                    end
-                end
-
-                if not config_def then
-                     vim.notify("Could not load config for " .. server_name, vim.log.levels.WARN)
-                     return
-                end
-
-                -- 检查是否支持 vim.lsp.config (Nvim 0.11+)
-                if vim.lsp.config and vim.lsp.enable then
-                    local default_config = config_def.default_config or {}
-                    -- 合并配置
-                    local final_config = vim.tbl_deep_extend("force", default_config, config)
-                    
-                    -- 使用新 API
-                    vim.lsp.config(server_name, final_config)
-                    vim.lsp.enable(server_name)
+                -- 标准方式配置
+                -- 检查 function 或 callable table (适配 Nvim 0.11+ 或 polyfill)
+                if type(lspconfig) == "function" or (type(lspconfig) == "table" and getmetatable(lspconfig) and getmetatable(lspconfig).__call) then
+                    lspconfig(server_name, config)
+                elseif lspconfig[server_name] then
+                    -- Old nvim-lspconfig
+                    lspconfig[server_name].setup(config)
                 else
-                    -- 旧版本回退
-                    if lspconfig[server_name] then
+                    -- 尝试手动加载配置 (针对某些懒加载情况)
+                    local loaded, _ = pcall(require, "lspconfig.server_configurations." .. server_name)
+                    if loaded and lspconfig[server_name] then
                         lspconfig[server_name].setup(config)
                     end
                 end
             end)
             
             if not ok then
-                vim.notify(
-                    string.format("Failed to setup LSP server '%s': %s", server_name, err or "unknown error"),
-                    vim.log.levels.WARN
-                )
+                -- 忽略模块未找到的错误，这通常意味着该 LSP 未安装或名称有误
+                if err and not string.find(err, "module") and not string.find(err, "not found") then
+                     vim.notify(string.format("LSP setup failed for '%s': %s", server_name, err), vim.log.levels.WARN)
+                end
             end
         end
 

@@ -24,7 +24,6 @@ return {
                 "dockerfile-language-server", -- Docker
                 "vim-language-server",       -- VimScript
                 "powershell-editor-services", -- PowerShell
-                "jdtls",      -- Java (可选)
                 "phpactor",                  -- PHP
                 "omnisharp",                 -- C#
                   -- 格式化工具

@@ -3,7 +3,7 @@ return {
 	dependencies = { "mason.nvim" },
 	lazy = true,
 	cmd = "ConformInfo",
-	enabled = false,
+	enabled = true,
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")

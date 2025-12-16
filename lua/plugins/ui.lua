@@ -59,8 +59,6 @@ local function irregularWhitespace()
 	return nonDefaultSetting .. wrongIndent .. linebreakIcon
 end
 
-
-
 -- 获取可视选择文本
 local function get_visual_selection()
 	local mode = vim.fn.mode()
@@ -111,7 +109,7 @@ local function selectionCount()
 	-- 使用 Vim 内置的选择信息
 	local start_pos = vim.fn.getpos("v")
 	local end_pos = vim.fn.getpos(".")
-	
+
 	if mode == "V" then
 		-- 行选择模式
 		local lines = math.abs(end_pos[2] - start_pos[2]) + 1
@@ -126,7 +124,7 @@ local function selectionCount()
 		local text = get_visual_selection()
 		local chars = vim.fn.strchars(text)
 		local bytes = vim.fn.strlen(text)
-		
+
 		-- 如果字符数和字节数不同，说明有多字节字符（如中文）
 		if chars ~= bytes then
 			return string.format("�%d chars (%d bytes)", chars, bytes)
@@ -542,16 +540,52 @@ return {
 						luasnip = true,
 						throttle = 50,
 					},
-					view = "hover", -- 使用 hover 视图显示签名帮助
+					view = "hover",
 					opts = {},
 				},
 				hover = {
 					enabled = true,
-					view = nil, -- 使用默认视图
+					view = nil,
 					opts = {},
 				},
 			},
+			-- [优化重点 1]: 路由规则配置
 			routes = {
+				-- 1. 消除噪音：过滤掉 "Search hit BOTTOM" 这类在使用居中弹窗时非常烦人的提示
+				{
+					filter = {
+						event = "msg_show",
+						kind = "search_count",
+					},
+					opts = { skip = true },
+				},
+				{
+					filter = {
+						event = "msg_show",
+						find = "lines? --%d+%%--", -- 过滤翻页百分比提示
+					},
+					opts = { skip = true },
+				},
+				-- 2. 优化文件保存提示：将 "written" 消息精简到 mini 视图，防止占据屏幕
+				{
+					filter = {
+						event = "msg_show",
+						kind = "",
+						find = "written",
+					},
+					view = "mini",
+				},
+				-- 3. [核心修复]: 强制显示外部命令 (:!) 输出
+				-- 如果输出包含换行符，或者不是简单的单行提示，强制使用 popup 显示
+				-- 防止被 messages.view = "mini" 吞掉
+				{
+					filter = {
+						event = "msg_show",
+						min_height = 2, -- 如果消息超过2行
+					},
+					view = "popup", -- 强制弹窗显示
+				},
+				-- 之前的规则：过滤光标位置信息等
 				{
 					filter = {
 						event = "msg_show",
@@ -563,104 +597,76 @@ return {
 					},
 					view = "mini",
 				},
-				{
-					filter = {
-						event = "msg_show",
-						any = {
-							{ find = "Agent service not initialized" },
-						},
-					},
-					opts = { skip = true },
-				},
 			},
 			presets = {
-				bottom_search = false, -- 禁用底部搜索，使用弹出式
-				command_palette = true, -- 启用命令面板
-				long_message_to_split = true,
+				bottom_search = false,
+				command_palette = true,
+				long_message_to_split = true, -- 关键：长消息自动分屏
+				lsp_doc_border = true, -- 建议开启：让 LSP 文档也就是 hover 有边框
 			},
 			cmdline = {
-				enabled = true, -- 启用命令行
-				view = "cmdline_popup", -- 恢复使用弹出式命令行
-				opts = {}, -- 全局cmdline选项
+				enabled = true,
+				view = "cmdline_popup",
+				opts = {},
 				format = {
-					-- 命令模式
 					cmdline = { pattern = "^:", lang = "vim" },
-					-- 搜索模式（向下搜索）
 					search_down = { kind = "search", pattern = "^/", lang = "regex" },
-					-- 搜索模式（向上搜索）
 					search_up = { kind = "search", pattern = "^%?", lang = "regex" },
-					-- 过滤模式
-					filter = { pattern = "^:%s*!", lang = "bash" },
-					-- Lua模式
+					filter = { pattern = "^:%s*!", lang = "bash", view = "cmdline_popup" },
 					lua = { pattern = "^:%s*lua%s+", lang = "lua" },
-					-- 帮助模式
 					help = { pattern = "^:%s*he?l?p?%s+" },
-					-- 输入模式
 					input = {},
 				},
 			},
 			messages = {
-				-- 注意：如果启用messages，某些内容可能会重复显示
-				enabled = true, -- 启用消息
-				view = "notify", -- 默认视图
-				view_error = "notify", -- 错误消息视图
-				view_warn = "notify", -- 警告消息视图
-				view_history = "messages", -- :messages的视图
-				view_search = "virtualtext", -- 搜索计数消息
+				enabled = true,
+				-- [注意] 这里保留了你的设置，但上面的 routes 会拦截重要消息去 popup
+				view = "mini",
+				view_error = "notify",
+				view_warn = "notify",
+				view_history = "messages",
+				view_search = "virtualtext",
 			},
 			popupmenu = {
-				enabled = true, -- 启用弹出菜单
-				backend = "nui", -- 使用原生后端显示补全
-				kind_icons = {}, -- 禁用图标
+				enabled = true,
+				backend = "nui",
+				kind_icons = {},
 			},
-			-- 自定义视图配置
+			-- 布局保持原样
 			views = {
 				cmdline_popup = {
-					position = {
-						row = "50%", -- 垂直居中
-						col = "50%", -- 水平居中
-					},
-					size = {
-						width = 60, -- 命令行宽度
-						height = "auto",
-					},
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
+					position = { row = "50%", col = "50%" },
+					size = { width = 60, height = "auto" },
+					border = { style = "rounded", padding = { 0, 1 } },
 					filter_options = {},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 10, -- 降低透明度以增加对比度
+						winblend = 10,
 					},
 				},
 				popupmenu = {
-					relative = "editor", -- 相对于编辑器定位
-					position = {
-						row = "70%", -- 位置在屏幕下方70%处，确保在命令框下方
-						col = "50%", -- 水平居中
-					},
-					size = {
-						width = 60,
-						height = 15, -- 显示更多选项
-					},
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
-					win_options = {
-						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 10, -- 降低透明度以增加对比度
-					},
-				},
-				hover = {
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
+					relative = "editor",
+					position = { row = "70%", col = "50%" },
+					size = { width = 60, height = 15 },
+					border = { style = "rounded", padding = { 0, 1 } },
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
 						winblend = 10,
+					},
+				},
+				hover = {
+					border = { style = "rounded", padding = { 0, 1 } },
+					win_options = {
+						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 10,
+					},
+				},
+				-- [新增] 针对上面定义的 "popup" 视图的默认样式，确保 :! 输出好看
+				popup = {
+					border = { style = "rounded", padding = { 0, 1 } },
+					win_options = {
+						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 0, -- 重要消息不透明，防止看不清
 					},
 				},
 			},
