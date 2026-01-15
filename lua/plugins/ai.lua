@@ -4,9 +4,9 @@ return {
 	-- 1. Copilot.lua: 核心 GitHub Copilot Agent 提供者
 	{
 		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",       -- 按需加载
+		cmd = "Copilot", -- 按需加载
 		event = "InsertEnter", -- 在插入模式时初始化 Copilot
-		branch = "master",     -- 该插件的默认分支是 main
+		branch = "master", -- 该插件的默认分支是 main
 		commit = "acf547e",
 		build = ":Copilot auth", -- 安装后执行认证
 		opts = {
@@ -18,8 +18,8 @@ return {
 					accept = "<C-j>", -- Ctrl+J 接受 Copilot 建议
 					accept_word = "<C-l>", -- Ctrl+L 接受单词
 					accept_line = "<C-y>", -- Ctrl+Y 接受行（避免与 avante 的 <M-l> 冲突）
-					next = "<C-]>",   -- Ctrl+] 下一个建议（避免与 avante 的 <M-]> 冲突）
-					prev = "<M-p>",   -- Alt+p 上一个建议（避免与 <Esc> 冲突，<C-[> 等同于 <Esc>）
+					next = "<C-]>", -- Ctrl+] 下一个建议（避免与 avante 的 <M-]> 冲突）
+					prev = "<M-p>", -- Alt+p 上一个建议（避免与 <Esc> 冲突，<C-[> 等同于 <Esc>）
 					dismiss = "<C-e>", -- Ctrl+E 关闭建议
 				},
 			},
@@ -200,7 +200,7 @@ return {
 	-- CodeCompanion.nvim: AI Chat 界面
 	{
 		"olimorris/codecompanion.nvim",
-		enabled = false,    -- 启用 CodeCompanion
+		enabled = false, -- 启用 CodeCompanion
 		version = "v17.33.0", -- 固定版本以避免破坏性变更
 		event = "VeryLazy",
 		dependencies = {
@@ -381,7 +381,7 @@ return {
 			-- "legacy": AI 生成 diff，显示冲突标记供你手动选择（co/ct）
 			-- 注意: gemini-cli (ACP) 只支持 agentic 模式
 			mode = "agentic",
-			provider = "gemini-cli", -- 使用 Gemini CLI (免费 OAuth)
+			provider = "codex", -- 使用 Gemini CLI (免费 OAuth)
 			-- provider = "gemini", -- 使用 Gemini HTTP API (需要 API key，有配额限制)
 			-- provider = "copilot", -- 使用 Copilot HTTP 模式
 			auto_suggestions_provider = "copilot",
@@ -408,7 +408,7 @@ return {
 			},
 			acp_providers = {
 				["gemini-cli"] = {
-					command = "gemini",        -- 使用已安装的 gemini-cli v0.21.0-preview.2
+					command = "gemini", -- 使用已安装的 gemini-cli v0.21.0-preview.2
 					args = { "--experimental-acp", "-m", "gemini-3-pro-preview" },
 					auth_method = "oauth-personal", -- 使用 Google 登录凭证
 					env = {
@@ -419,6 +419,14 @@ return {
 						IS_AI_TERMINAL = "1",
 					},
 				},
+				["codex"] = {
+					command = "npx",
+					args = { "@zed-industries/codex-acp" },
+					auth_method = "oauth-personal",
+					env = {
+						NODE_NO_WARNINGS = "1",
+					},
+				},
 			},
 			behaviour = {
 				auto_suggestions = false,
@@ -426,10 +434,10 @@ return {
 				auto_set_keymaps = true,
 				auto_apply_diff_after_generation = true,
 				support_paste_from_clipboard = false,
-				auto_focus_sidebar = true,         -- 自动聚焦侧边栏
+				auto_focus_sidebar = true, -- 自动聚焦侧边栏
 				auto_approve_tool_permissions = false, -- 禁止自动应用更改，需要手动确认
-				confirmation_ui_style = "popup",   -- 使用弹窗确认 (而不是 inline_buttons)
-				enable_fastapply = false,          -- 禁用 fastapply，确保使用 str_replace
+				confirmation_ui_style = "popup", -- 使用弹窗确认 (而不是 inline_buttons)
+				enable_fastapply = false, -- 禁用 fastapply，确保使用 str_replace
 				-- popup 模式下: y=允许, Y/a/A=全部允许, n/N=拒绝, <CR>=点击选中按钮
 			},
 			mappings = {
@@ -589,14 +597,14 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
-			"nvim-mini/mini.pick",        -- for file_selector provider mini.pick
+			"nvim-mini/mini.pick", -- for file_selector provider mini.pick
 			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp",           -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua",           -- for file_selector provider fzf
-			"stevearc/dressing.nvim",     -- for input provider dressing
-			"folke/snacks.nvim",          -- for input provider snacks
+			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+			"ibhagwan/fzf-lua", -- for file_selector provider fzf
+			"stevearc/dressing.nvim", -- for input provider dressing
+			"folke/snacks.nvim", -- for input provider snacks
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua",     -- for providers='copilot'
+			"zbirenbaum/copilot.lua", -- for providers='copilot'
 			{
 				-- support for image pasting
 				"HakonHarnes/img-clip.nvim",

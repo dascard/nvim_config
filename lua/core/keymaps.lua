@@ -21,6 +21,7 @@ keymap("n", "H", "0")
 keymap("n", "L", "$")
 keymap("n", "<M-o>", "o<Esc>")
 keymap("n", "<leader>k", ":FloatermKill<CR>")
+keymap("n", "<leader>tc", ":TerminalCopyMode<CR>", { desc = "终端复制模式" })
 keymap("n", "j", "gj")
 keymap("n", "k", "gk")
 if vim.g.use_native_lsp then
@@ -123,7 +124,7 @@ keymap("n", "N", "Nzzzv", { desc = "上一个搜索结果并居中" })
 -- 搜索替换增强键位映射
 keymap("n", "<leader>ss", ":%s/", { desc = "全局搜索替换 (带补全)" })
 keymap("n", "<leader>sl", ":s/", { desc = "当前行搜索替换 (带补全)" })
-keymap("c", "<C-V>", "<C-r>+", {desc = "粘贴"})
+keymap("c", "<C-V>", "<C-r>+", { desc = "粘贴" })
 -- 可视模式下的搜索替换
 keymap("v", "<leader>ss", ":s/", { desc = "选中区域搜索替换 (带补全)" })
 
@@ -141,12 +142,11 @@ end, { expr = true, desc = "替换当前单词 (带补全)" })
 keymap("v", "<leader>sr", function()
 	-- 获取选中的文本
 	vim.cmd('normal! "vy')
-	local selected_text = vim.fn.getreg('v')
+	local selected_text = vim.fn.getreg("v")
 	-- 转义特殊字符
-	selected_text = vim.fn.escape(selected_text, '/\\')
+	selected_text = vim.fn.escape(selected_text, "/\\")
 	return ":s/" .. selected_text .. "/"
 end, { expr = true, desc = "替换选中文本 (带补全)" })
 
 -- 数据库相关键位映射 (这些会被 database.lua 插件覆盖，但提供默认映射)
 keymap("n", "<leader>db", ":echo '数据库插件未加载'<CR>", { desc = "数据库UI (需要插件)" })
-

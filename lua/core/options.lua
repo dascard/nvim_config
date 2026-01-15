@@ -41,15 +41,15 @@ vim.opt.confirm = true
 -- 使用 :UseCoc 或 :UseNativeLSP 直接切换到指定模式
 
 -- 命令行补全设置（由 noice.nvim 接管）
-vim.opt.wildmenu = true  -- 启用命令行补全菜单
-vim.opt.wildmode = "longest:full,full"  -- 设置补全行为
+vim.opt.wildmenu = true -- 启用命令行补全菜单
+vim.opt.wildmode = "longest:full,full" -- 设置补全行为
 -- 注释掉 wildoptions，让 noice.nvim 处理显示
 -- vim.opt.wildoptions = "pum,fuzzy"  -- 使用popup菜单显示补全，支持模糊匹配
-vim.opt.pumheight = 15  -- 设置补全菜单最大高度
+vim.opt.pumheight = 15 -- 设置补全菜单最大高度
 
 -- 透明度配置 (降低透明度使浮动窗口背景更明显)
-vim.opt.pumblend = 10  -- 补全菜单透明度 (降低以增加对比度)
-vim.opt.winblend = 10  -- 浮动窗口透明度 (降低以增加对比度)
+vim.opt.pumblend = 10 -- 补全菜单透明度 (降低以增加对比度)
+vim.opt.winblend = 10 -- 浮动窗口透明度 (降低以增加对比度)
 
 -- 设置 leader 键
 vim.g.mapleader = ";"
@@ -201,9 +201,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	callback = function()
 		-- 浮动窗口背景色 (深色半透明，增加对比度)
-		local float_bg = "#1a1b26"  -- tokyonight 深色背景
-		local float_border_fg = "#7aa2f7"  -- tokyonight 蓝色边框
-		local pmenu_sel_bg = "#364a82"  -- 选中项高亮背景
+		local float_bg = "#1a1b26" -- tokyonight 深色背景
+		local float_border_fg = "#7aa2f7" -- tokyonight 蓝色边框
+		local pmenu_sel_bg = "#364a82" -- 选中项高亮背景
 
 		-- 浮动窗口样式
 		vim.api.nvim_set_hl(0, "NormalFloat", { bg = float_bg })
@@ -267,10 +267,212 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- 设置全局浮动窗口默认配置
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
-	winblend = 10,  -- 降低透明度以增加对比度
+	winblend = 10, -- 降低透明度以增加对比度
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 	border = "rounded",
-	winblend = 10,  -- 降低透明度以增加对比度
+	winblend = 10, -- 降低透明度以增加对比度
+})
+
+-- 终端复制模式：隐藏插件 UI，仅保留纯文本
+local terminal_copy_state = nil
+local terminal_copy_augroup = vim.api.nvim_create_augroup("TerminalCopyMode", { clear = true })
+
+local function snapshot_window_opts(win)
+	return {
+		number = vim.wo[win].number,
+		relativenumber = vim.wo[win].relativenumber,
+		signcolumn = vim.wo[win].signcolumn,
+		foldcolumn = vim.wo[win].foldcolumn,
+		cursorline = vim.wo[win].cursorline,
+		list = vim.wo[win].list,
+		colorcolumn = vim.wo[win].colorcolumn,
+		winbar = vim.wo[win].winbar,
+		statuscolumn = vim.wo[win].statuscolumn,
+	}
+end
+
+local function apply_terminal_copy_window(win)
+	vim.wo[win].number = false
+	vim.wo[win].relativenumber = false
+	vim.wo[win].signcolumn = "no"
+	vim.wo[win].foldcolumn = "0"
+	vim.wo[win].cursorline = false
+	vim.wo[win].list = false
+	vim.wo[win].colorcolumn = ""
+	vim.wo[win].winbar = ""
+	vim.wo[win].statuscolumn = ""
+end
+
+local function enable_terminal_copy_mode()
+	if terminal_copy_state then
+		return
+	end
+
+	terminal_copy_state = {
+		options = {
+			laststatus = vim.o.laststatus,
+			showtabline = vim.o.showtabline,
+			cmdheight = vim.o.cmdheight,
+			showmode = vim.o.showmode,
+			ruler = vim.o.ruler,
+			showcmd = vim.o.showcmd,
+			conceallevel = vim.o.conceallevel,
+			statusline = vim.o.statusline,
+			winbar = vim.o.winbar,
+		},
+		default_window = snapshot_window_opts(0),
+		windows = {},
+		globals = {
+			snacks_indent = vim.g.snacks_indent,
+			snacks_scope = vim.g.snacks_scope,
+			gitblame_enabled = vim.g.gitblame_enabled,
+		},
+		diagnostics_enabled = (vim.diagnostic.is_enabled and vim.diagnostic.is_enabled()) or nil,
+		inlay_hint_enabled = nil,
+		ibl_enabled = nil,
+	}
+
+	local ok_ibl_conf, ibl_conf = pcall(require, "ibl.config")
+	if ok_ibl_conf and ibl_conf.get_config then
+		terminal_copy_state.ibl_enabled = ibl_conf.get_config(0).enabled
+	end
+
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		terminal_copy_state.windows[win] = snapshot_window_opts(win)
+		apply_terminal_copy_window(win)
+	end
+
+	vim.o.laststatus = 0
+	vim.o.showtabline = 0
+	vim.o.cmdheight = 0
+	vim.o.showmode = false
+	vim.o.ruler = false
+	vim.o.showcmd = false
+	vim.o.conceallevel = 0
+	vim.o.statusline = ""
+	vim.o.winbar = ""
+
+	pcall(vim.diagnostic.enable, false)
+	if vim.lsp.inlay_hint and vim.lsp.inlay_hint.enable then
+		local ok, enabled = pcall(vim.lsp.inlay_hint.is_enabled)
+		if ok then
+			terminal_copy_state.inlay_hint_enabled = enabled
+		end
+		pcall(vim.lsp.inlay_hint.enable, false)
+	end
+
+	vim.g.snacks_indent = false
+	vim.g.snacks_scope = false
+
+	local ok_ibl, ibl = pcall(require, "ibl")
+	if ok_ibl and ibl.update then
+		ibl.update({ enabled = false })
+	end
+
+	pcall(vim.cmd, "Noice disable")
+	pcall(vim.cmd, "NvimTreeClose")
+	pcall(vim.cmd, "TroubleClose")
+	pcall(vim.cmd, "GitBlameDisable")
+	local ok_minimap, minimap = pcall(require, "mini.map")
+	if ok_minimap and minimap.close then
+		pcall(minimap.close)
+	end
+
+	vim.g.terminal_copy_mode = true
+
+	vim.api.nvim_clear_autocmds({ group = terminal_copy_augroup })
+	vim.api.nvim_create_autocmd({ "WinNew", "WinEnter", "BufWinEnter" }, {
+		group = terminal_copy_augroup,
+		callback = function()
+			apply_terminal_copy_window(vim.api.nvim_get_current_win())
+		end,
+	})
+end
+
+local function disable_terminal_copy_mode()
+	if not terminal_copy_state then
+		return
+	end
+
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local opts = terminal_copy_state.windows[win] or terminal_copy_state.default_window
+		if opts then
+			vim.wo[win].number = opts.number
+			vim.wo[win].relativenumber = opts.relativenumber
+			vim.wo[win].signcolumn = opts.signcolumn
+			vim.wo[win].foldcolumn = opts.foldcolumn
+			vim.wo[win].cursorline = opts.cursorline
+			vim.wo[win].list = opts.list
+			vim.wo[win].colorcolumn = opts.colorcolumn
+			vim.wo[win].winbar = opts.winbar
+			vim.wo[win].statuscolumn = opts.statuscolumn
+		end
+	end
+
+	for key, value in pairs(terminal_copy_state.options) do
+		vim.o[key] = value
+	end
+
+	if terminal_copy_state.diagnostics_enabled ~= nil then
+		pcall(vim.diagnostic.enable, terminal_copy_state.diagnostics_enabled)
+	end
+
+	if terminal_copy_state.inlay_hint_enabled ~= nil then
+		pcall(vim.lsp.inlay_hint.enable, terminal_copy_state.inlay_hint_enabled)
+	end
+
+	vim.g.snacks_indent = terminal_copy_state.globals.snacks_indent
+	vim.g.snacks_scope = terminal_copy_state.globals.snacks_scope
+	if terminal_copy_state.globals.gitblame_enabled ~= nil then
+		vim.g.gitblame_enabled = terminal_copy_state.globals.gitblame_enabled
+		if
+			terminal_copy_state.globals.gitblame_enabled == 1
+			or terminal_copy_state.globals.gitblame_enabled == true
+		then
+			pcall(vim.cmd, "GitBlameEnable")
+		else
+			pcall(vim.cmd, "GitBlameDisable")
+		end
+	end
+
+	if terminal_copy_state.ibl_enabled ~= nil then
+		local ok_ibl, ibl = pcall(require, "ibl")
+		if ok_ibl and ibl.update then
+			ibl.update({ enabled = terminal_copy_state.ibl_enabled })
+		end
+	end
+
+	pcall(vim.cmd, "Noice enable")
+
+	vim.api.nvim_clear_autocmds({ group = terminal_copy_augroup })
+
+	terminal_copy_state = nil
+	vim.g.terminal_copy_mode = false
+end
+
+local function toggle_terminal_copy_mode()
+	if terminal_copy_state then
+		disable_terminal_copy_mode()
+	else
+		enable_terminal_copy_mode()
+	end
+end
+
+vim.api.nvim_create_user_command("TerminalCopyMode", function(opts)
+	local arg = opts.args
+	if arg == "on" then
+		enable_terminal_copy_mode()
+	elseif arg == "off" then
+		disable_terminal_copy_mode()
+	else
+		toggle_terminal_copy_mode()
+	end
+end, {
+	nargs = "?",
+	complete = function()
+		return { "on", "off", "toggle" }
+	end,
+	desc = "终端复制模式（隐藏插件 UI）",
 })
