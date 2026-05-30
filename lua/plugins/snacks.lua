@@ -6,6 +6,54 @@ vim.env.TERM = "xterm-kitty"
 vim.env.SNACKS_KITTY = "1"
 -- vim.env.SNACKS_WEZTERM = "1"
 vim.env.SNACKS_SSH = "1"
+
+local function render_notification(buf, notif, ctx)
+	local lines = vim.split(tostring(notif.msg or ""), "\n", { plain = true })
+	if #lines == 0 then
+		lines = { "" }
+	end
+
+	local title = vim.trim(notif.title or "")
+	local prefix = notif.icon .. (title ~= "" and (" " .. title .. " ") or " ")
+	lines[1] = string.rep(" ", vim.fn.strdisplaywidth(prefix)) .. (lines[1] or "")
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+	local virt_text = {
+		{ notif.icon, ctx.hl.icon },
+		{ " " },
+	}
+	if title ~= "" then
+		virt_text[#virt_text + 1] = { title, ctx.hl.title }
+		virt_text[#virt_text + 1] = { " " }
+	end
+	vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
+		virt_text = virt_text,
+		virt_text_pos = "overlay",
+		priority = 10,
+	})
+end
+
+local function apply_notification_highlights()
+	local bg = "#1a1b26"
+	local fg = "#c0caf5"
+	local levels = {
+		Error = "#f7768e",
+		Warn = "#e0af68",
+		Info = "#7aa2f7",
+		Debug = "#565f89",
+		Trace = "#565f89",
+	}
+
+	vim.api.nvim_set_hl(0, "SnacksNotifierHistory", { fg = fg, bg = bg })
+	for level, color in pairs(levels) do
+		vim.api.nvim_set_hl(0, "SnacksNotifier" .. level, { fg = fg, bg = bg })
+		vim.api.nvim_set_hl(0, "SnacksNotifierIcon" .. level, { fg = color, bg = bg })
+		vim.api.nvim_set_hl(0, "SnacksNotifierTitle" .. level, { fg = color, bg = bg, bold = true })
+		vim.api.nvim_set_hl(0, "SnacksNotifierBorder" .. level, { fg = color, bg = bg })
+		vim.api.nvim_set_hl(0, "SnacksNotifierFooter" .. level, { fg = color, bg = bg })
+	end
+end
+
 local function clamp_buf_pos(buf, pos)
 	if type(pos) ~= "table" then
 		return pos
@@ -897,13 +945,14 @@ return {
 		},
 		notifier = {
 			enabled = true,
-			timeout = 5000,
-			width = { min = 40, max = 0.4 },
-			height = { min = 1, max = 0.6 },
+			timeout = 4000,
+			width = { min = 34, max = 0.38 },
+			height = { min = 1, max = 0.5 },
 			-- editor margin to keep free. tabline and statusline are taken into account automatically
-			margin = { top = 0, right = 1, bottom = 0 },
+			margin = { top = 1, right = 1, bottom = 0 },
 			padding = true, -- add 1 cell of left/right padding to the notification window
-			sort = { "level", "added" }, -- sort by level and time
+			gap = 1,
+			sort = { "added" }, -- keep notifications in arrival order
 			-- minimum log level to display. TRACE is the lowest
 			-- all notifications are stored in history
 			level = vim.log.levels.TRACE,
@@ -918,7 +967,7 @@ return {
 				return vim.fn.getcmdpos() > 0
 			end,
 			---@type snacks.notifier.style
-			style = "compact",
+			style = render_notification,
 			top_down = true, -- place notifications from top to bottom
 			date_format = "%R", -- time format for notifications
 			-- format for footer when more lines are available
@@ -1020,7 +1069,7 @@ return {
 		styles = {
 			-- 通知历史窗口
 			notification_history = {
-				border = "rounded",
+				border = "single",
 				zindex = 100,
 				width = 0.6,
 				height = 0.6,
@@ -1031,18 +1080,19 @@ return {
 				bo = { filetype = "snacks_notif_history", modifiable = false },
 				wo = {
 					winhighlight = "Normal:SnacksNotifierHistory",
-					winblend = 10, -- 降低透明度以增加对比度
+					winblend = 0,
 				},
 				keys = { q = "close" },
 			},
 			-- 通知弹窗
 			notification = {
-				border = "rounded",
+				border = "single",
 				zindex = 100,
 				ft = "markdown",
 				wo = {
-					winblend = 10, -- 降低透明度以增加对比度
-					wrap = false,
+					winblend = 0,
+					wrap = true,
+					linebreak = true,
 					conceallevel = 2,
 					colorcolumn = "",
 				},
@@ -1293,6 +1343,11 @@ return {
 	},
 	config = function(_, opts)
 		require("snacks").setup(opts) -- 标准化配置接口
+		apply_notification_highlights()
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			group = vim.api.nvim_create_augroup("snacks_notification_style", { clear = true }),
+			callback = apply_notification_highlights,
+		})
 		Snacks.input.enable()
 	end,
 }

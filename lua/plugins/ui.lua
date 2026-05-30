@@ -710,6 +710,18 @@ return {
 					},
 					view = "mini",
 				},
+				-- 交互确认必须走小确认框，避免被下面的多行 popup 规则放大。
+				{
+					filter = {
+						event = "msg_show",
+						any = {
+							{ kind = "confirm" },
+							{ kind = "confirm_sub" },
+							{ kind = "number_prompt" },
+						},
+					},
+					view = "confirm",
+				},
 				-- 3. [核心修复]: 强制显示外部命令 (:!) 输出
 				-- 如果输出包含换行符，或者不是简单的单行提示，强制使用 popup 显示
 				-- 防止被 messages.view = "mini" 吞掉
@@ -794,6 +806,24 @@ return {
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
 						winblend = 10,
+					},
+				},
+				confirm = {
+					backend = "popup",
+					relative = "editor",
+					focusable = false,
+					align = "left",
+					enter = false,
+					zindex = 210,
+					format = { "{confirm}" },
+					position = { row = "50%", col = "50%" },
+					size = { width = 52, height = "auto" },
+					border = { style = "single", padding = { 0, 1 } },
+					win_options = {
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+						winblend = 0,
+						winbar = "",
+						foldenable = false,
 					},
 				},
 				-- [新增] 针对上面定义的 "popup" 视图的默认样式，确保 :! 输出好看
