@@ -141,12 +141,6 @@ vim.diagnostic.config({
 -- 自定义诊断高亮
 vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { link = "LspDiagnosticsFloatingError" })
 
--- asyncrun.vim
-vim.g.asyncrun_open = 10
-vim.g.asyncrun_rootmarks = { ".git", ".svn", ".root", ".project", ".hg" }
-vim.g.asyncrun_save = 2
-vim.g.asynctasks_term_pos = "right"
-
 -- Define the highlight group for border characters
 -- -- 设置高亮组，兼容 GUI 和终端
 -- vim.cmd("hi BorderChar guifg=#FF0000 ctermfg=Red gui=bold cterm=bold")

@@ -2,7 +2,7 @@ return {
 	-- project.nvim
 	{
 		"ahmedkhalf/project.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		config = function()
 			require("project_nvim").setup({
 				manual_mode = false,

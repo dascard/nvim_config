@@ -20,10 +20,15 @@ return {
 					"java",
 					"typst",
 				},
-				sync_install = true,
+				sync_install = false,
+				auto_install = false,
 				folder = { enable = true },
 				highlight = {
 					enable = true,
+					disable = function(_, buf)
+						return vim.api.nvim_buf_line_count(buf) > 5000
+					end,
+					additional_vim_regex_highlighting = false,
 				},
 			})
 		end,
@@ -43,11 +48,11 @@ return {
 				mode = "auto",                   -- 'topline', 'cursor', 'auto', 'nvim_treesitter_context_line', 'nvim_treesitter_context_line_cursor'
 			})
 		end,
-		requires = "nvim-treesitter/nvim-treesitter",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter", -- 确保在 nvim-treesitter 之后加载
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				textobjects = {
@@ -86,6 +91,5 @@ return {
 				},
 			})
 		end,
-		requires = "nvim-treesitter/nvim-treesitter",
 	},
 }

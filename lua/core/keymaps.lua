@@ -24,6 +24,11 @@ keymap("n", "<leader>k", ":FloatermKill<CR>")
 keymap("n", "<leader>tc", ":TerminalCopyMode<CR>", { desc = "终端复制模式" })
 keymap("n", "j", "gj")
 keymap("n", "k", "gk")
+-- 将数字自增映射为 +
+vim.keymap.set("n", "+", "<C-a>", { noremap = true, silent = true, desc = "数字自增" })
+
+-- 将数字自减映射为 -
+vim.keymap.set("n", "_", "<C-x>", { noremap = true, silent = true, desc = "数字自减" })
 if vim.g.use_native_lsp then
 	keymap("n", "<leader>=", function()
 		vim.lsp.buf.format({ async = true })
@@ -62,9 +67,8 @@ keymap("n", "<leader>cf", vim.lsp.buf.code_action, { desc = "quick fix" })
 -- asyncrun.vim
 -- keymap("n", "<F5>", ":AsyncTasks<CR>")
 
-local fzf_lua = require("fzf-lua")
-
 vim.keymap.set("n", "\\t", function()
+	local fzf_lua = require("fzf-lua")
 	local rows = vim.fn["asynctasks#source"](math.floor(vim.go.columns * 0.48)) or {}
 
 	if #rows == 0 then

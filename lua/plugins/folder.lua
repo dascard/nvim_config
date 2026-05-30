@@ -1,14 +1,8 @@
 return {
-	-- Treesitter，确保折叠能正确工作
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-	},
-
 	-- pretty-fold.nvim 配置
 	{
 		"anuvyklack/pretty-fold.nvim",
-		lazy = false, -- 立即加载
+		event = "VeryLazy",
 		config = function()
 			require("pretty-fold").setup({
 				fill_char = "•",
@@ -19,21 +13,16 @@ return {
 			})
 		end,
 	},
-
-	-- 全局 Neovim 折叠设置
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.opt.foldmethod = "expr" -- {{{
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.opt.foldenable = true
-			vim.opt.foldlevel = 99 -- 默认展开}}}
-		end,
-	},
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = { "kevinhwang91/promise-async" },
-		lazy = false,
+		event = { "BufReadPost", "BufNewFile" },
+		init = function()
+			vim.opt.foldmethod = "expr"
+			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			vim.opt.foldenable = true
+			vim.opt.foldlevel = 99
+		end,
 
 		config = function()
 			vim.keymap.set("n", "zO", require("ufo").openAllFolds, { desc = "Open all folds" })
@@ -44,13 +33,6 @@ return {
 			end, {
 				desc = "Preview folded maps",
 			})
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
-			-- 移除错误的LSP配置，因为LSP已经在lsp-config.lua中正确配置了
-			-- 这里只需要设置folding capabilities，不需要重新配置LSP服务器
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
 				local foldedLines = endLnum - lnum

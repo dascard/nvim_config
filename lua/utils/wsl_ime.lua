@@ -6,12 +6,12 @@ local function is_wsl()
 	if vim.fn.has("wsl") == 1 then
 		return true
 	end
-	
+
 	-- 方法2: 检查 WSL 环境变量
 	if vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
 		return true
 	end
-	
+
 	-- 方法3: 检查 /proc/version 是否包含 microsoft/WSL 字样
 	local proc_version = vim.fn.readfile("/proc/version")
 	if proc_version and #proc_version > 0 then
@@ -20,7 +20,7 @@ local function is_wsl()
 			return true
 		end
 	end
-	
+
 	return false
 end
 
@@ -53,7 +53,7 @@ function M.setup()
 		-- 3. 根据环境构建路径
 		if win_local_appdata and win_local_appdata ~= "" then
 			local im_select_subpath = "\\nvim-data\\im-select-mspy\\im-select-mspy.exe"
-			
+
 			if is_wsl() then
 				-- 将 Windows 路径转换为 WSL 路径
 				local win_full_path = win_local_appdata .. im_select_subpath
@@ -102,13 +102,14 @@ function M.setup()
 	vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter", "FocusGained" }, {
 		group = vim.api.nvim_create_augroup("WSL_IME_Switch", { clear = true }),
 		callback = function()
-			local exe = get_executable()
+			-- local exe = get_executable()
+			-- local exe = "/home/dascard/im-select-mspy.exe"
 			if not exe then
 				return
 			end
-			
+
 			-- 调用 im-select-mspy 切换到英文模式
-			vim.fn.system({ exe, "-k=ctrl+space", "英语模式" })
+			-- vim.fn.system({ exe, "-k=ctrl+space", "英语模式" })
 		end,
 	})
 end

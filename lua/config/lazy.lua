@@ -47,8 +47,8 @@ end
 require("lazy").setup({
 	spec = spec,
 	checker = {
-		-- automatically check for plugin updates
-		enabled = true,
+		-- 手动执行 :Lazy check，避免启动后后台检查造成卡顿。
+		enabled = false,
 		notify = false,
 	},
 	-- Configure any other settings here. See the documentation for more details.

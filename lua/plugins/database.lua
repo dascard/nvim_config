@@ -21,19 +21,6 @@ return {
 				-- postgresql_local = 'postgresql://user:password@localhost:5432/database',
 			}
 
-			-- 自动命令：在 sql 文件中启用数据库补全
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "sql", "mysql", "plsql" },
-				callback = function()
-					require("cmp").setup.buffer({
-						sources = {
-							{ name = "vim-dadbod-completion" },
-							{ name = "buffer" },
-						},
-					})
-				end,
-			})
-			
 			-- 键位映射
 			vim.keymap.set("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "切换数据库UI" })
 			vim.keymap.set("n", "<leader>df", "<cmd>DBUIFindBuffer<cr>", { desc = "查找数据库缓冲区" })

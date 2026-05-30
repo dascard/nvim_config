@@ -11,17 +11,8 @@ return {
 		build = ":Copilot auth", -- 安装后执行认证
 		opts = {
 			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				debounce = 75,
-				keymap = {
-					accept = "<C-j>", -- Ctrl+J 接受 Copilot 建议
-					accept_word = "<C-l>", -- Ctrl+L 接受单词
-					accept_line = "<C-y>", -- Ctrl+Y 接受行（避免与 avante 的 <M-l> 冲突）
-					next = "<C-]>", -- Ctrl+] 下一个建议（避免与 avante 的 <M-]> 冲突）
-					prev = "<M-p>", -- Alt+p 上一个建议（避免与 <Esc> 冲突，<C-[> 等同于 <Esc>）
-					dismiss = "<C-e>", -- Ctrl+E 关闭建议
-				},
+				enabled = false,
+				auto_trigger = false,
 			},
 			panel = {
 				enabled = true,
@@ -364,7 +355,6 @@ return {
 		branch = "fix/acp-improvements",
 		enabled = true, -- 已启用
 		event = "VeryLazy",
-		lazy = false,
 		version = false,
 		opts = {
 			system_prompt = (function()

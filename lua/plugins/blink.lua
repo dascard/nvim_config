@@ -2,6 +2,7 @@ return {
   'saghen/blink.cmp',
   dependencies = {
     'rafamadriz/friendly-snippets',
+    "fang2hou/blink-copilot",
     -- Avante 补全源
     {
       "Kaiser-Yang/blink-cmp-avante",
@@ -33,30 +34,28 @@ return {
 
     keymap = {
       preset = 'default',
-      -- 类似 COC 的按键习惯
-      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      ['<C-e>'] = { 'hide' },
-      ['<CR>'] = { 'accept', 'fallback' },
-      
-      ['<Tab>'] = {
+      -- <C-Space> 留给输入法；补全菜单仍由 blink 自动触发。
+      ['<C-space>'] = {},
+      ['<F2>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<C-e>'] = {
         function(cmp)
-          if cmp.snippet_active() then return cmp.accept() end
-          if cmp.is_visible() then return cmp.select_next() end
+          local hidden_doc = cmp.hide_documentation()
+          local hidden_menu = cmp.hide()
+          return hidden_doc or hidden_menu
         end,
-        'snippet_forward',
-        function(cmp)
-          -- 使用 feedkeys 强制发送 Tab 键，并使用 'n' 标志避免递归映射
-          -- 这可以绕过任何可能导致 <t_ü> 的错误映射
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", true)
-        end
+        'fallback',
       },
-      ['<S-Tab>'] = {
+      ['<CR>'] = {
         function(cmp)
-          if cmp.is_visible() then return cmp.select_prev() end
+          cmp.hide_documentation()
+          return cmp.accept()
         end,
-        'snippet_backward',
-        'fallback'
+        'fallback',
       },
+      ['<C-j>'] = { 'select_next', 'fallback' },
+      ['<C-k>'] = { 'select_prev', 'fallback' },
+      ['<Tab>'] = { 'snippet_forward', 'fallback' },
+      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
       ['<Up>'] = { 'select_prev', 'fallback' },
       ['<Down>'] = { 'select_next', 'fallback' },
     },
@@ -94,12 +93,46 @@ return {
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'avante' },
+      default = function()
+        local ft = vim.bo.filetype
+        if ft == 'Avante' or ft == 'AvanteInput' or ft == 'AvanteSelectedFiles' then
+          return { 'copilot', 'avante', 'lsp', 'path', 'snippets', 'buffer' }
+        end
+
+        if vim.api.nvim_buf_line_count(0) > 5000 then
+          return { 'copilot', 'lsp', 'path', 'snippets' }
+        end
+
+        return { 'copilot', 'lsp', 'path', 'snippets', 'buffer' }
+      end,
+      per_filetype = {
+        sql = { 'copilot', 'snippets', 'dadbod', 'buffer' },
+        mysql = { 'copilot', 'snippets', 'dadbod', 'buffer' },
+        plsql = { 'copilot', 'snippets', 'dadbod', 'buffer' },
+      },
       providers = {
+        copilot = {
+          module = "blink-copilot",
+          name = "Copilot",
+          async = true,
+          score_offset = 100,
+          opts = {
+            max_completions = 1,
+            max_attempts = 2,
+          },
+        },
         avante = {
           module = "blink-cmp-avante",
           name = "Avante",
           opts = {},
+        },
+        dadbod = {
+          module = "vim_dadbod_completion.blink",
+          name = "Dadbod",
+        },
+        buffer = {
+          min_keyword_length = 3,
+          max_items = 8,
         },
       },
     },
@@ -125,12 +158,39 @@ return {
                 winblend = 10, -- 降低透明度以增加对比度
             },
             auto_show = true,
-            auto_show_delay_ms = 200,
+            auto_show_delay_ms = 700,
+            update_delay_ms = 100,
         },
         ghost_text = {
-            enabled = true,
+            enabled = false,
         },
     },
   },
-  opts_extend = { "sources.default" }
+  config = function(_, opts)
+    require("blink.cmp").setup(opts)
+
+    local group = vim.api.nvim_create_augroup("BlinkCmpCleanup", { clear = true })
+    vim.api.nvim_create_autocmd({ "TextChangedI", "InsertLeave" }, {
+      group = group,
+      callback = function()
+        local ok, cmp = pcall(require, "blink.cmp")
+        if not ok then
+          return
+        end
+
+        if vim.api.nvim_get_mode().mode ~= "i" then
+          cmp.hide_documentation()
+          cmp.hide()
+          return
+        end
+
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+        local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
+        if before_cursor == "" or before_cursor:match("%s$") then
+          cmp.hide_documentation()
+          cmp.hide()
+        end
+      end,
+    })
+  end,
 }
