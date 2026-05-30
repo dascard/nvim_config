@@ -15,6 +15,67 @@ local function replacement_buffer(buf)
 	end
 end
 
+local function visible_snacks_explorer_windows()
+	local ok, snacks = pcall(require, "snacks")
+	if not ok or type(snacks) ~= "table" or type(snacks.picker) ~= "table" then
+		return {}
+	end
+
+	local ok_pickers, pickers = pcall(snacks.picker.get, { source = "explorer" })
+	if not ok_pickers or type(pickers) ~= "table" then
+		return {}
+	end
+
+	local wins = {}
+	local function add(win)
+		if type(win) == "number" and vim.api.nvim_win_is_valid(win) then
+			wins[win] = true
+		end
+	end
+
+	local function add_snacks_win(win)
+		if type(win) == "table" then
+			add(win.win)
+		end
+	end
+
+	for _, picker in ipairs(pickers) do
+		if picker and not picker.closed and picker.layout then
+			add_snacks_win(picker.layout.root)
+			for _, win in pairs(picker.layout.box_wins or {}) do
+				add_snacks_win(win)
+			end
+			for _, win in pairs(picker.layout.wins or {}) do
+				add_snacks_win(win)
+			end
+		end
+	end
+
+	return wins
+end
+
+local function should_quit_with_snacks_explorer(closing_win)
+	local explorer_wins = visible_snacks_explorer_windows()
+	if not next(explorer_wins) then
+		return false
+	end
+
+	for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if win ~= closing_win and not explorer_wins[win] and vim.api.nvim_win_get_config(win).relative == "" then
+			return false
+		end
+	end
+
+	return true
+end
+
+local function quit_all_windows(opts)
+	local ok, err = pcall(vim.cmd, opts.force and "quitall!" or "quitall")
+	if not ok then
+		vim.notify(err, vim.log.levels.WARN)
+	end
+end
+
 local function close_last_window(buf, opts)
 	opts = opts or {}
 
@@ -53,6 +114,15 @@ local function safe_close_window(buf, opts)
 		win = wins[1]
 	end
 
+	if should_quit_with_snacks_explorer(win) then
+		if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].modified and not opts.force then
+			vim.notify("当前 buffer 未保存；请先保存或使用 :q!。", vim.log.levels.WARN)
+			return
+		end
+		quit_all_windows(opts)
+		return
+	end
+
 	if vim.fn.winnr("$") > 1 and vim.api.nvim_win_is_valid(win) then
 		local ok, err = pcall(vim.api.nvim_win_close, win, opts.force == true)
 		if ok then
@@ -88,6 +158,10 @@ end
 close_command_abbrev("close")
 close_command_abbrev("clos")
 close_command_abbrev("clo")
+close_command_abbrev("q")
+close_command_abbrev("qu")
+close_command_abbrev("qui")
+close_command_abbrev("quit")
 
 vim.api.nvim_create_user_command("SafeClose", function(command)
 	safe_close_window(nil, { force = command.bang })

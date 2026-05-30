@@ -443,8 +443,58 @@ local function terminal_aware_jump(picker, item, action)
 		pcall(win_restore_numbers_if_saved, post_win)
 		pcall(tab_restore_numbers_if_saved, post_tab)
 	end, 10)
-end
--- stylua: ignore
+	end
+
+	local function normalize_dashboard_header(header)
+		local lines = vim.split(header, "\n", { plain = true })
+
+		while #lines > 0 and vim.trim(lines[1]) == "" do
+			table.remove(lines, 1)
+		end
+		while #lines > 0 and vim.trim(lines[#lines]) == "" do
+			table.remove(lines)
+		end
+
+		local common_indent = nil
+		for _, line in ipairs(lines) do
+			if vim.trim(line) ~= "" then
+				local indent = line:match("^%s*") or ""
+				if common_indent == nil then
+					common_indent = indent
+				else
+					local idx = 1
+					local max_idx = math.min(#common_indent, #indent)
+					while idx <= max_idx and common_indent:sub(idx, idx) == indent:sub(idx, idx) do
+						idx = idx + 1
+					end
+					common_indent = common_indent:sub(1, idx - 1)
+				end
+			end
+		end
+
+		if common_indent and common_indent ~= "" then
+			for index, line in ipairs(lines) do
+				if line:sub(1, #common_indent) == common_indent then
+					lines[index] = line:sub(#common_indent + 1)
+				end
+			end
+		end
+
+		local width = 0
+		for index, line in ipairs(lines) do
+			lines[index] = line:gsub("%s+$", "")
+			width = math.max(width, vim.api.nvim_strwidth(lines[index]))
+		end
+
+		for index, line in ipairs(lines) do
+			local padding = width - vim.api.nvim_strwidth(line)
+			lines[index] = line .. string.rep(" ", math.max(padding, 0))
+		end
+
+		return table.concat(lines, "\n")
+	end
+
+	-- stylua: ignore
 local preset_header = {
 	[[
 
@@ -478,18 +528,18 @@ local preset_header = {
 	███████████████████████████████████████████████████   ████
 	]],
 	[[
-	███                                    ███
-	███                                    ███
-	███        ███  ███    ███      █████  ███  ███ ███   ███
-	███        ███  ███  ███  ███  ███     ███ ███   ███ ███
-	███        ███  ███ ███    ███   ████  █████       ████
-	███        ███  ███  ███  ███      ███ ███ ███      ███
-	██████████   ██████    ███     ██████  ███  ███    ███
-																									  ███
+███                                    ███
+███                                    ███
+███        ███  ███    ███      █████  ███  ███ ███   ███
+███        ███  ███  ███  ███  ███     ███ ███   ███ ███
+███        ███  ███ ███    ███   ████  █████       ████
+███        ███  ███  ███  ███      ███ ███ ███      ███
+██████████   ██████    ███     ██████  ███  ███    ███
+                                                  ███
 	]],
 }
 math.randomseed(os.time())
-local random_header = preset_header[math.random(#preset_header)]
+local random_header = normalize_dashboard_header(preset_header[math.random(#preset_header)])
 return {
 		"folke/snacks.nvim",
 		priority = 1000,
