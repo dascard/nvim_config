@@ -47,9 +47,9 @@ vim.opt.wildmode = "longest:full,full" -- 设置补全行为
 -- vim.opt.wildoptions = "pum,fuzzy"  -- 使用popup菜单显示补全，支持模糊匹配
 vim.opt.pumheight = 15 -- 设置补全菜单最大高度
 
--- 透明度配置 (降低透明度使浮动窗口背景更明显)
-vim.opt.pumblend = 10 -- 补全菜单透明度 (降低以增加对比度)
-vim.opt.winblend = 10 -- 浮动窗口透明度 (降低以增加对比度)
+-- winblend=0: 不混合背后文字, 终端背景透过透明高亮组可见
+vim.opt.pumblend = 0 -- 补全菜单透明度 (降低以增加对比度)
+vim.opt.winblend = 0 -- 浮动窗口透明度 (降低以增加对比度)
 
 -- 设置 leader 键
 vim.g.mapleader = ";"
@@ -114,7 +114,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
-vim.wo.winhighlight = "NormalFloat:Normal" -- 继承主题背景色
+-- wohighlight 移除: 由 tokyonight floats="transparent" 和各插件自行设置
 
 -- CMP 配置已禁用，现在使用 COC.nvim
 -- require("cmp").setup({
@@ -194,63 +194,62 @@ vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { link = "LspDiagnosticsFloati
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	callback = function()
-		-- 浮动窗口背景色 (深色半透明，增加对比度)
-		local float_bg = "#1a1b26" -- tokyonight 深色背景
-		local float_border_fg = "#7aa2f7" -- tokyonight 蓝色边框
-		local pmenu_sel_bg = "#364a82" -- 选中项高亮背景
+		local pmenu_sel_bg = "#364a82"
+		local float_border_fg = "#7aa2f7"
 
 		-- 浮动窗口样式
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "FloatBorder", { fg = float_border_fg, bg = float_bg })
-		vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#c0caf5", bg = float_bg, bold = true })
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "FloatBorder", { fg = float_border_fg, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#c0caf5", bg = "NONE", bold = true })
 
 		-- 补全菜单样式 (Pmenu)
-		vim.api.nvim_set_hl(0, "Pmenu", { fg = "#c0caf5", bg = float_bg })
+		vim.api.nvim_set_hl(0, "Pmenu", { fg = "#c0caf5", bg = "NONE" })
 		vim.api.nvim_set_hl(0, "PmenuSel", { fg = "#c0caf5", bg = pmenu_sel_bg, bold = true })
-		vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#292e42" })
+		vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
 		vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#7aa2f7" })
-		vim.api.nvim_set_hl(0, "PmenuBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "PmenuBorder", { fg = float_border_fg, bg = "NONE" })
 
 		-- COC 浮动窗口样式
-		vim.api.nvim_set_hl(0, "CocFloating", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "CocPumMenu", { fg = "#c0caf5", bg = float_bg })
-		vim.api.nvim_set_hl(0, "CocPumSearch", { fg = "#ff9e64", bg = float_bg, bold = true })
+		vim.api.nvim_set_hl(0, "CocFloating", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "CocPumMenu", { fg = "#c0caf5", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "CocPumSearch", { fg = "#ff9e64", bg = "NONE", bold = true })
 		vim.api.nvim_set_hl(0, "CocMenuSel", { fg = "#c0caf5", bg = pmenu_sel_bg, bold = true })
-		vim.api.nvim_set_hl(0, "CocPumShortcut", { fg = "#565f89", bg = float_bg })
-		vim.api.nvim_set_hl(0, "CocPumDeprecated", { fg = "#565f89", bg = float_bg, strikethrough = true })
+		vim.api.nvim_set_hl(0, "CocPumShortcut", { fg = "#565f89", bg = "NONE" })
+		vim.api.nvim_set_hl(0, "CocPumDeprecated", { fg = "#565f89", bg = "NONE", strikethrough = true })
 
 		-- Telescope 样式
-		vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = float_border_fg, bg = float_bg })
-		vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = "#292e42" })
-		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = float_border_fg, bg = "#292e42" })
+		vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = float_border_fg, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = float_border_fg, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = pmenu_sel_bg })
 
 		-- Noice 命令行和弹窗样式
-		vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = float_border_fg, bg = float_bg })
-		vim.api.nvim_set_hl(0, "NoicePopupmenu", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "NoicePopupmenuBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { fg = float_border_fg, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NoicePopupmenu", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NoicePopupmenuBorder", { fg = float_border_fg, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "NoicePopupmenuSelected", { bg = pmenu_sel_bg })
 
 		-- Snacks 通知和 picker 样式
-		vim.api.nvim_set_hl(0, "SnacksInputNormal", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = float_border_fg, bg = float_bg })
-		vim.api.nvim_set_hl(0, "SnacksNotifierHistory", { bg = float_bg })
+		vim.api.nvim_set_hl(0, "SnacksInputNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "SnacksInputBorder", { fg = float_border_fg, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "SnacksNotifierHistory", { bg = "NONE" })
 
 		-- blink.cmp 补全菜单样式
-		vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = float_border_fg, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = pmenu_sel_bg })
-		vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = float_border_fg, bg = "NONE" })
 
 		-- Which-key 样式
-		vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = float_bg })
-		vim.api.nvim_set_hl(0, "WhichKeyBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "NONE" })
+			vim.api.nvim_set_hl(0, "WhichKeyNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "WhichKeyBorder", { fg = float_border_fg, bg = "NONE" })
 
 		-- LSP 相关浮动窗口
-		vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = float_border_fg, bg = float_bg })
+		vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = float_border_fg, bg = "NONE" })
 
 		-- 侧边栏保持透明
 		vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "NONE" })
@@ -258,15 +257,30 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
+-- 在透明背景下提高暗淡文字对比度（VimEnter 确保在所有插件加载后执行）
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		vim.api.nvim_set_hl(0, "LineNr", { fg = "#6a7fc0" })
+		vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#6a7fc0" })
+		vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#6a7fc0" })
+		vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { fg = "#9c7a60" })
+		vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#5ea890" })
+		vim.api.nvim_set_hl(0, "Comment", { fg = "#9a9c70" })
+		vim.api.nvim_set_hl(0, "WhichKeySeparator", { fg = "#9a9070" })
+		vim.api.nvim_set_hl(0, "WhichKeyValue", { fg = "#9a9070" })
+		vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#7a8a9a" })
+	end,
+})
+
 -- 设置全局浮动窗口默认配置
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "rounded",
-	winblend = 10, -- 降低透明度以增加对比度
+	winblend = 0
 })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 	border = "rounded",
-	winblend = 10, -- 降低透明度以增加对比度
+	winblend = 0, -- 降低透明度以增加对比度
 })
 
 -- 终端复制模式：隐藏插件 UI，仅保留纯文本

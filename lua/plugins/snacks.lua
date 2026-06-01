@@ -34,7 +34,7 @@ local function render_notification(buf, notif, ctx)
 end
 
 local function apply_notification_highlights()
-	local bg = "#1a1b26"
+	local bg = "NONE"
 	local fg = "#c0caf5"
 	local levels = {
 		Error = "#f7768e",
@@ -625,7 +625,7 @@ return {
 				-- inline = false, -- WezTerm 不支持行内图片，必须关闭该项
 				float = false,
 				inline = true,
-				border = "none",
+				border = "rounded",
 				winhl = {
 					Normal = "NormalFloat",
 					FloatBorder = "NormalFloat",
@@ -841,7 +841,7 @@ return {
 						min_width = 30,
 						height = 0,
 						position = "left",
-						border = "none",
+						border = "rounded",
 						box = "vertical",
 						{
 							win = "input",
@@ -1149,7 +1149,7 @@ return {
 				bo = { filetype = "snacks_notif" },
 			},
 			picker = {
-				winblend = 10, -- 降低透明度以增加对比度
+				winblend = 0, -- 降低透明度以增加对比度
 				border_style = "rounded", -- 边框样式（none/single/double/rounded）
 				title_icon = "", -- 标题区图标（需 nerd font 支持）
 				prompt_prefix = "🔍 ", -- 搜索前缀符号
@@ -1169,7 +1169,7 @@ return {
 				wo = {
 					winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
 					cursorline = false,
-					winblend = 10, -- 降低透明度以增加对比度
+					winblend = 0, -- 降低透明度以增加对比度
 				},
 				bo = {
 					filetype = "snacks_input",

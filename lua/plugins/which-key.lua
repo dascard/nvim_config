@@ -23,7 +23,7 @@ return {
 			title_pos = "center",
 			zindex = 1000,
 			wo = {
-				winblend = 20, -- 增加透明度，使其更好地贴合背景
+				winblend = 0, -- 增加透明度，使其更好地贴合背景
 			},
 		},
 		layout = {

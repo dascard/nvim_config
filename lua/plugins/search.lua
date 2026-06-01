@@ -101,7 +101,7 @@ return {
 					row = 0.35,
 					col = 0.55,
 					border = "rounded",
-                    winblend = 20,
+                    winblend = 0,
 					preview = {
 						vertical = "down:45%",
 						horizontal = "right:50%",

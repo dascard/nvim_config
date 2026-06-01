@@ -613,7 +613,7 @@ local function update_float_window()
 	if not state.float_win or not vim.api.nvim_win_is_valid(state.float_win) then
 		state.float_win = vim.api.nvim_open_win(state.float_buf, false, opts)
 		vim.api.nvim_win_set_option(state.float_win, 'winhl', 'Normal:NormalFloat,FloatBorder:FloatBorder')
-		vim.api.nvim_win_set_option(state.float_win, 'winblend', 15) -- 15% 透明度，适中
+		vim.api.nvim_win_set_option(state.float_win, 'winblend', 0) -- 15% 透明度，适中
 	else
 		vim.api.nvim_win_set_config(state.float_win, opts)
 	end

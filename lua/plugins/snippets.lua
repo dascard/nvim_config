@@ -2,7 +2,7 @@ return {
 	{
 		'SirVer/ultisnips',
 		lazy = true,
-		config = function()
+		init = function()
 			-- UltiSnips 的配置使用全局变量
 			vim.g.UltiSnipsExpandTrigger = "<c-;>"
 			vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"

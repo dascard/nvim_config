@@ -17,7 +17,7 @@ return {
 				width = nil, -- 自动宽度
 				min_width = 20, -- 最小宽度
 				win_opts = {
-					winblend = 25, -- 透明度，与其他UI保持一致
+					winblend = 0, -- 透明度，与其他UI保持一致
 				},
 				default_direction = "right", -- 默认在右侧显示
 				placement = "window", -- 在窗口中显示
@@ -168,7 +168,7 @@ return {
 				min_width = { 0.2, 20 },
 				win_opts = {
 					cursorline = true,
-					winblend = 25, -- 透明度
+					winblend = 0, -- 透明度
 				},
 			},
 		},

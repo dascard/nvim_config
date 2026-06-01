@@ -788,7 +788,7 @@ return {
 					filter_options = {},
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 10,
+						winblend = 0,
 					},
 				},
 				popupmenu = {
@@ -798,14 +798,14 @@ return {
 					border = { style = "rounded", padding = { 0, 1 } },
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 10,
+						winblend = 0,
 					},
 				},
 				hover = {
 					border = { style = "rounded", padding = { 0, 1 } },
 					win_options = {
 						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-						winblend = 10,
+						winblend = 0,
 					},
 				},
 				confirm = {

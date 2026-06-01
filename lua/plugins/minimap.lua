@@ -81,7 +81,7 @@ return {
 			window = {
 				side = "right",
 				width = 10,
-				winblend = 25,
+				winblend = 0,
 				show_integration_count = false,
 			},
 		})

@@ -45,6 +45,7 @@ end
 
 -- Setup lazy.nvim
 require("lazy").setup({
+	ui = { border = "rounded" },
 	spec = spec,
 	checker = {
 		-- 手动执行 :Lazy check，避免启动后后台检查造成卡顿。

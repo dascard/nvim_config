@@ -142,7 +142,7 @@ return {
       enabled = true,
       window = {
         border = 'rounded',
-        winblend = 10,
+        winblend = 0,
       },
     },
     
@@ -150,12 +150,12 @@ return {
     completion = {
         menu = {
             border = 'rounded',
-            winblend = 10, -- 降低透明度以增加对比度
+            winblend = 0, -- 降低透明度以增加对比度
         },
         documentation = {
             window = {
                 border = 'rounded',
-                winblend = 10, -- 降低透明度以增加对比度
+                winblend = 0, -- 降低透明度以增加对比度
             },
             auto_show = true,
             auto_show_delay_ms = 700,
